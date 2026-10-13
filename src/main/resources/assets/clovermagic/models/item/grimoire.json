@@ -1,0 +1,56 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "clovermagic:item/three_leaf"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "custom_model_data": 1
+      },
+      "model": "clovermagic:item/three_leaf_fire"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 2
+      },
+      "model": "clovermagic:item/three_leaf_water"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 3
+      },
+      "model": "clovermagic:item/three_leaf_wind"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 4
+      },
+      "model": "clovermagic:item/three_leaf_earth"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 5
+      },
+      "model": "clovermagic:item/three_leaf_ice"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 6
+      },
+      "model": "clovermagic:item/three_leaf_lightning"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 7
+      },
+      "model": "clovermagic:item/three_leaf_light"
+    },
+    {
+      "predicate": {
+        "custom_model_data": 8
+      },
+      "model": "clovermagic:item/three_leaf_darkness"
+    }
+  ]
+}
