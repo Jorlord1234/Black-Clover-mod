@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "clovermagic:mana_cloth"
+    },
+    "D": {
+      "item": "minecraft:yellow_dye"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "T": {
+      "item": "minecraft:gold_block"
+    }
+  },
+  "pattern": [
+    "MDM",
+    "NTN",
+    "MMM"
+  ],
+  "result": {
+    "id": "clovermagic:golden_dawn_robe",
+    "count": 1
+  }
+}

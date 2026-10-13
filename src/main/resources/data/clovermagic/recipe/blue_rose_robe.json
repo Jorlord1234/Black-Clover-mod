@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "clovermagic:mana_cloth"
+    },
+    "D": {
+      "item": "minecraft:blue_dye"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "T": {
+      "item": "minecraft:rose_bush"
+    }
+  },
+  "pattern": [
+    "MDM",
+    "NTN",
+    "MMM"
+  ],
+  "result": {
+    "id": "clovermagic:blue_rose_robe",
+    "count": 1
+  }
+}

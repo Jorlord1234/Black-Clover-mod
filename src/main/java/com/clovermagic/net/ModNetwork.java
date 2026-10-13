@@ -1,0 +1,32 @@
+package com.clovermagic.net;
+
+import com.clovermagic.client.ClientMagicState;
+import com.clovermagic.magic.CastHandler;
+
+import net.minecraft.server.level.ServerPlayer;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.handling.IPayloadContext;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
+
+public final class ModNetwork {
+    private ModNetwork() {
+    }
+
+    public static void register(RegisterPayloadHandlersEvent event) {
+        PayloadRegistrar registrar = event.registrar("2");
+        registrar.playToServer(CastPayload.TYPE, CastPayload.STREAM_CODEC, ModNetwork::handleCast);
+        registrar.playToClient(SyncPayload.TYPE, SyncPayload.STREAM_CODEC, ModNetwork::handleSync);
+    }
+
+    private static void handleCast(CastPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.player() instanceof ServerPlayer sp) {
+                CastHandler.handle(sp, payload.slot());
+            }
+        });
+    }
+
+    private static void handleSync(SyncPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> ClientMagicState.apply(payload));
+    }
+}

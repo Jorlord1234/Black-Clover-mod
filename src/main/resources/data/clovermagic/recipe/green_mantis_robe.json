@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "clovermagic:mana_cloth"
+    },
+    "D": {
+      "item": "minecraft:green_dye"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "T": {
+      "item": "minecraft:vine"
+    }
+  },
+  "pattern": [
+    "MDM",
+    "NTN",
+    "MMM"
+  ],
+  "result": {
+    "id": "clovermagic:green_mantis_robe",
+    "count": 1
+  }
+}

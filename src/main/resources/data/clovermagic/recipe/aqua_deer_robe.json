@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "clovermagic:mana_cloth"
+    },
+    "D": {
+      "item": "minecraft:cyan_dye"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "T": {
+      "item": "minecraft:prismarine_crystals"
+    }
+  },
+  "pattern": [
+    "MDM",
+    "NTN",
+    "MMM"
+  ],
+  "result": {
+    "id": "clovermagic:aqua_deer_robe",
+    "count": 1
+  }
+}

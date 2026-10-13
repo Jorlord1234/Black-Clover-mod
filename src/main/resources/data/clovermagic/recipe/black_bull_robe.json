@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "M": {
+      "item": "clovermagic:mana_cloth"
+    },
+    "D": {
+      "item": "minecraft:black_dye"
+    },
+    "N": {
+      "item": "minecraft:netherite_ingot"
+    },
+    "T": {
+      "item": "minecraft:gold_ingot"
+    }
+  },
+  "pattern": [
+    "MDM",
+    "NTN",
+    "MMM"
+  ],
+  "result": {
+    "id": "clovermagic:black_bull_robe",
+    "count": 1
+  }
+}
