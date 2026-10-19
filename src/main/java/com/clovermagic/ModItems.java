@@ -42,30 +42,32 @@ public final class ModItems {
     public static final DeferredItem<Item> GRIMOIRE_ALTAR = ITEMS.registerItem("grimoire_altar",
             props -> new BlockItem(ModBlocks.GRIMOIRE_ALTAR.get(), props), new Item.Properties().rarity(Rarity.RARE));
 
+    /** Rare drop of Magic Beasts (the Hobgoblin is the first one planned). Used to craft the Page of Forgetting. */
+    public static final DeferredItem<Item> MAGIC_BEAST_CORE = ITEMS.registerItem("magic_beast_core",
+            props -> new Item(props), new Item.Properties().rarity(Rarity.UNCOMMON));
+
+    /** Resets one branch of a skill tree. */
+    public static final DeferredItem<Item> PAGE_OF_FORGETTING = ITEMS.registerItem("page_of_forgetting",
+            props -> new Item(props), new Item.Properties().rarity(Rarity.RARE).stacksTo(16));
+
     public static final DeferredItem<Item> MANA_CLOTH = ITEMS.registerItem("mana_cloth",
             props -> new Item(props), new Item.Properties());
 
-    /** Netherite-level squad armor: hood/circlet, robe, trousers and boots for each squad (GeckoLib 3D models). */
+    /** Netherite-level squad armor (GeckoLib 3D models by the outfit artist): a robe for every squad, plus a hood or bandana for six of them. */
     public static final Map<Squad, DeferredItem<Item>> HOODS = new EnumMap<>(Squad.class);
     public static final Map<Squad, DeferredItem<Item>> ROBES = new EnumMap<>(Squad.class);
-    public static final Map<Squad, DeferredItem<Item>> TROUSERS = new EnumMap<>(Squad.class);
-    public static final Map<Squad, DeferredItem<Item>> BOOTS = new EnumMap<>(Squad.class);
 
     private static DeferredItem<Item> piece(Squad squad, String suffix, ArmorItem.Type type) {
         return ITEMS.registerItem(squad.id + "_" + suffix,
-                props -> squad.has3dModel()
-                        ? new SquadArmorItem(ModArmorMaterials.BY_SQUAD.get(squad), type, props, squad)
-                        : new ArmorItem(ModArmorMaterials.BY_SQUAD.get(squad), type, props),
+                props -> new SquadArmorItem(ModArmorMaterials.BY_SQUAD.get(squad), type, props, squad),
                 new Item.Properties().fireResistant().durability(type.getDurability(37)));
     }
 
     static {
         for (Squad squad : Squad.values()) {
-            HOODS.put(squad, piece(squad, "hood", ArmorItem.Type.HELMET));
             ROBES.put(squad, piece(squad, "robe", ArmorItem.Type.CHESTPLATE));
-            if (squad.has3dModel()) {
-                TROUSERS.put(squad, piece(squad, "trousers", ArmorItem.Type.LEGGINGS));
-                BOOTS.put(squad, piece(squad, "boots", ArmorItem.Type.BOOTS));
+            if (squad.hasHelmet()) {
+                HOODS.put(squad, piece(squad, "hood", ArmorItem.Type.HELMET));
             }
         }
     }

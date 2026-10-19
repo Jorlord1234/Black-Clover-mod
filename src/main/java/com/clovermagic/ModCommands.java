@@ -67,6 +67,32 @@ public final class ModCommands {
                             ctx.getSource().sendSuccess(() -> Component.literal("Mana refilled"), false);
                             return 1;
                         }))
+                .then(Commands.literal("unlock")
+                        .then(Commands.argument("node", StringArgumentType.word())
+                                .executes(ctx -> {
+                                    ServerPlayer p = ctx.getSource().getPlayerOrException();
+                                    MagicData d = p.getData(ModAttachments.MAGIC.get());
+                                    com.clovermagic.skill.SkillTree tree = com.clovermagic.magic.SkillLogic.treeFor(d);
+                                    String id = StringArgumentType.getString(ctx, "node");
+                                    if (tree == null || tree.get(id) == null) {
+                                        ctx.getSource().sendFailure(Component.literal("Unknown node (or you have no skill tree): " + id));
+                                        return 0;
+                                    }
+                                    d.unlocked.add(id);
+                                    com.clovermagic.magic.MagicSync.send(p);
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Unlocked " + id + " (ignores points and requirements)"), false);
+                                    return 1;
+                                })))
+                .then(Commands.literal("tree")
+                        .then(Commands.literal("reset")
+                                .executes(ctx -> {
+                                    ServerPlayer p = ctx.getSource().getPlayerOrException();
+                                    MagicData d = p.getData(ModAttachments.MAGIC.get());
+                                    d.unlocked.clear();
+                                    com.clovermagic.magic.MagicSync.send(p);
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Skill tree reset for free"), false);
+                                    return 1;
+                                })))
                 .then(Commands.literal("reset")
                         .executes(ctx -> {
                             ServerPlayer p = ctx.getSource().getPlayerOrException();

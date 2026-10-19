@@ -84,7 +84,7 @@ public class MagicHud implements LayeredDraw.Layer {
         for (int i = 0; i < n; i++) {
             Spell spell = spells.get(i);
             int x = x0 + i * (SLOT + GAP);
-            boolean locked = spell.levelNeeded() > level;
+            boolean locked = false;
             int border = locked ? 0xFF555555 : color;
 
             g.fill(x - 1, y0 - 1, x + SLOT + 1, y0 + SLOT + 1, border);

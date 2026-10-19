@@ -1,4 +1,4 @@
-# Clover Magic v0.4 prototype (Black Clover) - NeoForge 1.21.1 + GeckoLib 4.8.x
+# Clover Magic v0.5 (Black Clover) - NeoForge 1.21.1 + GeckoLib 4.8.x
 
 Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
 
@@ -43,3 +43,13 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
 - Grimoires are only found in the main inventory, not inside backpacks.
 - Other textures (grimoires, ores, altar, spell icons) have not been redone yet.
 - Squads other than Black Bull still look alike (flat armor).
+
+## v0.5 skill tree notes
+- Press **K** with a fire grimoire to open the Fire skill tree. Other elements still use the old level-based spells until their trees exist.
+- Respec: one Page of Forgetting resets one branch. Pages are crafted from a Magic Beast Core (planned Hobgoblin drop), paper and a Mana Crystal.
+- The tree is defined in Java for now (`skill/SkillTrees.java`); moving it to data files is planned once all elements share the template.
+- Known limits: plain screen art, only some fire nodes implemented, Hobgoblin mob not built, HUD still the old v0.4 bar.
+
+## Outfits
+- Robe models and textures are by the project's outfit artist (shared models `robe`, `hood`, `bandana`; one texture per squad).
+- Pieces: nine robes (chest) and six hoods (helmet; Black Bull's is a bandana). Craft with Mana Cloth, the squad dye (and trim for robes) and Netherite.

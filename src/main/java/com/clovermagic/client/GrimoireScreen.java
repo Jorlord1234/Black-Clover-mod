@@ -61,7 +61,7 @@ public class GrimoireScreen extends Screen {
         List<Spell> spells = ClientMagicState.spells();
         for (int i = 0; i < spells.size(); i++) {
             Spell s = spells.get(i);
-            boolean locked = s.levelNeeded() > level;
+            boolean locked = false;
             g.fill(left - 1, y - 1, left + panelW + 1, y + 47, locked ? 0xFF444444 : color);
             g.fill(left, y, left + panelW, y + 46, 0xF0181822);
             g.blit(MagicHud.icon(s), left + 6, y + 6, 0f, 0f, 16, 16, 16, 16);

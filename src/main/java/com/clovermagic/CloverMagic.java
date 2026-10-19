@@ -37,12 +37,12 @@ public class CloverMagic {
                         output.accept(ModItems.MANA_CRYSTAL_ORE.get());
                         output.accept(ModItems.DEEPSLATE_MANA_CRYSTAL_ORE.get());
                         output.accept(ModItems.MANA_CLOTH.get());
+                        output.accept(ModItems.MAGIC_BEAST_CORE.get());
+                        output.accept(ModItems.PAGE_OF_FORGETTING.get());
                         for (Squad squad : Squad.values()) {
-                            output.accept(ModItems.HOODS.get(squad).get());
                             output.accept(ModItems.ROBES.get(squad).get());
-                            if (ModItems.TROUSERS.containsKey(squad)) {
-                                output.accept(ModItems.TROUSERS.get(squad).get());
-                                output.accept(ModItems.BOOTS.get(squad).get());
+                            if (ModItems.HOODS.containsKey(squad)) {
+                                output.accept(ModItems.HOODS.get(squad).get());
                             }
                         }
                     }).build());

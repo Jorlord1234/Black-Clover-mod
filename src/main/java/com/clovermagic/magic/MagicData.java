@@ -1,5 +1,11 @@
 package com.clovermagic.magic;
 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Set;
+
+import com.clovermagic.Config;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 
@@ -11,8 +17,9 @@ public class MagicData {
             Codec.INT.optionalFieldOf("mana", 100).forGetter(d -> d.mana),
             Codec.INT.optionalFieldOf("selected", 0).forGetter(d -> d.selected),
             Codec.INT.optionalFieldOf("xp", 0).forGetter(d -> d.xp),
-            Codec.INT.optionalFieldOf("generation", 0).forGetter(d -> d.generation)
-    ).apply(inst, (a, l, m, s, x, g) -> new MagicData(a, l, m, s, x, g)));
+            Codec.INT.optionalFieldOf("generation", 0).forGetter(d -> d.generation),
+            Codec.STRING.listOf().optionalFieldOf("unlocked", List.of()).forGetter(d -> new ArrayList<>(d.unlocked))
+    ).apply(inst, (a, l, m, s, x, g, u) -> new MagicData(a, l, m, s, x, g, u)));
 
     /** Attribute id ("none" until the ceremony). */
     public String attribute = "none";
@@ -28,6 +35,9 @@ public class MagicData {
     /** Not saved: game tick until which the action bar status is shown. */
     public transient int showUntil = 0;
 
+    /** Skill tree nodes the player has unlocked (ids). */
+    public final Set<String> unlocked = new LinkedHashSet<>();
+
     /** Not saved: anti-farm tracking for magic XP. */
     public transient int recentCasts = 0;
     public transient long lastCastTick = 0;
@@ -41,18 +51,19 @@ public class MagicData {
     public MagicData() {
     }
 
-    public MagicData(String attribute, int leaves, int mana, int selected, int xp, int generation) {
+    public MagicData(String attribute, int leaves, int mana, int selected, int xp, int generation, List<String> unlocked) {
         this.attribute = attribute;
         this.leaves = leaves;
         this.mana = mana;
         this.selected = selected;
         this.xp = xp;
         this.generation = generation;
+        this.unlocked.addAll(unlocked);
     }
 
-    /** Level 1..10. Level n needs 25 * (n-1)^2 xp in total. */
+    /** Level 1..cap (config, default 20). Level n needs 25 * (n-1)^2 xp in total. */
     public int level() {
-        return Math.min(10, 1 + (int) Math.floor(Math.sqrt(xp / 25.0)));
+        return Math.min(Config.MAX_LEVEL.get(), 1 + (int) Math.floor(Math.sqrt(xp / 25.0)));
     }
 
     public static int xpForLevel(int level) {

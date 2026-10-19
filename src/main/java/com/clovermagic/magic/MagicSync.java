@@ -19,6 +19,10 @@ public final class MagicSync {
         for (int i = 0; i < cds.length; i++) {
             cds[i] = (int) Math.max(0L, d.cooldownEnd[i] - now);
         }
-        PacketDistributor.sendToPlayer(sp, new SyncPayload(d.attribute, d.leaves, d.mana, com.clovermagic.item.GrimoireItem.maxMana(d.level(), d.leaves), d.xp, has, cds));
+        com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(d);
+        int points = tree == null ? 0 : SkillLogic.points(d, tree);
+        PacketDistributor.sendToPlayer(sp, new SyncPayload(d.attribute, d.leaves, d.mana,
+                com.clovermagic.item.GrimoireItem.maxMana(d.level(), d.leaves), d.xp, has, cds,
+                new java.util.ArrayList<>(d.unlocked), com.clovermagic.Config.MAX_LEVEL.get(), points));
     }
 }

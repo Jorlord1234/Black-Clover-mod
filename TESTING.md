@@ -1,7 +1,30 @@
-# What to check in game (v0.4 prototype)
+# What to check in game
+
+## v0.5 skill tree (nothing below has been run by the author)
+1. `/clover give 3 fire`, `/clover level 5` -> you should have 6 skill points. Press **K**: the Fire tree screen opens.
+2. Hover nodes: tooltip shows name, type, cost, level and prerequisites (green v / red x), description and canon note.
+3. Click Exploding Fireball (2 points). Points drop to 4. Press **G**, then **2**: a fireball flies, hits, bursts, never hurts you.
+4. Unlock Blast Radius (needs the fireball): the blast is visibly wider. Unlock Spiral Flame at level 3, Sol Linea at level 3, and so on.
+5. Locked/not implemented nodes (Timed Scattershot, Vanishing Fireball, Spirit branch...) cannot be unlocked and say so.
+6. `/give @s clovermagic:page_of_forgetting`, click **Reset** on a branch banner: the page is used, points come back, bar updates.
+   Without a page (survival) it must refuse. In creative it is free.
+7. Burn Damage / Long Burn / Fire Affinity: fire hits do more damage / targets burn longer. Ember Skin (`/clover unlock ember_skin`): with 20%+ mana,
+   standing in lava or fire does no damage; below 20% mana it does.
+8. Log out and back in: unlocked nodes and points persist. `config/clovermagic-common.toml`: change `maxLevel`, restart, check the cap.
+9. Another element (e.g. `/clover give 3 water`): K opens the old spell list, water spells still work.
+
+## v0.5 outfits
+1. Wear a robe and a hood/bandana: model shows, textures are the right squad, no pink/black, follows walking and arm swings, no big clipping.
+2. Check all nine robes and the six hoods in first and third person. `/attribute @s minecraft:generic.armor get` with robe + hood: expect 11.
+3. Silver Eagle, Crimson Lion and Aqua Deer have a robe only (no hood item) on purpose.
+
+## v0.4 prototype (earlier)
 
 Nothing below has been run by the author. Please report each line as OK / broken, with `latest.log` for anything that crashes.
 
+0. Use the jar from the LAST GitHub Actions run (after all three zips were uploaded). Open the jar with 7-Zip: it must contain
+   `assets/clovermagic/textures/item/mana_crystal.png` and `assets/clovermagic/geo/item/armor/black_bull.geo.json`.
+   If not, the jar is from an earlier run or the files were uploaded to the wrong folder.
 1. Game starts with GeckoLib 4.8.x installed (and refuses with a clear message without it).
 2. Creative tab "Clover Magic": Black Bull Hood, Robe, Trousers, Boots show correct icons.
 3. Wear all four pieces: model appears, is not invisible or black/pink, follows walking, sneaking and arm swings, no big clipping.

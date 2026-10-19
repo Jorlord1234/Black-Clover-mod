@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "clovermagic:magic_beast_core"
+    },
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    }
+  ],
+  "result": {
+    "id": "clovermagic:page_of_forgetting",
+    "count": 1
+  }
+}

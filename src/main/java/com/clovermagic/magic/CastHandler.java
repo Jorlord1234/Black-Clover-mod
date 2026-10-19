@@ -36,14 +36,11 @@ public final class CastHandler {
         MagicAttribute attr = leaves == 5 ? MagicAttribute.ANTI_MAGIC : MagicAttribute.fromId(data.attribute);
         if (attr == null) return;
 
-        List<Spell> spells = Spell.forAttribute(attr);
+        // skill tree elements cast what the player unlocked; other elements still use the old level unlocks
+        List<Spell> spells = SkillLogic.spellsFor(attr, data);
         if (slot < 0 || slot >= spells.size() || slot >= data.cooldownEnd.length) return;
         Spell spell = spells.get(slot);
         int level = data.level();
-        if (spell.levelNeeded() > level) {
-            SpellUtil.fail(sp, spell.displayName + " unlocks at magic level " + spell.levelNeeded());
-            return;
-        }
 
         long now = sp.level().getGameTime();
         if (now < data.cooldownEnd[slot]) return;
@@ -94,10 +91,16 @@ public final class CastHandler {
         if (after > before) {
             sp.sendSystemMessage(Component.literal("Your magic grew stronger! Magic level " + after)
                     .withStyle(ChatFormatting.GOLD));
-            for (Spell s : spells) {
-                if (s.levelNeeded() > before && s.levelNeeded() <= after) {
-                    sp.sendSystemMessage(Component.literal("New spell unlocked: " + s.displayName)
-                            .withStyle(attr.color));
+            com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(data);
+            if (tree != null) {
+                sp.sendSystemMessage(Component.literal("You have " + SkillLogic.points(data, tree)
+                        + " skill points to spend. Press K to open your skill tree.").withStyle(attr.color));
+            } else {
+                for (Spell s : Spell.forAttribute(attr)) {
+                    if (s.levelNeeded() > before && s.levelNeeded() <= after) {
+                        sp.sendSystemMessage(Component.literal("New spell unlocked: " + s.displayName)
+                                .withStyle(attr.color));
+                    }
                 }
             }
         }

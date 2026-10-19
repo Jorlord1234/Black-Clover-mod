@@ -10,8 +10,13 @@ public final class SpellInfo {
 
     static {
         DESC.put(Spell.FLAME_BULLET, "Fires a fast bullet of flame at the first target in line. Sets it on fire.");
-        DESC.put(Spell.CRIMSON_LION_BLAZE, "Hurls a heavy fireball that flies until it hits something, then bursts and burns everything close to it.");
-        DESC.put(Spell.FIRE_RING, "Rings of flame burst out around you, burning every enemy close to you.");
+        DESC.put(Spell.EXPLODING_FIREBALL, "Hurls a fireball that flies until it hits something, then bursts and burns everything close to it.");
+        DESC.put(Spell.EXPLODING_BUCKSHOT, "Fires a fan of five small exploding fireballs.");
+        DESC.put(Spell.SPIRAL_FLAME, "Sends a spiral of flame forward at mid range, burning everything in it.");
+        DESC.put(Spell.SOL_LINEA, "A small sun fires a beam that pierces everything in its path and leaves targets burning.");
+        DESC.put(Spell.LEO_RUGIENS, "A lion's roar of fire in a wide cone in front of you.");
+        DESC.put(Spell.LEO_PALMA, "Flame paws grab the target in front of you and hold it in place for 3 seconds.");
+        DESC.put(Spell.IGNIS_COLUMNA, "A pillar of flame surrounds you: stronger defense, and enemies close to you are burned.");
         DESC.put(Spell.WATER_BALL, "A jet of water that hits everything in a line, pushes it back and puts out fires.");
         DESC.put(Spell.WATER_VEIL, "Wraps you in water: damage resistance, water breathing, and no more burning.");
         DESC.put(Spell.SEA_DRAGON_WAVE, "A wave erupts around you and throws every nearby enemy away from you.");
@@ -40,10 +45,10 @@ public final class SpellInfo {
 
     public enum Kind { BEAM, AREA, BUFF }
 
-    private static final java.util.Set<Spell> BEAMS = EnumSet.of(Spell.FLAME_BULLET, Spell.CRIMSON_LION_BLAZE,
-            Spell.WATER_BALL, Spell.WIND_BLADE, Spell.EARTH_SPIKE, Spell.FROST_LANCE, Spell.THUNDER_BOLT,
+    private static final java.util.Set<Spell> BEAMS = EnumSet.of(Spell.FLAME_BULLET, Spell.EXPLODING_FIREBALL,
+            Spell.EXPLODING_BUCKSHOT, Spell.SPIRAL_FLAME, Spell.SOL_LINEA, Spell.LEO_PALMA, Spell.WATER_BALL, Spell.WIND_BLADE, Spell.EARTH_SPIKE, Spell.FROST_LANCE, Spell.THUNDER_BOLT,
             Spell.THUNDER_CHAIN, Spell.BLACK_SLASH, Spell.LIGHT_BEAM, Spell.DEMON_DWELLER_SLASH);
-    private static final java.util.Set<Spell> AREAS = EnumSet.of(Spell.FIRE_RING, Spell.SEA_DRAGON_WAVE,
+    private static final java.util.Set<Spell> AREAS = EnumSet.of(Spell.LEO_RUGIENS, Spell.IGNIS_COLUMNA, Spell.SEA_DRAGON_WAVE,
             Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN, Spell.MAGIC_NULLIFY);
 
     public static Kind kind(Spell s) {

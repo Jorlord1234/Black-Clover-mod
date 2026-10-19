@@ -7,6 +7,7 @@ import com.clovermagic.magic.MagicSync;
 
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
@@ -72,6 +73,13 @@ public final class ModEvents {
     public static void onIncomingDamage(LivingIncomingDamageEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer sp)) return;
         MagicData data = sp.getData(ModAttachments.MAGIC.get());
+        // Ember Skin (fire tree): with at least 20% mana, fire and lava cannot hurt you
+        if (data.leaves > 0 && data.leaves != 5 && data.unlocked.contains("ember_skin")
+                && event.getSource().is(DamageTypeTags.IS_FIRE)
+                && data.mana * 5 >= GrimoireItem.maxMana(data.level(), data.leaves)) {
+            event.setCanceled(true);
+            return;
+        }
         if (data.leaves != 5 || sp.level().getGameTime() >= data.nullifyUntil) return;
         DamageSource src = event.getSource();
         if (src.is(DamageTypes.MAGIC) || src.is(DamageTypes.INDIRECT_MAGIC)

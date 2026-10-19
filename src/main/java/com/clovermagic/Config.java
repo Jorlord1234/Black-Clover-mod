@@ -15,6 +15,7 @@ public final class Config {
     public static final ModConfigSpec.DoubleValue XP_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue POWER_PER_LEVEL;
     public static final ModConfigSpec.IntValue NULLIFY_WINDOW_TICKS;
+    public static final ModConfigSpec.IntValue MAX_LEVEL;
 
     static {
         B.push("ceremony");
@@ -37,6 +38,8 @@ public final class Config {
         B.push("progression");
         XP_MULTIPLIER = B.comment("Multiplies the magic XP gained by casting. 0 disables progression.")
                 .defineInRange("xpMultiplier", 1.0, 0.0, 100.0);
+        MAX_LEVEL = B.comment("Highest magic level. Skill points: 1 per level, +1 at levels 5, 10, 15 and +2 at 20.")
+                .defineInRange("maxLevel", 20, 5, 50);
         POWER_PER_LEVEL = B.comment("Spell power gained per magic level (0.04 = +4% per level).")
                 .defineInRange("powerPerLevel", 0.04, 0.0, 10.0);
         B.pop();

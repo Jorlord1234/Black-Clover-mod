@@ -2,10 +2,14 @@ package com.clovermagic.armor;
 
 import java.util.function.Consumer;
 
+import com.clovermagic.client.SquadArmorModel;
 import com.clovermagic.client.SquadArmorRenderer;
+import com.mojang.logging.LogUtils;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.HumanoidModel;
 import net.minecraft.core.Holder;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ArmorItem;
@@ -33,15 +37,23 @@ public class SquadArmorItem extends ArmorItem implements GeoItem {
 
     @Override
     public void createGeoRenderer(Consumer<GeoRenderProvider> consumer) {
-        final Squad s = this.squad;
         consumer.accept(new GeoRenderProvider() {
             private SquadArmorRenderer renderer;
+            private boolean checked;
 
             @Override
             public <T extends LivingEntity> HumanoidModel<?> getGeoArmorRenderer(T livingEntity, ItemStack itemStack,
                     EquipmentSlot equipmentSlot, HumanoidModel<T> original) {
-                if (this.renderer == null) {
-                    this.renderer = new SquadArmorRenderer(s);
+                if (!this.checked) {
+                    this.checked = true;
+                    // Safety net: if the 3D model file is missing from the mod jar (for example an incomplete build),
+                    // return null so GeckoLib falls back to the vanilla armor layer instead of crashing the game.
+                    ResourceLocation geo = SquadArmorModel.modelLocation(SquadArmorItem.this);
+                    if (Minecraft.getInstance().getResourceManager().getResource(geo).isPresent()) {
+                        this.renderer = new SquadArmorRenderer();
+                    } else {
+                        LogUtils.getLogger().error("Clover Magic: missing 3D armor model {} - using the vanilla fallback", geo);
+                    }
                 }
                 return this.renderer;
             }

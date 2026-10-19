@@ -7,7 +7,6 @@ import java.util.Set;
 
 import com.clovermagic.Config;
 import com.clovermagic.ModAttachments;
-import com.clovermagic.ModEntities;
 import com.clovermagic.entity.FireballProjectile;
 
 import net.minecraft.core.particles.BlockParticleOption;
@@ -36,37 +35,96 @@ import net.minecraft.world.phys.Vec3;
  * "pw" is the grimoire power multiplier (1.0 normal, 1.4 four-leaf).
  */
 public enum Spell {
-    // ---------------------------------------------------------------- FIRE
-    FLAME_BULLET("Flame Bullet", MagicAttribute.FIRE, 8, 6, (p, pw) -> {
+    // ---------------------------------------------------------------- FIRE (skill tree spells)
+    FLAME_BULLET("Flame Bullet", MagicAttribute.FIRE, 8, 8, (p, pw) -> {
         for (LivingEntity e : SpellUtil.line(p, 24, 0.7)) {
-            e.hurt(SpellUtil.magic(p), (float) (6 * pw));
-            e.setRemainingFireTicks(80);
+            FireEffects.hurt(p, e, SpellUtil.magic(p), (float) (6 * pw));
+            FireEffects.ignite(p, e, 80);
             break; // a bullet only hits the first target
         }
         SpellUtil.beam(p, SpellUtil.rayLength(p, 24), ParticleTypes.FLAME, 1);
         SpellUtil.sound(p, SoundEvents.BLAZE_SHOOT, 0.8f, 1.3f);
         return true;
     }),
-    CRIMSON_LION_BLAZE("Crimson Lion Blaze", MagicAttribute.FIRE, 35, 40, (p, pw) -> {
+    EXPLODING_FIREBALL("Exploding Fireball", MagicAttribute.FIRE, 30, 40, (p, pw) -> {
         ServerLevel level = p.serverLevel();
-        FireballProjectile fireball = new FireballProjectile(ModEntities.FIREBALL.get(), level);
-        fireball.setOwner(p);
-        fireball.setDamage((float) (8 * pw));
-        fireball.setPos(p.getX(), p.getEyeY() - 0.2, p.getZ());
-        fireball.shootFromRotation(p, p.getXRot(), p.getYRot(), 0.0f, 1.4f, 0.0f);
-        level.addFreshEntity(fireball);
+        level.addFreshEntity(FireballProjectile.create(level, p, (float) (8 * pw), FireEffects.blastRadius(p, 3.0), 1.4f, 0.0f));
         SpellUtil.sound(p, SoundEvents.BLAZE_SHOOT, 1.0f, 0.6f);
         return true;
     }),
-    FIRE_RING("Flame Ring", MagicAttribute.FIRE, 25, 30, (p, pw) -> {
+    EXPLODING_BUCKSHOT("Exploding Buckshot", MagicAttribute.FIRE, 45, 70, (p, pw) -> {
         ServerLevel level = p.serverLevel();
-        for (LivingEntity e : SpellUtil.around(p, 5)) {
-            e.hurt(SpellUtil.magic(p), (float) (6 * pw));
-            e.setRemainingFireTicks(100);
+        for (float yaw : new float[] {-12f, -6f, 0f, 6f, 12f}) {
+            level.addFreshEntity(FireballProjectile.create(level, p, (float) (4 * pw), FireEffects.blastRadius(p, 1.8), 1.2f, yaw));
         }
-        SpellUtil.ring(level, p.position(), 2, ParticleTypes.FLAME, 16);
-        SpellUtil.ring(level, p.position(), 4, ParticleTypes.FLAME, 28);
-        SpellUtil.sound(p, SoundEvents.FIRECHARGE_USE, 1.0f, 1.0f);
+        SpellUtil.sound(p, SoundEvents.BLAZE_SHOOT, 1.0f, 0.8f);
+        return true;
+    }),
+    SPIRAL_FLAME("Spiral Flame", MagicAttribute.FIRE, 14, 14, (p, pw) -> {
+        double range = FireEffects.spiralRange(p, 7);
+        for (LivingEntity e : SpellUtil.line(p, range, 1.6)) {
+            FireEffects.hurt(p, e, SpellUtil.magic(p), (float) (5 * pw));
+            FireEffects.ignite(p, e, 100);
+        }
+        SpellUtil.spiral(p, Math.min(range, SpellUtil.rayLength(p, range)), ParticleTypes.FLAME);
+        SpellUtil.sound(p, SoundEvents.FIRECHARGE_USE, 0.9f, 1.2f);
+        return true;
+    }),
+    SOL_LINEA("Sol Linea", MagicAttribute.FIRE, 22, 24, (p, pw) -> {
+        for (LivingEntity e : SpellUtil.line(p, 24, 0.6)) {
+            FireEffects.hurt(p, e, SpellUtil.magic(p), (float) (9 * pw));
+            FireEffects.ignite(p, e, 80);
+        }
+        double len = SpellUtil.rayLength(p, 24);
+        SpellUtil.beam(p, len, ParticleTypes.END_ROD, 1);
+        SpellUtil.beam(p, len, ParticleTypes.FLAME, 2);
+        SpellUtil.sound(p, SoundEvents.BEACON_POWER_SELECT, 1.0f, 1.8f);
+        return true;
+    }),
+    LEO_RUGIENS("Leo Rugiens", MagicAttribute.FIRE, 30, 50, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        Vec3 eye = p.getEyePosition();
+        for (LivingEntity e : SpellUtil.around(p, 9)) {
+            Vec3 to = e.getBoundingBox().getCenter().subtract(eye);
+            if (to.length() > 0.01 && to.normalize().dot(look) > 0.55) {
+                FireEffects.hurt(p, e, SpellUtil.magic(p), (float) (7 * pw));
+                FireEffects.ignite(p, e, 120);
+                SpellUtil.push(e, look.scale(0.5).add(0, 0.15, 0));
+            }
+        }
+        ServerLevel level = p.serverLevel();
+        for (double d = 1.0; d <= 9.0; d += 0.5) {
+            double spread = d * 0.3;
+            level.sendParticles(ParticleTypes.FLAME, eye.x + look.x * d, eye.y - 0.3 + look.y * d, eye.z + look.z * d,
+                    6, spread, spread * 0.6, spread, 0.02);
+        }
+        SpellUtil.sound(p, SoundEvents.ENDER_DRAGON_GROWL, 0.8f, 1.4f);
+        return true;
+    }),
+    LEO_PALMA("Leo Palma", MagicAttribute.FIRE, 24, 60, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 14, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        FireEffects.hurt(p, target, SpellUtil.magic(p), (float) (3 * pw));
+        FireEffects.ignite(p, target, 60);
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 6));
+        SpellUtil.ring(p.serverLevel(), target.position(), 0.9, ParticleTypes.FLAME, 16);
+        SpellUtil.ring(p.serverLevel(), target.position().add(0, 0.8, 0), 0.7, ParticleTypes.FLAME, 12);
+        SpellUtil.sound(p, SoundEvents.FIRECHARGE_USE, 1.0f, 0.5f);
+        return true;
+    }),
+    IGNIS_COLUMNA("Ignis Columna", MagicAttribute.FIRE, 28, 160, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 140, 1));
+        for (LivingEntity e : SpellUtil.around(p, 3.5)) {
+            FireEffects.hurt(p, e, SpellUtil.magic(p), (float) (4 * pw));
+            FireEffects.ignite(p, e, 100);
+            SpellUtil.push(e, SpellUtil.awayFrom(p, e, 0.6, 0.2));
+        }
+        ServerLevel level = p.serverLevel();
+        for (double h = 0; h <= 3.0; h += 0.5) {
+            SpellUtil.ring(level, p.position().add(0, h, 0), 1.3, ParticleTypes.FLAME, 14);
+        }
+        SpellUtil.sound(p, SoundEvents.FIRECHARGE_USE, 1.2f, 0.6f);
         return true;
     }),
 

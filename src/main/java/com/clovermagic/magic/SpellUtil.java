@@ -89,6 +89,26 @@ public final class SpellUtil {
         }
     }
 
+    /** A rotating spiral of particles along the look-ray. */
+    public static void spiral(ServerPlayer p, double length, ParticleOptions particle) {
+        ServerLevel level = p.serverLevel();
+        Vec3 start = p.getEyePosition().add(0, -0.3, 0);
+        Vec3 look = p.getLookAngle();
+        Vec3 up = new Vec3(0, 1, 0);
+        Vec3 right = look.cross(up);
+        if (right.lengthSqr() < 1.0E-4) right = new Vec3(1, 0, 0);
+        right = right.normalize();
+        Vec3 up2 = right.cross(look).normalize();
+        for (double d = 1.0; d <= length; d += 0.35) {
+            double ang = d * 2.4;
+            double r = 0.35 + d * 0.05;
+            Vec3 pt = start.add(look.scale(d)).add(right.scale(Math.cos(ang) * r)).add(up2.scale(Math.sin(ang) * r));
+            level.sendParticles(particle, pt.x, pt.y, pt.z, 1, 0.02, 0.02, 0.02, 0.0);
+            Vec3 pt2 = start.add(look.scale(d)).add(right.scale(Math.cos(ang + Math.PI) * r)).add(up2.scale(Math.sin(ang + Math.PI) * r));
+            level.sendParticles(particle, pt2.x, pt2.y, pt2.z, 1, 0.02, 0.02, 0.02, 0.0);
+        }
+    }
+
     public static void ring(ServerLevel level, Vec3 center, double radius, ParticleOptions particle, int points) {
         for (int i = 0; i < points; i++) {
             double a = (Math.PI * 2 * i) / points;

@@ -1,8 +1,12 @@
 package com.clovermagic.entity;
 
+import com.clovermagic.ModEntities;
+import com.clovermagic.magic.FireEffects;
+
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.damagesource.DamageSource;
@@ -24,10 +28,9 @@ import net.minecraft.world.phys.Vec3;
  */
 public class FireballProjectile extends Projectile {
     private static final int MAX_LIFE = 80;     // ticks
-    private static final double BLAST_RADIUS = 3.0;
-
     private int life = 0;
     private float damage = 8.0f;
+    private double blastRadius = 3.0;
 
     public FireballProjectile(EntityType<? extends FireballProjectile> type, Level level) {
         super(type, level);
@@ -35,6 +38,22 @@ public class FireballProjectile extends Projectile {
 
     public void setDamage(float damage) {
         this.damage = damage;
+    }
+
+    public void setBlastRadius(double radius) {
+        this.blastRadius = radius;
+    }
+
+    /** Creates a fireball at the caster's eye, aimed along their look direction plus a yaw offset (not yet added to the world). */
+    public static FireballProjectile create(ServerLevel level, ServerPlayer owner, float damage, double blastRadius,
+                                            float velocity, float yawOffset) {
+        FireballProjectile fb = new FireballProjectile(ModEntities.FIREBALL.get(), level);
+        fb.setOwner(owner);
+        fb.setDamage(damage);
+        fb.setBlastRadius(blastRadius);
+        fb.setPos(owner.getX(), owner.getEyeY() - 0.2, owner.getZ());
+        fb.shootFromRotation(owner, owner.getXRot(), owner.getYRot() + yawOffset, 0.0f, velocity, 0.0f);
+        return fb;
     }
 
     @Override
@@ -89,22 +108,33 @@ public class FireballProjectile extends Projectile {
         Entity owner = this.getOwner();
         DamageSource source = this.damageSources().indirectMagic(this, owner);
 
+        ServerPlayer caster = owner instanceof ServerPlayer sp ? sp : null;
         if (directHit != null && directHit != owner) {
-            directHit.hurt(source, this.damage);
-            directHit.setRemainingFireTicks(100);
+            if (directHit instanceof LivingEntity living && caster != null) {
+                FireEffects.hurt(caster, living, source, this.damage);
+                FireEffects.ignite(caster, living, 100);
+            } else {
+                directHit.hurt(source, this.damage);
+                directHit.setRemainingFireTicks(100);
+            }
         }
         for (LivingEntity target : level.getEntitiesOfClass(LivingEntity.class,
-                this.getBoundingBox().inflate(BLAST_RADIUS),
+                this.getBoundingBox().inflate(this.blastRadius),
                 t -> t != owner && t != directHit && t.isAlive())) {
             double d = target.distanceTo(this);
-            if (d <= BLAST_RADIUS) {
-                float amount = (float) (this.damage * 0.6 * (1.0 - d / (BLAST_RADIUS + 0.5)));
-                target.hurt(source, Math.max(1.0f, amount));
-                target.setRemainingFireTicks(80);
+            if (d <= this.blastRadius) {
+                float amount = (float) Math.max(1.0, this.damage * 0.6 * (1.0 - d / (this.blastRadius + 0.5)));
+                if (caster != null) {
+                    FireEffects.hurt(caster, target, source, amount);
+                    FireEffects.ignite(caster, target, 80);
+                } else {
+                    target.hurt(source, amount);
+                    target.setRemainingFireTicks(80);
+                }
             }
         }
         level.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 3, 0.5, 0.5, 0.5, 0.0);
-        level.sendParticles(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 60, 1.2, 0.8, 1.2, 0.08);
+        level.sendParticles(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 60, this.blastRadius * 0.4, this.blastRadius * 0.27, this.blastRadius * 0.4, 0.08);
         level.playSound(null, this.getX(), this.getY(), this.getZ(), SoundEvents.FIRECHARGE_USE,
                 SoundSource.PLAYERS, 1.2f, 0.6f);
         this.discard();

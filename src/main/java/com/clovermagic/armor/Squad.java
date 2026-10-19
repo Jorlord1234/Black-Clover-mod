@@ -17,9 +17,9 @@ public enum Squad {
     public final String dye;
     public final String trim;
 
-    /** True for squads that already have the full GeckoLib 3D set (hood, robe, trousers, boots). */
-    public boolean has3dModel() {
-        return this == BLACK_BULL;
+    /** Squads with a helmet piece: Black Bull a bandana, Golden Dawn, Blue Rose, Coral Peacock, Green Mantis and Purple Orca a hood. */
+    public boolean hasHelmet() {
+        return this != SILVER_EAGLE && this != CRIMSON_LION && this != AQUA_DEER;
     }
 
     Squad(String id, String displayName, String dye, String trim) {

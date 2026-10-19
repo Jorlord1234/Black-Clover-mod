@@ -74,7 +74,14 @@ public final class ClientSetup {
             }
         }
         while (INFO.consumeClick()) {
-            if (inGame) mc.setScreen(new GrimoireScreen());
+            if (inGame) {
+                com.clovermagic.skill.SkillTree tree = ClientMagicState.tree();
+                if (tree != null && ClientMagicState.hasGrimoire) {
+                    mc.setScreen(new SkillTreeScreen(tree));
+                } else {
+                    mc.setScreen(new GrimoireScreen());
+                }
+            }
         }
 
         if (ClientMagicState.mode && inGame) {
