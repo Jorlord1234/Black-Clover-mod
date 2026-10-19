@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "clovermagic:item/black_bull_boots"
+    "layer0": "clovermagic:item/magic_beast_core"
   }
 }

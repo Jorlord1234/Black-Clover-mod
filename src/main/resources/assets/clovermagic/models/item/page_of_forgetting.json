@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "clovermagic:item/aqua_deer_hood"
+    "layer0": "clovermagic:item/page_of_forgetting"
   }
 }
