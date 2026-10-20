@@ -45,7 +45,7 @@ public final class CastHandler {
         long now = sp.level().getGameTime();
         if (now < data.cooldownEnd[slot]) return;
 
-        int cost = (int) Math.ceil(spell.cost * GrimoireItem.costMultiplier(leaves));
+        int cost = (int) Math.ceil(spell.cost * GrimoireItem.costMultiplier(leaves) * TreeEffects.costMult(data, attr));
         boolean free = sp.getAbilities().instabuild;
         boolean anti = leaves == 5;
         if (!free) {
@@ -60,7 +60,8 @@ public final class CastHandler {
             }
         }
 
-        double power = GrimoireItem.power(leaves) * (1.0 + Config.POWER_PER_LEVEL.get() * (level - 1));
+        double power = GrimoireItem.power(leaves) * (1.0 + Config.POWER_PER_LEVEL.get() * (level - 1))
+                * TreeEffects.powerMult(data, attr, spell);
         if (!spell.cast(sp, power)) return;
 
         if (!free) {
@@ -70,7 +71,7 @@ public final class CastHandler {
                 data.mana -= cost;
             }
         }
-        data.cooldownEnd[slot] = now + spell.cooldown;
+        data.cooldownEnd[slot] = now + Math.max(1, Math.round(spell.cooldown * TreeEffects.cooldownMult(data, attr)));
 
         // casting grows your magic: more mana, stronger spells, new spells unlock.
         // Anti-farm: attack spells give XP only with a living target nearby (buffs always count),

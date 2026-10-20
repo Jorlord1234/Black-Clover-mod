@@ -36,3 +36,13 @@ Nothing below has been run by the author. Please report each line as OK / broken
 9. `/clover give 5 anti_magic`: carrying the grimoire alone must NOT protect you from a skeleton arrow or a witch potion;
    only the 3 seconds after Magic Nullify protect from magic damage.
 10. Edit `config/clovermagic-common.toml` and restart: changed values take effect.
+11. Skill trees: `/clover give 3 <water|wind|earth|ice|lightning|light|darkness>`, `/clover level 20`, press K: tree opens in the element's color.
+    Unlock a few nodes (or `/clover unlock <node>`); the spell bar should list exactly the unlocked spells; cast each one.
+12. Passives: unlock `<element>_focus`, `_flow`, `_haste`; check damage, mana cost and cooldown change a little. Test each `_skin`
+    (drowning, fall, freezing, lightning, 15% less damage, regeneration, night vision). Anti-Magic must still have no tree.
+13. Check the 21 new spell icons in the HUD and the tree screen (no missing-texture squares).
+14. `/clover cutscene 3 fire`, `/clover cutscene 4 water`, `/clover cutscene 5 anti_magic`: cutscene plays, text is readable, click skips after 2 seconds.
+    Then the real thing: `/clover reset` and use the altar.
+15. `/clover give 5 anti_magic`, `/clover level 7`, cast Devil Union (4th spell): effects, horns and wings appear for 30 seconds, hunger drops fast.
+16. Build a new world and find 3 Grimoire Towers: the stone bricks should be a random mix of normal, mossy and cracked, different in each tower.
+17. Check the new robe, hood and bandana icons in the inventory.

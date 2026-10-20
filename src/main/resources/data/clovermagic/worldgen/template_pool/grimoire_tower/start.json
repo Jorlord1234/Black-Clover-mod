@@ -6,7 +6,7 @@
       "element": {
         "element_type": "minecraft:single_pool_element",
         "location": "clovermagic:grimoire_tower",
-        "processors": "minecraft:empty",
+        "processors": "clovermagic:grimoire_tower_aging",
         "projection": "rigid"
       }
     }

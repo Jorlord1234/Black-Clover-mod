@@ -1,5 +1,47 @@
 # Changelog
 
+## v0.5.3 (NOT yet built or tested in Minecraft)
+
+### Added
+- **Devil Union** (Anti-Magic, unlocks at magic level 7, `/clover level 7`): 30 seconds of Strength IV, Speed II, Resistance II, Regeneration,
+  Jump Boost and +6 hearts, magic cannot hurt you for the first 10 seconds, enemies around you are pushed away.
+  Horns and wings of black and red particles follow you while it lasts. Costs a lot of food, 90 second cooldown. (Particles for now; a real 3D model can come later.)
+- **First-grimoire cutscene** (about 8 seconds, click or ESC skips): grimoires circle faster and faster, all but one fade away,
+  a flash in the element's color, then the chosen grimoire and its attribute are revealed. Plays at the altar ceremony.
+  Preview any version with `/clover cutscene <3|4|5> <attribute>`.
+- **Grimoire Tower bricks are now random**: the tower file only has plain stone bricks and a processor turns about 20% into mossy and 20% into cracked,
+  different for every tower (`data/clovermagic/worldgen/processor_list/grimoire_tower_aging.json`).
+
+### Changed
+- New inventory icons for all robes (a tunic with sleeves, squad colors, trim along the hem), hoods (hood with face opening) and the Black Bull bandana.
+- The old title text at the ceremony is gone (the cutscene shows the name instead).
+- Network protocol version is now 4 (client and server must both have this version).
+
+
+## v0.5.2 (screen fix - NOT yet tested in Minecraft)
+
+### Fixed
+- The skill tree screen (K) and the grimoire screen (G) looked foggy: the vanilla blurred menu background was drawn on top of them.
+  Both screens now draw only their own backdrop.
+
+## v0.5.1 (skill trees for all elements - NOT yet built or tested in Minecraft)
+
+### Added
+- **Skill trees for Water, Wind, Earth, Ice, Lightning, Light and Darkness** (K opens it), same layout as Fire: root + 4 passives +
+  3 branches of 5 nodes each (Water, Wind and Earth also have a locked Spirit branch). Anti-Magic has no tree yet.
+- 21 new spells, each with an icon: Sea Dragon's Roar, Climbing Coelacanth, Sea Dragon's Nest, Gale White Bow, Thief's Wind Cloud,
+  Swift White Hawk, Boulder Toss, Stone Bind, Earthen Shield, Hailstorm, Ice Prison, Frost Barrier, Static Shock, Spark Barrage,
+  Overcharge, Prism Burst, Light Speed Dash, Radiant Aegis, Dark Pulse, Shadow Bind, Dread Mark.
+- Every element has 6 spells (root + 5) and many more nodes marked "soon" (greyed, cannot be unlocked), like Fire's locked ones.
+- Passives per element: Focus (+10% damage), Flow (-10% mana), Haste (-10% cooldown) and a Skin (needs 20% mana):
+  Water = cannot drown, Wind = no fall damage, Earth = 15% less damage, Ice = cold cannot hurt, Lightning = lightning cannot hurt,
+  Light = slow regeneration, Darkness = night vision. Each branch has an upgrade node: +20% damage for the spells of that branch.
+- The tree screen now uses the element's color for links and glow.
+
+### Canon
+- Names checked against the wiki: Water (Sea Dragon spells, Climbing Coelacanth, Valkyrie Dress, Undine), Wind (Yuno's spells, Sylph).
+- Earth, Ice, Lightning, Light and Darkness spell names are ORIGINAL (the wiki pages could not be read); every node says so in its canon line.
+
 ## v0.5.0 (skill tree core - NOT yet built or tested in Minecraft)
 
 ### Added

@@ -18,6 +18,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  *   /clover give <3|4|5> <attribute>   gives you a bound grimoire
  *   /clover level <1-10>               sets your magic level
  *   /clover mana                       refills mana
+ *   /clover cutscene <3|4|5> <attribute>  previews the first-grimoire cutscene
  *   /clover reset                      forgets your grimoire so you can redo the ceremony
  */
 public final class ModCommands {
@@ -48,6 +49,23 @@ public final class ModCommands {
                                             d.mana = GrimoireItem.maxMana(d.level(), leaves);
                                             GrimoireManager.issue(p, d);
                                             ctx.getSource().sendSuccess(() -> Component.literal("Gave a bound grimoire"), false);
+                                            return 1;
+                                        }))))
+                .then(Commands.literal("cutscene")
+                        .then(Commands.argument("leaves", IntegerArgumentType.integer(3, 5))
+                                .then(Commands.argument("attribute", StringArgumentType.word())
+                                        .suggests((ctx, b) -> SharedSuggestionProvider.suggest(MagicAttribute.ids(), b))
+                                        .executes(ctx -> {
+                                            ServerPlayer p = ctx.getSource().getPlayerOrException();
+                                            MagicAttribute attr = MagicAttribute.fromId(StringArgumentType.getString(ctx, "attribute"));
+                                            int leaves = IntegerArgumentType.getInteger(ctx, "leaves");
+                                            if (attr == null) {
+                                                ctx.getSource().sendFailure(Component.literal("Unknown attribute"));
+                                                return 0;
+                                            }
+                                            if (leaves == 5) attr = MagicAttribute.ANTI_MAGIC;
+                                            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(p,
+                                                    new com.clovermagic.net.CutscenePayload(attr.id, leaves));
                                             return 1;
                                         }))))
                 .then(Commands.literal("level")

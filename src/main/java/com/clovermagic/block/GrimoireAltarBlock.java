@@ -110,11 +110,9 @@ public class GrimoireAltarBlock extends Block {
         GrimoireManager.issue(sp, data);
         MagicSync.send(sp);
 
-        Component title = Component.literal(GrimoireItem.leafName(leaves)).withStyle(attr.color, ChatFormatting.BOLD);
-        sp.connection.send(new ClientboundSetTitlesAnimationPacket(10, 80, 25));
-        sp.connection.send(new ClientboundSetSubtitleTextPacket(
-                Component.literal(attr.displayName + " Magic").withStyle(attr.color)));
-        sp.connection.send(new ClientboundSetTitleTextPacket(title));
+        // the cutscene on the player's screen shows the name and attribute (it replaces the old title text)
+        net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
+                new com.clovermagic.net.CutscenePayload(attr.id, leaves));
         sp.sendSystemMessage(Component.literal("The grimoires fly out of the altar... one has chosen you."));
 
         double x = pos.getX() + 0.5, y = pos.getY() + 1.4, z = pos.getZ() + 0.5;

@@ -81,6 +81,12 @@ public class SkillTreeScreen extends Screen {
         };
     }
 
+    /** The element's color (links and glow of unlocked nodes). */
+    private static int accent() {
+        com.clovermagic.magic.MagicAttribute a = ClientMagicState.attr();
+        return 0xFF000000 | (a == null ? 0xFF8A32 : MagicHud.rgb(a));
+    }
+
     private State stateOf(SkillNode n) {
         if (SkillTrees.isUnlocked(tree, ClientMagicState.unlocked, n.id())) return State.ON;
         SkillBranch b = tree.branch(n.branch());
@@ -101,7 +107,7 @@ public class SkillTreeScreen extends Screen {
     private void link(GuiGraphics g, SkillNode from, SkillNode to) {
         boolean fromOn = SkillTrees.isUnlocked(tree, ClientMagicState.unlocked, from.id());
         boolean toOn = SkillTrees.isUnlocked(tree, ClientMagicState.unlocked, to.id());
-        int color = (fromOn && toOn) ? 0xFFFF8A32 : (fromOn ? 0xFFCFC8B4 : 0xFF4E4A58);
+        int color = (fromOn && toOn) ? accent() : (fromOn ? 0xFFCFC8B4 : 0xFF4E4A58);
         int ax = sx(from.x()), ay = sy(from.y()), bx = sx(to.x()), by = sy(to.y());
         int mid = (ax + bx) / 2;
         hline(g, ax, mid, ay, color);
@@ -123,7 +129,7 @@ public class SkillTreeScreen extends Screen {
         State st = stateOf(n);
         int cx = sx(n.x()), cy = sy(n.y()), h = half(n);
         if (st == State.ON) {
-            g.fill(cx - h - 3, cy - h - 3, cx + h + 3, cy + h + 3, 0x66FF7A30);
+            g.fill(cx - h - 3, cy - h - 3, cx + h + 3, cy + h + 3, (accent() & 0x00FFFFFF) | 0x66000000);
         }
         int border = borderColor(st, n.type());
         g.fill(cx - h, cy - h, cx + h, cy + h, border);
@@ -166,6 +172,14 @@ public class SkillTreeScreen extends Screen {
         int w = b.id().equals("passive") ? 78 : 330;
         int y = sy(b.y() == 0 ? 100 : b.y() - 40);
         return new int[] {x, y, (int) (w * zoom), 12};
+    }
+
+    /**
+     * The tree draws its own flat backdrop in render(). Without this override the vanilla blurred, darkened menu
+     * background is drawn by super.render() on TOP of the tree, which made the whole screen look foggy.
+     */
+    @Override
+    public void renderBackground(GuiGraphics g, int mouseX, int mouseY, float partialTick) {
     }
 
     @Override

@@ -10,6 +10,9 @@ import com.clovermagic.ModAttachments;
 import com.clovermagic.entity.FireballProjectile;
 
 import net.minecraft.core.particles.BlockParticleOption;
+import net.minecraft.core.particles.DustParticleOptions;
+import org.joml.Vector3f;
+import com.clovermagic.magic.MagicData;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
@@ -160,6 +163,45 @@ public enum Spell {
         return true;
     }),
 
+    SEA_DRAGON_ROAR("Sea Dragon's Roar", MagicAttribute.WATER, 34, 60, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        for (LivingEntity e : SpellUtil.line(p, 20, 1.5)) {
+            e.hurt(SpellUtil.magic(p), (float) (12 * pw));
+            e.setRemainingFireTicks(0);
+            SpellUtil.push(e, look.scale(1.1).add(0, 0.3, 0));
+        }
+        double len = SpellUtil.rayLength(p, 20);
+        SpellUtil.beam(p, len, ParticleTypes.SPLASH, 8);
+        SpellUtil.beam(p, len, ParticleTypes.BUBBLE_POP, 2);
+        SpellUtil.sound(p, SoundEvents.GENERIC_SPLASH, 1.4f, 0.5f);
+        return true;
+    }),
+    CLIMBING_COELACANTH("Climbing Coelacanth", MagicAttribute.WATER, 24, 50, (p, pw) -> {
+        for (LivingEntity e : SpellUtil.line(p, 12, 1.5)) {
+            e.hurt(SpellUtil.magic(p), (float) (5 * pw));
+            SpellUtil.push(e, new Vec3(0, 1.2, 0));
+        }
+        SpellUtil.beam(p, SpellUtil.rayLength(p, 12), ParticleTypes.SPLASH, 6);
+        SpellUtil.sound(p, SoundEvents.GENERIC_SPLASH, 1.0f, 0.9f);
+        return true;
+    }),
+    SEA_DRAGON_NEST("Sea Dragon's Nest", MagicAttribute.WATER, 32, 200, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 160, 1));
+        p.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 160, 1));
+        for (LivingEntity e : SpellUtil.around(p, 5)) {
+            if (e instanceof Player) {
+                e.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 160, 0));
+            } else {
+                SpellUtil.push(e, SpellUtil.awayFrom(p, e, 1.0, 0.25));
+            }
+        }
+        for (double h = 0; h <= 2.0; h += 0.5) {
+            SpellUtil.ring(p.serverLevel(), p.position().add(0, h, 0), 4.5, ParticleTypes.SPLASH, 24);
+        }
+        SpellUtil.sound(p, SoundEvents.GENERIC_SPLASH, 1.2f, 0.7f);
+        return true;
+    }),
+
     // ---------------------------------------------------------------- WIND
     WIND_BLADE("Wind Blade", MagicAttribute.WIND, 10, 8, (p, pw) -> {
         for (LivingEntity e : SpellUtil.line(p, 10, 1.0)) {
@@ -188,6 +230,43 @@ public enum Spell {
         SpellUtil.ring(p.serverLevel(), p.position(), 1.5, ParticleTypes.CLOUD, 16);
         SpellUtil.ring(p.serverLevel(), p.position(), 3.0, ParticleTypes.CLOUD, 24);
         SpellUtil.sound(p, SoundEvents.ENDER_DRAGON_FLAP, 1.0f, 1.2f);
+        return true;
+    }),
+
+    GALE_WHITE_BOW("Gale White Bow", MagicAttribute.WIND, 28, 60, (p, pw) -> {
+        for (LivingEntity e : SpellUtil.line(p, 24, 1.4)) {
+            e.hurt(SpellUtil.physical(p), (float) (10 * pw));
+        }
+        double len = SpellUtil.rayLength(p, 24);
+        SpellUtil.spiral(p, len, ParticleTypes.CLOUD);
+        SpellUtil.beam(p, len, ParticleTypes.END_ROD, 1);
+        SpellUtil.sound(p, SoundEvents.ARROW_SHOOT, 1.2f, 1.6f);
+        return true;
+    }),
+    THIEF_WIND_CLOUD("Thief's Wind Cloud", MagicAttribute.WIND, 22, 200, (p, pw) -> {
+        p.setDeltaMovement(p.getDeltaMovement().x, 0.9, p.getDeltaMovement().z);
+        p.hurtMarked = true;
+        p.fallDistance = 0;
+        p.addEffect(new MobEffectInstance(MobEffects.SLOW_FALLING, 240, 0));
+        p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 240, 1));
+        SpellUtil.ring(p.serverLevel(), p.position(), 1.0, ParticleTypes.CLOUD, 16);
+        SpellUtil.ring(p.serverLevel(), p.position(), 2.0, ParticleTypes.CLOUD, 24);
+        SpellUtil.sound(p, SoundEvents.ENDER_DRAGON_FLAP, 0.9f, 1.4f);
+        return true;
+    }),
+    SWIFT_WHITE_HAWK("Swift White Hawk", MagicAttribute.WIND, 20, 40, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        for (LivingEntity e : SpellUtil.line(p, 10, 1.3)) {
+            e.hurt(SpellUtil.physical(p), (float) (8 * pw));
+            SpellUtil.push(e, look.scale(0.6).add(0, 0.2, 0));
+        }
+        p.setDeltaMovement(look.x * 1.6, Math.max(look.y * 1.0, 0.1), look.z * 1.6);
+        p.hurtMarked = true;
+        p.fallDistance = 0;
+        double len = SpellUtil.rayLength(p, 10);
+        SpellUtil.beam(p, len, ParticleTypes.CLOUD, 3);
+        SpellUtil.beam(p, len, ParticleTypes.SWEEP_ATTACK, 1);
+        SpellUtil.sound(p, SoundEvents.PLAYER_ATTACK_SWEEP, 1.0f, 1.8f);
         return true;
     }),
 
@@ -225,6 +304,42 @@ public enum Spell {
         return true;
     }),
 
+    BOULDER_TOSS("Boulder Toss", MagicAttribute.EARTH, 26, 50, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        for (LivingEntity e : SpellUtil.line(p, 16, 1.3)) {
+            e.hurt(SpellUtil.physical(p), (float) (11 * pw));
+            SpellUtil.push(e, look.scale(1.0).add(0, 0.3, 0));
+        }
+        SpellUtil.beam(p, SpellUtil.rayLength(p, 16),
+                new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), 5);
+        SpellUtil.sound(p, SoundEvents.STONE_BREAK, 1.3f, 0.6f);
+        return true;
+    }),
+    STONE_BIND("Stone Bind", MagicAttribute.EARTH, 22, 90, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 12, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        target.hurt(SpellUtil.physical(p), (float) (3 * pw));
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 6));
+        p.serverLevel().sendParticles(
+                new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()),
+                target.getX(), target.getY() + 0.8, target.getZ(), 40, 0.5, 0.7, 0.5, 0.05);
+        SpellUtil.sound(p, SoundEvents.STONE_PLACE, 1.2f, 0.5f);
+        return true;
+    }),
+    EARTHEN_SHIELD("Earthen Shield", MagicAttribute.EARTH, 28, 200, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 3));
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0));
+        for (LivingEntity e : SpellUtil.around(p, 4)) {
+            if (e instanceof Player) e.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 300, 1));
+        }
+        p.serverLevel().sendParticles(
+                new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()),
+                p.getX(), p.getY() + 1, p.getZ(), 50, 0.7, 0.9, 0.7, 0.05);
+        SpellUtil.sound(p, SoundEvents.STONE_PLACE, 1.3f, 0.7f);
+        return true;
+    }),
+
     // ----------------------------------------------------------------- ICE
     FROST_LANCE("Frost Lance", MagicAttribute.ICE, 9, 8, (p, pw) -> {
         for (LivingEntity e : SpellUtil.line(p, 14, 0.9)) {
@@ -254,6 +369,42 @@ public enum Spell {
         SpellUtil.ring(p.serverLevel(), p.position(), 4, ParticleTypes.SNOWFLAKE, 30);
         SpellUtil.ring(p.serverLevel(), p.position(), 6, ParticleTypes.SNOWFLAKE, 40);
         SpellUtil.sound(p, SoundEvents.GLASS_BREAK, 1.2f, 0.6f);
+        return true;
+    }),
+
+    HAILSTORM("Hailstorm", MagicAttribute.ICE, 32, 80, (p, pw) -> {
+        for (LivingEntity e : SpellUtil.line(p, 12, 3.0)) {
+            e.hurt(SpellUtil.magic(p), (float) (4 * pw));
+            e.setTicksFrozen(e.getTicksRequiredToFreeze() + 60);
+        }
+        SpellUtil.beam(p, SpellUtil.rayLength(p, 12), ParticleTypes.SNOWFLAKE, 10);
+        SpellUtil.sound(p, SoundEvents.GLASS_BREAK, 1.0f, 1.2f);
+        return true;
+    }),
+    ICE_PRISON("Ice Prison", MagicAttribute.ICE, 24, 100, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 14, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        target.hurt(SpellUtil.magic(p), (float) (3 * pw));
+        target.setTicksFrozen(target.getTicksRequiredToFreeze() + 160);
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 7));
+        SpellUtil.ring(p.serverLevel(), target.position(), 0.9, ParticleTypes.SNOWFLAKE, 16);
+        SpellUtil.ring(p.serverLevel(), target.position().add(0, 0.9, 0), 0.7, ParticleTypes.SNOWFLAKE, 12);
+        SpellUtil.sound(p, SoundEvents.GLASS_PLACE, 1.2f, 0.6f);
+        return true;
+    }),
+    FROST_BARRIER("Frost Barrier", MagicAttribute.ICE, 30, 200, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 2));
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 160, 0));
+        for (LivingEntity e : SpellUtil.around(p, 4)) {
+            e.setTicksFrozen(e.getTicksRequiredToFreeze() + 60);
+            e.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 60, 3));
+            SpellUtil.push(e, SpellUtil.awayFrom(p, e, 0.9, 0.2));
+        }
+        for (double h = 0; h <= 2.0; h += 0.5) {
+            SpellUtil.ring(p.serverLevel(), p.position().add(0, h, 0), 3.5, ParticleTypes.SNOWFLAKE, 24);
+        }
+        SpellUtil.sound(p, SoundEvents.GLASS_PLACE, 1.2f, 0.5f);
         return true;
     }),
 
@@ -312,6 +463,37 @@ public enum Spell {
         return true;
     }),
 
+    STATIC_SHOCK("Static Shock", MagicAttribute.LIGHTNING, 16, 30, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 10, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        target.hurt(SpellUtil.magic(p), (float) (5 * pw));
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 7));
+        SpellUtil.zap(p.serverLevel(), p.getEyePosition().add(0, -0.3, 0), target.getBoundingBox().getCenter());
+        SpellUtil.sound(p, SoundEvents.LIGHTNING_BOLT_IMPACT, 0.4f, 2.0f);
+        return true;
+    }),
+    SPARK_BARRAGE("Spark Barrage", MagicAttribute.LIGHTNING, 30, 60, (p, pw) -> {
+        List<LivingEntity> near = new ArrayList<>(SpellUtil.around(p, 12));
+        if (near.isEmpty()) return SpellUtil.fail(p, "No target");
+        near.sort(java.util.Comparator.comparingDouble(e -> e.distanceToSqr(p)));
+        Vec3 from = p.getEyePosition().add(0, -0.3, 0);
+        for (int i = 0; i < Math.min(5, near.size()); i++) {
+            LivingEntity e = near.get(i);
+            e.hurt(SpellUtil.magic(p), (float) (4 * pw));
+            SpellUtil.zap(p.serverLevel(), from, e.getBoundingBox().getCenter());
+        }
+        SpellUtil.sound(p, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.4f, 2.0f);
+        return true;
+    }),
+    OVERCHARGE("Overcharge", MagicAttribute.LIGHTNING, 24, 240, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 300, 0));
+        p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
+        p.serverLevel().sendParticles(ParticleTypes.ELECTRIC_SPARK, p.getX(), p.getY() + 1, p.getZ(), 50, 0.5, 0.9, 0.5, 0.3);
+        SpellUtil.sound(p, SoundEvents.BEACON_POWER_SELECT, 0.8f, 2.0f);
+        return true;
+    }),
+
     // ------------------------------------------------------------ DARKNESS
     BLACK_SLASH("Black Slash", MagicAttribute.DARKNESS, 12, 10, (p, pw) -> {
         for (LivingEntity e : SpellUtil.line(p, 8, 1.0)) {
@@ -344,6 +526,49 @@ public enum Spell {
         SpellUtil.ring(p.serverLevel(), p.position(), 3, ParticleTypes.SQUID_INK, 24);
         SpellUtil.ring(p.serverLevel(), p.position(), 6, ParticleTypes.SQUID_INK, 36);
         SpellUtil.sound(p, SoundEvents.WITHER_AMBIENT, 0.8f, 0.7f);
+        return true;
+    }),
+
+    DARK_PULSE("Dark Pulse", MagicAttribute.DARKNESS, 24, 40, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        Vec3 eye = p.getEyePosition();
+        for (LivingEntity e : SpellUtil.around(p, 8)) {
+            Vec3 to = e.getBoundingBox().getCenter().subtract(eye);
+            if (to.length() > 0.01 && to.normalize().dot(look) > 0.5) {
+                e.hurt(SpellUtil.magic(p), (float) (7 * pw));
+                e.addEffect(new MobEffectInstance(MobEffects.WITHER, 60, 0));
+                SpellUtil.push(e, look.scale(0.6).add(0, 0.1, 0));
+            }
+        }
+        ServerLevel level = p.serverLevel();
+        for (double d = 1.0; d <= 8.0; d += 0.5) {
+            double spread = d * 0.25;
+            level.sendParticles(ParticleTypes.SQUID_INK, eye.x + look.x * d, eye.y - 0.3 + look.y * d, eye.z + look.z * d,
+                    4, spread, spread * 0.6, spread, 0.02);
+        }
+        SpellUtil.sound(p, SoundEvents.WITHER_SHOOT, 0.8f, 0.8f);
+        return true;
+    }),
+    SHADOW_BIND("Shadow Bind", MagicAttribute.DARKNESS, 22, 100, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 12, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        target.hurt(SpellUtil.magic(p), (float) (3 * pw));
+        target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 80, 6));
+        target.addEffect(new MobEffectInstance(MobEffects.DARKNESS, 80, 0));
+        SpellUtil.ring(p.serverLevel(), target.position(), 0.9, ParticleTypes.SQUID_INK, 16);
+        SpellUtil.sound(p, SoundEvents.ENDERMAN_TELEPORT, 0.8f, 0.5f);
+        return true;
+    }),
+    DREAD_MARK("Dread Mark", MagicAttribute.DARKNESS, 20, 120, (p, pw) -> {
+        List<LivingEntity> hits = SpellUtil.line(p, 16, 1.2);
+        if (hits.isEmpty()) return SpellUtil.fail(p, "No target");
+        LivingEntity target = hits.get(0);
+        target.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 200, 1));
+        target.addEffect(new MobEffectInstance(MobEffects.GLOWING, 200, 0));
+        target.addEffect(new MobEffectInstance(MobEffects.WITHER, 100, 0));
+        SpellUtil.ring(p.serverLevel(), target.position().add(0, 1.0, 0), 0.6, ParticleTypes.SQUID_INK, 14);
+        SpellUtil.sound(p, SoundEvents.WITHER_AMBIENT, 0.8f, 0.6f);
         return true;
     }),
 
@@ -380,6 +605,54 @@ public enum Spell {
         p.addEffect(new MobEffectInstance(MobEffects.NIGHT_VISION, 600, 0));
         SpellUtil.ring(p.serverLevel(), p.position(), 1.5, ParticleTypes.END_ROD, 20);
         SpellUtil.sound(p, SoundEvents.AMETHYST_BLOCK_CHIME, 1.0f, 1.2f);
+        return true;
+    }),
+
+    PRISM_BURST("Prism Burst", MagicAttribute.LIGHT, 22, 50, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        Vec3 eye = p.getEyePosition();
+        for (LivingEntity e : SpellUtil.around(p, 9)) {
+            Vec3 to = e.getBoundingBox().getCenter().subtract(eye);
+            if (to.length() > 0.01 && to.normalize().dot(look) > 0.5) {
+                float dmg = e.getType().is(EntityTypeTags.UNDEAD) ? 10 : 6;
+                e.hurt(SpellUtil.magic(p), (float) (dmg * pw));
+                e.addEffect(new MobEffectInstance(MobEffects.BLINDNESS, 60, 0));
+                e.addEffect(new MobEffectInstance(MobEffects.GLOWING, 100, 0));
+            }
+        }
+        ServerLevel level = p.serverLevel();
+        for (double d = 1.0; d <= 9.0; d += 0.5) {
+            double spread = d * 0.28;
+            level.sendParticles(ParticleTypes.END_ROD, eye.x + look.x * d, eye.y - 0.3 + look.y * d, eye.z + look.z * d,
+                    3, spread, spread * 0.6, spread, 0.02);
+        }
+        SpellUtil.sound(p, SoundEvents.BEACON_ACTIVATE, 1.0f, 1.8f);
+        return true;
+    }),
+    LIGHT_SPEED_DASH("Light Speed Dash", MagicAttribute.LIGHT, 18, 40, (p, pw) -> {
+        Vec3 look = p.getLookAngle();
+        for (LivingEntity e : SpellUtil.line(p, 12, 1.0)) {
+            e.hurt(SpellUtil.magic(p), (float) (6 * pw));
+        }
+        p.setDeltaMovement(look.x * 2.4, Math.max(look.y * 1.4, 0.1), look.z * 2.4);
+        p.hurtMarked = true;
+        p.fallDistance = 0;
+        SpellUtil.beam(p, SpellUtil.rayLength(p, 12), ParticleTypes.END_ROD, 2);
+        SpellUtil.sound(p, SoundEvents.FIREWORK_ROCKET_LAUNCH, 0.8f, 2.0f);
+        return true;
+    }),
+    RADIANT_AEGIS("Radiant Aegis", MagicAttribute.LIGHT, 28, 220, (p, pw) -> {
+        p.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 2));
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0));
+        for (LivingEntity e : SpellUtil.around(p, 5)) {
+            if (e instanceof Player) {
+                e.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 200, 1));
+                e.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 200, 0));
+            }
+        }
+        SpellUtil.ring(p.serverLevel(), p.position(), 2.0, ParticleTypes.END_ROD, 20);
+        SpellUtil.ring(p.serverLevel(), p.position().add(0, 1.0, 0), 3.5, ParticleTypes.END_ROD, 30);
+        SpellUtil.sound(p, SoundEvents.AMETHYST_BLOCK_CHIME, 1.2f, 0.8f);
         return true;
     }),
 
@@ -426,6 +699,30 @@ public enum Spell {
         SpellUtil.beam(p, len, ParticleTypes.SWEEP_ATTACK, 1);
         SpellUtil.beam(p, len, ParticleTypes.SOUL_FIRE_FLAME, 2);
         SpellUtil.sound(p, SoundEvents.PLAYER_ATTACK_SWEEP, 1.2f, 0.6f);
+        return true;
+    })    ,
+    DEVIL_UNION("Devil Union", MagicAttribute.ANTI_MAGIC, 60, 1800, (p, pw) -> {
+        long now = p.level().getGameTime();
+        MagicData md = p.getData(ModAttachments.MAGIC.get());
+        md.devilUnionUntil = now + 600;
+        md.nullifyUntil = Math.max(md.nullifyUntil, now + 200);
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_BOOST, 600, 3));
+        p.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 600, 1));
+        p.addEffect(new MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 600, 1));
+        p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 0));
+        p.addEffect(new MobEffectInstance(MobEffects.JUMP, 600, 1));
+        p.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, 2));
+        p.heal(8.0f);
+        for (LivingEntity e : SpellUtil.around(p, 6)) {
+            SpellUtil.push(e, SpellUtil.awayFrom(p, e, 1.2, 0.3));
+        }
+        DustParticleOptions red = new DustParticleOptions(new Vector3f(0.9f, 0.03f, 0.05f), 1.6f);
+        for (double h = 0; h <= 2.0; h += 0.5) {
+            SpellUtil.ring(p.serverLevel(), p.position().add(0, h, 0), 2.5 - h * 0.4, red, 28);
+            SpellUtil.ring(p.serverLevel(), p.position().add(0, h, 0), 1.5, ParticleTypes.SQUID_INK, 16);
+        }
+        SpellUtil.sound(p, SoundEvents.ENDER_DRAGON_GROWL, 0.7f, 0.6f);
+        SpellUtil.sound(p, SoundEvents.WITHER_SPAWN, 0.5f, 1.4f);
         return true;
     });
 

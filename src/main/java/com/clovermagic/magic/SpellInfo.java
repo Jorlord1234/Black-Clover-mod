@@ -40,16 +40,42 @@ public final class SpellInfo {
         DESC.put(Spell.PURIFY, "Washes away harmful effects and gives you night vision.");
         DESC.put(Spell.MAGIC_NULLIFY, "Strips magical effects from enemies around you, pushes them back, and briefly shields you from magic damage.");
         DESC.put(Spell.BLACK_ASTA, "Anti-magic wraps your body: more strength, speed and resistance for a while.");
+        DESC.put(Spell.DEVIL_UNION, "Asta and Liebe become one: huge strength, speed, resistance and extra hearts for 30 seconds, with devil horns and wings of darkness. Magic cannot hurt you for the first 10 seconds.");
         DESC.put(Spell.DEMON_DWELLER_SLASH, "A heavy anti-magic slash that cuts through magic effects and surges you forward.");
+        DESC.put(Spell.SEA_DRAGON_ROAR, "A roaring dragon of water crashes through a long line, hitting hard and throwing everything back.");
+        DESC.put(Spell.CLIMBING_COELACANTH, "A rising stream of water lifts every enemy in front of you into the air.");
+        DESC.put(Spell.SEA_DRAGON_NEST, "A dome of whirlpools: you and nearby players get resistance, you get extra hearts, and enemies are pushed out.");
+        DESC.put(Spell.GALE_WHITE_BOW, "A bow of wind fires a volley of arrows along a very long line.");
+        DESC.put(Spell.THIEF_WIND_CLOUD, "A wind cloud lifts you high into the air; you drift down slowly and move faster.");
+        DESC.put(Spell.SWIFT_WHITE_HAWK, "A hawk of wind: you dash forward and cut everything you pass through.");
+        DESC.put(Spell.BOULDER_TOSS, "Hurls a heavy boulder along a line, hitting hard and knocking enemies back.");
+        DESC.put(Spell.STONE_BIND, "Rock grips the target in front of you and almost stops it for 4 seconds.");
+        DESC.put(Spell.EARTHEN_SHIELD, "A shell of earth: many extra hearts for you, some for players near you, and a little resistance.");
+        DESC.put(Spell.HAILSTORM, "A wide storm of hail freezes everything in a broad line in front of you.");
+        DESC.put(Spell.ICE_PRISON, "Locks the target in ice: frozen solid and unable to move for 4 seconds.");
+        DESC.put(Spell.FROST_BARRIER, "A barrier of frost: extra hearts for you, and nearby enemies are frozen and pushed away.");
+        DESC.put(Spell.STATIC_SHOCK, "A quick shock that stuns the target in front of you for a moment.");
+        DESC.put(Spell.SPARK_BARRAGE, "Sparks leap to the five nearest enemies around you at once.");
+        DESC.put(Spell.OVERCHARGE, "Lightning charges your body: extra strength and speed for a while.");
+        DESC.put(Spell.DARK_PULSE, "A cone of darkness hits everything in front of you, withering and pushing it back.");
+        DESC.put(Spell.SHADOW_BIND, "Shadows hold the target in front of you in place and blind it with darkness.");
+        DESC.put(Spell.DREAD_MARK, "Marks a target with dread: weakened, withering and glowing for 10 seconds.");
+        DESC.put(Spell.PRISM_BURST, "A burst of light in front of you hurts enemies (undead most), blinds them and makes them glow.");
+        DESC.put(Spell.LIGHT_SPEED_DASH, "You move at the speed of light and strike everything along the way.");
+        DESC.put(Spell.RADIANT_AEGIS, "A shield of light: extra hearts and resistance for you and players near you.");
     }
 
     public enum Kind { BEAM, AREA, BUFF }
 
     private static final java.util.Set<Spell> BEAMS = EnumSet.of(Spell.FLAME_BULLET, Spell.EXPLODING_FIREBALL,
             Spell.EXPLODING_BUCKSHOT, Spell.SPIRAL_FLAME, Spell.SOL_LINEA, Spell.LEO_PALMA, Spell.WATER_BALL, Spell.WIND_BLADE, Spell.EARTH_SPIKE, Spell.FROST_LANCE, Spell.THUNDER_BOLT,
-            Spell.THUNDER_CHAIN, Spell.BLACK_SLASH, Spell.LIGHT_BEAM, Spell.DEMON_DWELLER_SLASH);
+            Spell.THUNDER_CHAIN, Spell.BLACK_SLASH, Spell.LIGHT_BEAM, Spell.DEMON_DWELLER_SLASH,
+            Spell.SEA_DRAGON_ROAR, Spell.CLIMBING_COELACANTH, Spell.GALE_WHITE_BOW, Spell.SWIFT_WHITE_HAWK, Spell.BOULDER_TOSS,
+            Spell.STONE_BIND, Spell.HAILSTORM, Spell.ICE_PRISON, Spell.STATIC_SHOCK, Spell.SHADOW_BIND, Spell.DREAD_MARK,
+            Spell.LIGHT_SPEED_DASH);
     private static final java.util.Set<Spell> AREAS = EnumSet.of(Spell.LEO_RUGIENS, Spell.IGNIS_COLUMNA, Spell.SEA_DRAGON_WAVE,
-            Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN, Spell.MAGIC_NULLIFY);
+            Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN, Spell.MAGIC_NULLIFY,
+            Spell.FROST_BARRIER, Spell.SPARK_BARRAGE, Spell.DARK_PULSE, Spell.PRISM_BURST);
 
     public static Kind kind(Spell s) {
         return BEAMS.contains(s) ? Kind.BEAM : (AREAS.contains(s) ? Kind.AREA : Kind.BUFF);

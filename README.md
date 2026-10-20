@@ -45,7 +45,7 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
 - Squads other than Black Bull still look alike (flat armor).
 
 ## v0.5 skill tree notes
-- Press **K** with a fire grimoire to open the Fire skill tree. Other elements still use the old level-based spells until their trees exist.
+- Press **K** with a fire grimoire to open the Fire skill tree. Every element except Anti-Magic now has a tree (Anti-Magic still uses the old level-based spells).
 - Respec: one Page of Forgetting resets one branch. Pages are crafted from a Magic Beast Core (planned Hobgoblin drop), paper and a Mana Crystal.
 - The tree is defined in Java for now (`skill/SkillTrees.java`); moving it to data files is planned once all elements share the template.
 - Known limits: plain screen art, only some fire nodes implemented, Hobgoblin mob not built, HUD still the old v0.4 bar.

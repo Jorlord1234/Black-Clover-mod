@@ -44,6 +44,8 @@ public class MagicData {
 
     /** Not saved: game time until which Magic Nullify protects an Anti-Magic user from magic damage. */
     public transient long nullifyUntil = 0;
+    /** Game time until which Asta's Devil Union is active (not saved). */
+    public transient long devilUnionUntil = 0;
 
     /** Not saved: game time at which each spell slot is ready again. */
     public final transient long[] cooldownEnd = new long[8];
