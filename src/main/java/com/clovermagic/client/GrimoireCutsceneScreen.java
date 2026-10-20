@@ -21,12 +21,12 @@ import net.minecraft.util.Mth;
  */
 public class GrimoireCutsceneScreen extends Screen {
     private static final int TOTAL = 170;
-    private static final int BOOKS = 7;
 
     private final MagicAttribute attr;
     private final int leaves;
     private final ResourceLocation chosen;
-    private final ResourceLocation[] others = new ResourceLocation[3];
+    private final ResourceLocation[] others;
+    private final int BOOKS;
     private int ticks = 0;
 
     public GrimoireCutsceneScreen(MagicAttribute attr, int leaves) {
@@ -35,9 +35,13 @@ public class GrimoireCutsceneScreen extends Screen {
         this.leaves = leaves;
         String name = leaves == 5 ? "five_leaf" : (leaves == 4 ? "four_leaf_" : "three_leaf_") + attr.id;
         this.chosen = tex(name);
-        this.others[0] = tex("three_leaf");
-        this.others[1] = tex("four_leaf");
-        this.others[2] = tex("five_leaf");
+        java.util.List<ResourceLocation> list = new java.util.ArrayList<>();
+        for (MagicAttribute a : MagicAttribute.values()) {
+            if (a == MagicAttribute.ANTI_MAGIC || a == attr) continue;
+            list.add(tex("three_leaf_" + a.id));
+        }
+        this.others = list.toArray(new ResourceLocation[0]);
+        this.BOOKS = others.length + 1;
     }
 
     private static ResourceLocation tex(String name) {
@@ -151,7 +155,7 @@ public class GrimoireCutsceneScreen extends Screen {
                 book(g, chosen, bx, by + bob, size, appear * master, 0f);
             } else {
                 float fade = 1f - Mth.clamp((time - 62f) / 16f, 0f, 1f);
-                book(g, others[i % 3], bx, by, 36f, appear * fade * master, Mth.sin(time * 0.1f + i) * 12f);
+                book(g, others[(i - 1) % others.length], bx, by, 36f, appear * fade * master, Mth.sin(time * 0.1f + i) * 12f);
             }
         }
 

@@ -92,6 +92,7 @@ public final class CastHandler {
         if (after > before) {
             sp.sendSystemMessage(Component.literal("Your magic grew stronger! Magic level " + after)
                     .withStyle(ChatFormatting.GOLD));
+            rollSpirit(sp, data, attr, before, after);
             com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(data);
             if (tree != null) {
                 sp.sendSystemMessage(Component.literal("You have " + SkillLogic.points(data, tree)
@@ -106,5 +107,32 @@ public final class CastHandler {
             }
         }
         MagicSync.send(sp);
+    }
+
+    /** From magic level 10, a Four-Leaf fire, water, wind or earth mage may be chosen by their spirit at every level-up. */
+    private static void rollSpirit(ServerPlayer sp, MagicData data, MagicAttribute attr, int before, int after) {
+        if (data.leaves != 4 || data.unlocked.contains(com.clovermagic.skill.SkillTrees.SPIRIT_BOND)) return;
+        if (attr != MagicAttribute.FIRE && attr != MagicAttribute.WATER && attr != MagicAttribute.WIND && attr != MagicAttribute.EARTH) return;
+        for (int lvl = before + 1; lvl <= after; lvl++) {
+            if (lvl >= 10 && sp.getRandom().nextInt(Config.SPIRIT_BOND_ONE_IN.get()) == 0) {
+                bondSpirit(sp, data, attr);
+                return;
+            }
+        }
+    }
+
+    public static void bondSpirit(ServerPlayer sp, MagicData data, MagicAttribute attr) {
+        data.unlocked.add(com.clovermagic.skill.SkillTrees.SPIRIT_BOND);
+        String name = switch (attr) {
+            case FIRE -> "Salamander";
+            case WATER -> "Undine";
+            case WIND -> "Sylph";
+            default -> "Gnome";
+        };
+        sp.sendSystemMessage(Component.literal("The spirit " + name + " has taken a liking to you! The Spirit branch of your skill tree is open.")
+                .withStyle(ChatFormatting.AQUA, ChatFormatting.BOLD));
+        SpellUtil.sound(sp, net.minecraft.sounds.SoundEvents.PLAYER_LEVELUP, 1.0f, 0.5f);
+        SpellUtil.sound(sp, net.minecraft.sounds.SoundEvents.AMETHYST_BLOCK_RESONATE, 1.2f, 0.6f);
+        sp.serverLevel().sendParticles(net.minecraft.core.particles.ParticleTypes.END_ROD, sp.getX(), sp.getY() + 1, sp.getZ(), 60, 0.6, 1.0, 0.6, 0.1);
     }
 }

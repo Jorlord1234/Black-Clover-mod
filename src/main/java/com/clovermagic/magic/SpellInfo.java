@@ -38,10 +38,22 @@ public final class SpellInfo {
         DESC.put(Spell.LIGHT_BEAM, "A ray of light along a line. Does double damage to the undead and makes enemies glow.");
         DESC.put(Spell.HEALING, "A warm light heals you, and heals players standing close to you too.");
         DESC.put(Spell.PURIFY, "Washes away harmful effects and gives you night vision.");
-        DESC.put(Spell.MAGIC_NULLIFY, "Strips magical effects from enemies around you, pushes them back, and briefly shields you from magic damage.");
-        DESC.put(Spell.BLACK_ASTA, "Anti-magic wraps your body: more strength, speed and resistance for a while.");
-        DESC.put(Spell.DEVIL_UNION, "Asta and Liebe become one: huge strength, speed, resistance and extra hearts for 30 seconds, with devil horns and wings of darkness. Magic cannot hurt you for the first 10 seconds.");
-        DESC.put(Spell.DEMON_DWELLER_SLASH, "A heavy anti-magic slash that cuts through magic effects and surges you forward.");
+        DESC.put(Spell.SUMMON_DEMON_SLAYER, "Summons the Demon-Slayer Sword into your hand for 5 minutes. Every hit strips magical effects from the target. Cast again to dismiss it.");
+        DESC.put(Spell.SUMMON_DEMON_DWELLER, "Summons the Demon-Dweller Sword for 5 minutes: fast, strips magical effects and drains a little life with every hit.");
+        DESC.put(Spell.SUMMON_DEMON_DESTROYER, "Summons the huge Demon-Destroyer Sword for 5 minutes: slow, very heavy hits that strip magical effects.");
+        DESC.put(Spell.CALIDUS_BRACHIUM, "A huge fist of flame punches everything right in front of you and throws it back.");
+        DESC.put(Spell.CALIDUS_BRACHIUM_BARRAGE, "Fists of flame strike every enemy around you from all sides at once.");
+        DESC.put(Spell.SPIRIT_DIVE_FIRE, "Dive into the spirit Salamander for 2 minutes: strength, speed, resistance, regeneration, fire immunity and flight.");
+        DESC.put(Spell.SPIRIT_DIVE_WATER, "Dive into the spirit Undine for 2 minutes: strength, speed, resistance, regeneration, water breathing and flight.");
+        DESC.put(Spell.SPIRIT_DIVE_WIND, "Dive into the spirit Sylph for 2 minutes: strength, speed, resistance, regeneration, soft landings and flight.");
+        DESC.put(Spell.SPIRIT_DIVE_EARTH, "Dive into the spirit Gnome for 2 minutes: strength, speed, resistance, regeneration, many extra hearts and flight.");
+        DESC.put(Spell.VALKYRIE_DRESS, "Armor of water for one minute: resistance, strength, speed, extra hearts and water breathing.");
+        DESC.put(Spell.TRUE_LIGHTNING, "You become a bolt of lightning and shoot forward, hurting everything on the way.");
+        DESC.put(Spell.LIGHTNING_BATTLE_FIEND, "Ultimate lightning magic: for one minute you are very fast and strong, and lightning strikes monsters close to you.");
+        DESC.put(Spell.AVIDYA_SLASH, "Yami's slash: dark magic flies from your blade in a long line.");
+        DESC.put(Spell.DIMENSION_SLASH, "A huge slash that cuts through everything in a very long line and rips away good effects.");
+        DESC.put(Spell.BLACK_HOLE, "A small black hole pulls nearby enemies towards it and hurts them.");
+        DESC.put(Spell.DEVIL_UNION, "Asta and Liebe become one: huge strength, speed, resistance and extra hearts for 5 minutes, with devil horns and wings of darkness. Magic cannot hurt you for the first 10 seconds. You can fly. Lasts 5 minutes.");
         DESC.put(Spell.SEA_DRAGON_ROAR, "A roaring dragon of water crashes through a long line, hitting hard and throwing everything back.");
         DESC.put(Spell.CLIMBING_COELACANTH, "A rising stream of water lifts every enemy in front of you into the air.");
         DESC.put(Spell.SEA_DRAGON_NEST, "A dome of whirlpools: you and nearby players get resistance, you get extra hearts, and enemies are pushed out.");
@@ -69,13 +81,13 @@ public final class SpellInfo {
 
     private static final java.util.Set<Spell> BEAMS = EnumSet.of(Spell.FLAME_BULLET, Spell.EXPLODING_FIREBALL,
             Spell.EXPLODING_BUCKSHOT, Spell.SPIRAL_FLAME, Spell.SOL_LINEA, Spell.LEO_PALMA, Spell.WATER_BALL, Spell.WIND_BLADE, Spell.EARTH_SPIKE, Spell.FROST_LANCE, Spell.THUNDER_BOLT,
-            Spell.THUNDER_CHAIN, Spell.BLACK_SLASH, Spell.LIGHT_BEAM, Spell.DEMON_DWELLER_SLASH,
+            Spell.THUNDER_CHAIN, Spell.BLACK_SLASH, Spell.LIGHT_BEAM,
             Spell.SEA_DRAGON_ROAR, Spell.CLIMBING_COELACANTH, Spell.GALE_WHITE_BOW, Spell.SWIFT_WHITE_HAWK, Spell.BOULDER_TOSS,
             Spell.STONE_BIND, Spell.HAILSTORM, Spell.ICE_PRISON, Spell.STATIC_SHOCK, Spell.SHADOW_BIND, Spell.DREAD_MARK,
-            Spell.LIGHT_SPEED_DASH);
+            Spell.LIGHT_SPEED_DASH, Spell.CALIDUS_BRACHIUM, Spell.TRUE_LIGHTNING, Spell.AVIDYA_SLASH, Spell.DIMENSION_SLASH);
     private static final java.util.Set<Spell> AREAS = EnumSet.of(Spell.LEO_RUGIENS, Spell.IGNIS_COLUMNA, Spell.SEA_DRAGON_WAVE,
-            Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN, Spell.MAGIC_NULLIFY,
-            Spell.FROST_BARRIER, Spell.SPARK_BARRAGE, Spell.DARK_PULSE, Spell.PRISM_BURST);
+            Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN,
+            Spell.FROST_BARRIER, Spell.SPARK_BARRAGE, Spell.DARK_PULSE, Spell.PRISM_BURST, Spell.CALIDUS_BRACHIUM_BARRAGE, Spell.BLACK_HOLE);
 
     public static Kind kind(Spell s) {
         return BEAMS.contains(s) ? Kind.BEAM : (AREAS.contains(s) ? Kind.AREA : Kind.BUFF);

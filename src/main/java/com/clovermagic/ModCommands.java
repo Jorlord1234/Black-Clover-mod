@@ -18,6 +18,7 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent;
  *   /clover give <3|4|5> <attribute>   gives you a bound grimoire
  *   /clover level <1-10>               sets your magic level
  *   /clover mana                       refills mana
+ *   /clover spirit                      the spirit of your element bonds with you (test)
  *   /clover cutscene <3|4|5> <attribute>  previews the first-grimoire cutscene
  *   /clover reset                      forgets your grimoire so you can redo the ceremony
  */
@@ -51,6 +52,19 @@ public final class ModCommands {
                                             ctx.getSource().sendSuccess(() -> Component.literal("Gave a bound grimoire"), false);
                                             return 1;
                                         }))))
+                .then(Commands.literal("spirit")
+                        .executes(ctx -> {
+                            ServerPlayer p = ctx.getSource().getPlayerOrException();
+                            MagicData d = p.getData(ModAttachments.MAGIC.get());
+                            MagicAttribute a = MagicAttribute.fromId(d.attribute);
+                            if (a == null || d.leaves == 0) {
+                                ctx.getSource().sendFailure(Component.literal("You have no grimoire"));
+                                return 0;
+                            }
+                            com.clovermagic.magic.CastHandler.bondSpirit(p, d, a);
+                            com.clovermagic.magic.MagicSync.send(p);
+                            return 1;
+                        }))
                 .then(Commands.literal("cutscene")
                         .then(Commands.argument("leaves", IntegerArgumentType.integer(3, 5))
                                 .then(Commands.argument("attribute", StringArgumentType.word())

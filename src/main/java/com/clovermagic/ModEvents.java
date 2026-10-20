@@ -12,6 +12,8 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import com.clovermagic.magic.TreeEffects;
+import com.clovermagic.magic.SpellUtil;
+import com.clovermagic.magic.Transform;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.entity.player.Inventory;
@@ -49,6 +51,18 @@ public final class ModEvents {
             }
         }
 
+        // flight from Devil Union / Spirit Dive, and Luck's Lightning Battle Fiend zapping nearby monsters
+        Transform.updateFlight(sp, data);
+        if (sp.level().getGameTime() < data.fiendUntil && sp.tickCount % 8 == 0) {
+            for (net.minecraft.world.entity.LivingEntity e : SpellUtil.around(sp, 6)) {
+                if (e instanceof net.minecraft.world.entity.monster.Enemy) {
+                    e.hurt(SpellUtil.magic(sp), 4.0f);
+                    SpellUtil.zap(sp.serverLevel(), sp.getBoundingBox().getCenter(), e.getBoundingBox().getCenter());
+                    break;
+                }
+            }
+        }
+
         // Asta's Devil Union: horns and wings of darkness made of particles while it lasts
         if (sp.level().getGameTime() < data.devilUnionUntil && sp.tickCount % 2 == 0) {
             devilAura(sp);
@@ -58,6 +72,13 @@ public final class ModEvents {
 
     public static void onLogin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.getEntity() instanceof ServerPlayer sp) {
+            // flight from a transformation does not survive a relog
+            MagicData md = sp.getData(ModAttachments.MAGIC.get());
+            if (md.leaves > 0 && !sp.isCreative() && !sp.isSpectator() && sp.getAbilities().mayfly) {
+                sp.getAbilities().mayfly = false;
+                sp.getAbilities().flying = false;
+                sp.onUpdateAbilities();
+            }
             MagicSync.send(sp);
         }
     }
@@ -104,6 +125,10 @@ public final class ModEvents {
                 || (hit.is(DamageTypes.LIGHTNING_BOLT) && TreeEffects.skinActive(data, "lightning"))) {
             event.setCanceled(true);
             return;
+        }
+        if (data.leaves == 5 && data.unlocked.contains("anti_magic_skin")
+                && (hit.is(DamageTypes.MAGIC) || hit.is(DamageTypes.INDIRECT_MAGIC))) {
+            event.setAmount(event.getAmount() * 0.6f);
         }
         if (TreeEffects.skinActive(data, "earth")) {
             event.setAmount(event.getAmount() * 0.85f);

@@ -25,13 +25,13 @@ public final class SkillLogic {
 
     /** The player's skill tree, or null (no grimoire, Anti-Magic, or an element without a tree yet). */
     public static SkillTree treeFor(MagicData d) {
-        if (d.leaves == 0 || d.leaves == 5) return null;
+        if (d.leaves == 0) return null;
         return SkillTrees.forAttribute(d.attribute);
     }
 
     /** Spells the player can cast, in slot order. Tree elements use the tree, others the old level unlocks. */
     public static List<Spell> spellsFor(MagicAttribute attr, MagicData d) {
-        SkillTree tree = attr == MagicAttribute.ANTI_MAGIC ? null : SkillTrees.forAttribute(attr.id);
+        SkillTree tree = SkillTrees.forAttribute(attr.id);
         List<Spell> out = new ArrayList<>();
         if (tree != null) {
             for (String name : SkillTrees.unlockedSpellNames(tree, d.unlocked)) {

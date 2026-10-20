@@ -48,7 +48,13 @@ public class MagicData {
     public transient long devilUnionUntil = 0;
 
     /** Not saved: game time at which each spell slot is ready again. */
-    public final transient long[] cooldownEnd = new long[8];
+    /** Not saved: flight (Devil Union, Spirit Dive) lasts until this game time; flightGranted = we gave mayfly. */
+    public transient long flightUntil = 0;
+    public transient boolean flightGranted = false;
+    /** Not saved: Luck's Lightning Battle Fiend is active until this game time. */
+    public transient long fiendUntil = 0;
+
+    public final transient long[] cooldownEnd = new long[12];
 
     public MagicData() {
     }

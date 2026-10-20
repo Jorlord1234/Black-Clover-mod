@@ -28,7 +28,7 @@ import net.neoforged.neoforge.network.PacketDistributor;
  */
 public class SkillTreeScreen extends Screen {
     private static final int DESIGN_W = 650;
-    private static final int DESIGN_H = 450;
+    private static final int DESIGN_H = 550;
     private enum State { ON, AVAILABLE, NEED_POINTS, LOCKED, SOON }
 
     private final SkillTree tree;
@@ -87,10 +87,15 @@ public class SkillTreeScreen extends Screen {
         return 0xFF000000 | (a == null ? 0xFF8A32 : MagicHud.rgb(a));
     }
 
+    /** The Spirit branch stays locked until a spirit has bonded with the player. */
+    private static boolean isLocked(com.clovermagic.skill.SkillBranch b) {
+        return b.locked() && !ClientMagicState.unlocked.contains(com.clovermagic.skill.SkillTrees.SPIRIT_BOND);
+    }
+
     private State stateOf(SkillNode n) {
         if (SkillTrees.isUnlocked(tree, ClientMagicState.unlocked, n.id())) return State.ON;
         SkillBranch b = tree.branch(n.branch());
-        if (!n.implemented() || (b != null && b.locked())) return State.SOON;
+        if (!n.implemented() || (b != null && isLocked(b))) return State.SOON;
         if (!SkillTrees.prerequisitesMet(tree, ClientMagicState.unlocked, n, ClientMagicState.level())) return State.LOCKED;
         return ClientMagicState.points >= n.cost() ? State.AVAILABLE : State.NEED_POINTS;
     }
@@ -191,11 +196,11 @@ public class SkillTreeScreen extends Screen {
         for (SkillBranch b : tree.branches) {
             int[] r = resetButton(b);
             int x0 = r[0], y0 = r[1], x1 = r[0] + r[2], y1 = r[1] + r[3];
-            g.fill(x0, y0, x1, y1, b.locked() ? 0xFF3A3A48 : 0xFF7A1A12);
-            g.fill(x0, y0, x1, y0 + 1, b.locked() ? 0xFF6A6A78 : 0xFFE8BC3E);
+            g.fill(x0, y0, x1, y1, isLocked(b) ? 0xFF3A3A48 : 0xFF7A1A12);
+            g.fill(x0, y0, x1, y0 + 1, isLocked(b) ? 0xFF6A6A78 : 0xFFE8BC3E);
             g.drawString(this.font, b.name() + (b.id().equals("passive") ? "" : "  -  " + b.subtitle()), x0 + 4, y0 + 2,
-                    b.locked() ? 0xFFA0A0AE : 0xFFFFE9A0);
-            if (!b.locked()) {
+                    isLocked(b) ? 0xFFA0A0AE : 0xFFFFE9A0);
+            if (!isLocked(b)) {
                 String label = "Reset";
                 int w = this.font.width(label) + 6;
                 boolean over = mouseX >= x1 - w && mouseX <= x1 && mouseY >= y0 && mouseY <= y1;
@@ -299,7 +304,7 @@ public class SkillTreeScreen extends Screen {
     public boolean mouseClicked(double mx, double my, int button) {
         if (button == 0) {
             for (SkillBranch b : tree.branches) {
-                if (b.locked()) continue;
+                if (isLocked(b)) continue;
                 int[] r = resetButton(b);
                 int w = this.font.width("Reset") + 6;
                 int x1 = r[0] + r[2];

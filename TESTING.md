@@ -48,3 +48,10 @@ Nothing below has been run by the author. Please report each line as OK / broken
 17. Check the new robe, hood and bandana icons in the inventory.
 18. Devil Union model: cast it, look at yourself in third person (F5): horns, crown and wings must appear, wings flap, crouching folds them.
     Check with a second player (or a friend) that they see it too. Effect icon and name "Devil Union" show in the effect list. Check the texture is not purple/black.
+19. Level cap: `/clover level 20` must work (delete the old `clovermagic-common.toml` if it still says maxLevel).
+20. Anti-Magic: `/clover give 5 anti_magic`, `/clover level 12`, press K: new tree. Cast the sword spells: sword appears in hand, cannot be dropped, vanishes after 5 minutes or when cast again.
+21. Devil Union: fly for 5 minutes, flight must stop when it ends (and after a relog). Spirit: `/clover give 4 fire`, `/clover level 12`, `/clover spirit`, K: Spirit branch is open; unlock Contract and Dive; cast Spirit Dive (flight).
+22. New spells: Calidus Brachium (+ Barrage), Valkyrie Dress, True Lightning, Lightning Battle Fiend (zaps monsters), Avidya Slash, Dimension Slash, Black Hole.
+23. Altar: Page of Rebirth (craft it, right-click the altar: ceremony again). Fortune III book on the altar with a 3-leaf grimoire: becomes 4-leaf.
+24. Cutscene: the other books are different elements, none duplicated. Bandana: wear it with a second skin layer (hat layer on): the band must show.
+25. Check the new item icons (cloth, crystal, swords, Page of Rebirth) and the 15 new spell icons.

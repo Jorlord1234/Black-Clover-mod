@@ -50,6 +50,27 @@ public final class ModItems {
     public static final DeferredItem<Item> PAGE_OF_FORGETTING = ITEMS.registerItem("page_of_forgetting",
             props -> new Item(props), new Item.Properties().rarity(Rarity.RARE).stacksTo(16));
 
+    /** Resets your grimoire completely: use it on the altar to go through the ceremony again. */
+    public static final DeferredItem<Item> PAGE_OF_REBIRTH = ITEMS.registerItem("page_of_rebirth",
+            props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1));
+
+    /** Anti-Magic swords, only obtainable through the Anti-Magic spells. */
+    public static final DeferredItem<Item> DEMON_SLAYER_SWORD = ITEMS.registerItem("demon_slayer_sword",
+            props -> new com.clovermagic.item.SummonedSwordItem(net.minecraft.world.item.Tiers.IRON,
+                    props.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                            .attributes(net.minecraft.world.item.SwordItem.createAttributes(net.minecraft.world.item.Tiers.IRON, 6, -2.2f)), 0f),
+            new Item.Properties());
+    public static final DeferredItem<Item> DEMON_DWELLER_SWORD = ITEMS.registerItem("demon_dweller_sword",
+            props -> new com.clovermagic.item.SummonedSwordItem(net.minecraft.world.item.Tiers.IRON,
+                    props.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                            .attributes(net.minecraft.world.item.SwordItem.createAttributes(net.minecraft.world.item.Tiers.IRON, 5, -1.8f)), 2f),
+            new Item.Properties());
+    public static final DeferredItem<Item> DEMON_DESTROYER_SWORD = ITEMS.registerItem("demon_destroyer_sword",
+            props -> new com.clovermagic.item.SummonedSwordItem(net.minecraft.world.item.Tiers.IRON,
+                    props.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                            .attributes(net.minecraft.world.item.SwordItem.createAttributes(net.minecraft.world.item.Tiers.IRON, 9, -2.8f)), 0f),
+            new Item.Properties());
+
     public static final DeferredItem<Item> MANA_CLOTH = ITEMS.registerItem("mana_cloth",
             props -> new Item(props), new Item.Properties());
 

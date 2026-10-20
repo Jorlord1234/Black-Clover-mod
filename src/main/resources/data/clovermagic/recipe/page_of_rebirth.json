@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "clovermagic:page_of_forgetting"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:magic_beast_core"
+    }
+  ],
+  "result": {
+    "id": "clovermagic:page_of_rebirth",
+    "count": 1
+  }
+}

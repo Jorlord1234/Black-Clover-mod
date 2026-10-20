@@ -21,8 +21,9 @@ public final class TreeEffects {
     }
 
     public static double powerMult(MagicData d, MagicAttribute attr, Spell spell) {
-        if (attr == MagicAttribute.FIRE || attr == MagicAttribute.ANTI_MAGIC) return 1.0;
         double m = 1.0;
+        if (has(d, "spirit_contract")) m *= 1.15;
+        if (attr == MagicAttribute.FIRE) return m;
         if (has(d, attr.id + "_focus")) m *= 1.10;
         SkillTree tree = SkillTrees.forAttribute(attr.id);
         if (tree == null) return m;

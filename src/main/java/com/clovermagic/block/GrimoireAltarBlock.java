@@ -48,6 +48,58 @@ public class GrimoireAltarBlock extends Block {
         return CODEC;
     }
 
+    /** Page of Rebirth: reroll your grimoire. Enchanted book with Fortune III: a Three-Leaf becomes a Four-Leaf. */
+    @Override
+    protected net.minecraft.world.ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
+                                                                  Player player, net.minecraft.world.InteractionHand hand, BlockHitResult hit) {
+        if (!(player instanceof ServerPlayer sp) || level.isClientSide()) {
+            return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+        }
+        ServerLevel sl = (ServerLevel) level;
+        MagicData data = sp.getData(ModAttachments.MAGIC.get());
+        boolean creative = sp.getAbilities().instabuild;
+
+        if (stack.is(ModItems.PAGE_OF_REBIRTH.get()) && data.leaves > 0) {
+            ItemStack old = GrimoireManager.find(sp, data);
+            if (!old.isEmpty()) old.setCount(0);
+            data.leaves = 0;
+            data.attribute = "none";
+            data.xp = 0;
+            data.selected = 0;
+            data.unlocked.clear();
+            data.generation++;
+            if (!creative) stack.shrink(1);
+            sp.sendSystemMessage(Component.literal("Your old grimoire turns to dust. The altar chooses again...").withStyle(ChatFormatting.LIGHT_PURPLE));
+            ceremony(sp, data, sl, pos);
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
+        }
+
+        net.minecraft.world.item.enchantment.ItemEnchantments ench =
+                stack.get(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS);
+        if (ench != null && data.leaves == 3) {
+            net.minecraft.core.Holder<net.minecraft.world.item.enchantment.Enchantment> fortune = level.registryAccess()
+                    .registryOrThrow(net.minecraft.core.registries.Registries.ENCHANTMENT)
+                    .getHolderOrThrow(net.minecraft.world.item.enchantment.Enchantments.FORTUNE);
+            if (ench.getLevel(fortune) >= 3) {
+                ItemStack old = GrimoireManager.find(sp, data);
+                if (!old.isEmpty()) old.setCount(0);
+                if (!creative) stack.shrink(1);
+                data.leaves = 4;
+                data.mana = GrimoireItem.maxMana(data.level(), 4);
+                GrimoireManager.issue(sp, data);
+                MagicSync.send(sp);
+                net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
+                        new com.clovermagic.net.CutscenePayload(data.attribute, 4));
+                sp.sendSystemMessage(Component.literal("Within the four-leaf lies good luck. Your grimoire has grown a fourth leaf!")
+                        .withStyle(ChatFormatting.GREEN));
+                sl.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 60, 0.8, 0.8, 0.8, 0.1);
+                sl.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0f, 1.4f);
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
+            }
+        }
+        return net.minecraft.world.ItemInteractionResult.PASS_TO_DEFAULT_BLOCK_INTERACTION;
+    }
+
     @Override
     protected InteractionResult useWithoutItem(BlockState state, Level level, BlockPos pos, Player player, BlockHitResult hit) {
         if (level.isClientSide() || !(player instanceof ServerPlayer sp)) {

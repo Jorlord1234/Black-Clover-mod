@@ -39,6 +39,7 @@ public class CloverMagic {
                         output.accept(ModItems.MANA_CLOTH.get());
                         output.accept(ModItems.MAGIC_BEAST_CORE.get());
                         output.accept(ModItems.PAGE_OF_FORGETTING.get());
+                        output.accept(ModItems.PAGE_OF_REBIRTH.get());
                         for (Squad squad : Squad.values()) {
                             output.accept(ModItems.ROBES.get(squad).get());
                             if (ModItems.HOODS.containsKey(squad)) {

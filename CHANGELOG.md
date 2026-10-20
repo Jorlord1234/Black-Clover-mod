@@ -1,5 +1,38 @@
 # Changelog
 
+## v0.6.0 (NOT yet built or tested in Minecraft)
+
+### Fixed
+- **Max magic level is 20 again**: an old saved config capped it at 10. The setting is now `maxMagicLevel` (default 20); the old `maxLevel` is ignored.
+- **Bandana is visible with a second skin layer** (the band is a little wider than the hat layer).
+- **Five-Leaf Grimoire texture** had 8 see-through pixels inside the book: filled.
+- **Cutscene**: the circling grimoires are now one of every OTHER element (no more duplicate earth and anti-magic books); the chosen one stays and is revealed.
+- New original Mana Cloth and Mana Crystal icons (same idea as the shapes you showed, not copies).
+
+### Changed
+- **Devil Union**: lasts 5 minutes (was 30 seconds), you can fly the whole time, 10 minute cooldown. (Model/suit rework is with the model artist.)
+- **Anti-Magic now has a skill tree** and its spells are the swords: Demon-Slayer Sword (root), Demon-Dweller Sword, Demon-Destroyer Sword, Devil Union.
+  Swords are summoned into your hand for 5 minutes, cannot be dropped, strip magical effects on hit (Dweller also drains life). Cast again to dismiss.
+  Anti-Magic Skin passive: magic damage hurts 40% less. Removed: Magic Nullify, Black Asta, Demon-Dweller Slash.
+- **Spirits are locked**: only a Four-Leaf fire, water, wind or earth mage from magic level 10 can be chosen by their spirit: every level-up has about 1 in 12 chance
+  (config `spiritBondOneIn`). Then the Spirit branch opens: Spirit Contract (+15% damage) and Spirit Dive (2 minutes of buffs and flight).
+  Spirits: Salamander (fire), Undine (water), Sylph (wind), Gnome (earth).
+- **Fire**: new Lioness branch (Mereoleona): Calidus Brachium, Calidus Brachium Barrage (Two-step Reinforcement and Mana Zone are planned).
+- **Water**: Valkyrie Dress (armor of water, 1 minute).
+- **Lightning**: True Lightning Magic (dash as a bolt) and Lightning Battle Fiend (Luck's ultimate, 1 minute, zaps nearby monsters).
+- **Darkness**: now has Yami's moves: Dark Cloaked Avidya Slash, Dark Cloaked Dimension Slash, Black Hole (Black Moon, Iai Slash and Death Thrust are planned).
+- Up to 12 spells per element (was 8).
+
+### Added
+- **Page of Rebirth** (1 Page of Forgetting + 4 Mana Crystals + 1 Magic Beast Core): use it on the altar to reroll your grimoire (resets level and skill tree).
+- **Grimoire upgrade**: use an enchanted book with Fortune III on the altar with a Three-Leaf Grimoire and it becomes a Four-Leaf.
+- `/clover spirit` (test: the spirit bonds with you).
+- 15 new spell icons, 3 sword textures, Page of Rebirth texture.
+
+### Not done yet (planned)
+- 3D models for spells (with the model artist), mobs, NPCs (Asta, the Wizard King, Father Orsi), more structures, FTB Quests, a Curios slot for the grimoire (needs the Curios mod as a dependency),
+  a second grimoire, and Devil Deals (for example a Five-Leaf water grimoire).
+
 ## v0.5.4 (NOT yet built or tested in Minecraft)
 
 ### Changed

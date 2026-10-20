@@ -54,7 +54,7 @@ public final class ClientMagicState {
 
     /** The skill tree of the current element, or null if it has none yet. */
     public static com.clovermagic.skill.SkillTree tree() {
-        if (leaves == 5 || leaves == 0) return null;
+        if (leaves == 0) return null;
         return com.clovermagic.skill.SkillTrees.forAttribute(attribute);
     }
 

@@ -11,7 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 public record SyncPayload(String attribute, int leaves, int mana, int maxMana, int xp, boolean hasGrimoire, int[] cooldowns,
                           java.util.List<String> unlocked, int maxLevel, int points)
         implements CustomPacketPayload {
-    public static final int SLOTS = 5;
+    public static final int SLOTS = 12;
 
     public static final CustomPacketPayload.Type<SyncPayload> TYPE =
             new CustomPacketPayload.Type<>(ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "sync"));

@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/handheld",
+  "textures": {
+    "layer0": "clovermagic:item/demon_destroyer_sword"
+  }
+}

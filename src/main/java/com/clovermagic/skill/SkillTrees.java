@@ -14,6 +14,7 @@ public final class SkillTrees {
     public static final SkillTree LIGHTNING = buildLightning();
     public static final SkillTree LIGHT = buildLight();
     public static final SkillTree DARKNESS = buildDarkness();
+    public static final SkillTree ANTI_MAGIC = buildAntiMagic();
 
     private SkillTrees() {
     }
@@ -30,6 +31,7 @@ public final class SkillTrees {
             case "lightning" -> LIGHTNING;
             case "light" -> LIGHT;
             case "darkness" -> DARKNESS;
+            case "anti_magic" -> ANTI_MAGIC;
             default -> null;
         };
     }
@@ -55,12 +57,15 @@ public final class SkillTrees {
         if (unlocked.contains(n.id())) return false;
         if (level < n.minLevel()) return false;
         SkillBranch b = tree.branch(n.branch());
-        if (b != null && b.locked()) return false;
+        if (b != null && b.locked() && !unlocked.contains(SPIRIT_BOND)) return false;
         for (String r : n.requires()) {
             if (!isUnlocked(tree, unlocked, r)) return false;
         }
         return true;
     }
+
+    /** Pseudo node id saved in the unlocked set once a spirit has bonded with the player (opens the Spirit branch). */
+    public static final String SPIRIT_BOND = "spirit_bond";
 
     private static SkillNode node(String id, String name, NodeType type, String branch, int cost, int level,
                                   List<String> req, String spell, boolean implemented, String desc, String canon, int x, int y) {
@@ -74,7 +79,8 @@ public final class SkillTrees {
                 new SkillBranch("explosive", "EXPLOSIVE", "Magna style", false, 90),
                 new SkillBranch("spiral", "SPIRAL", "Leopold style", false, 190),
                 new SkillBranch("lion", "LION", "Fuegoleon style", false, 290),
-                new SkillBranch("spirit", "SPIRIT", "Salamander - unlocks later", true, 390));
+                new SkillBranch("lioness", "LIONESS", "Mereoleona style", false, 390),
+                new SkillBranch("spirit", "SPIRIT", "Salamander - needs a spirit bond", true, 490));
         List<SkillNode> n = new ArrayList<>();
         n.add(node(ROOT, "Fire Magic", NodeType.ROOT, "root", 0, 1, List.of(), "FLAME_BULLET", true,
                 "The start of every fire mage. Grants the Flame Bullet spell.",
@@ -127,17 +133,27 @@ public final class SkillTrees {
         n.add(node("lion_mastery", "Lion Mastery", NodeType.KEYSTONE, "lion", 5, 14, List.of("ignis_columna"), null, false,
                 "Lion spells cool down faster and hit harder.", "Gameplay: original.", 590, 290));
 
-        // spirit (locked until Spirit Magic exists)
-        n.add(node("spirit_contract", "Spirit Contract", NodeType.SPELL, "spirit", 4, 12, List.of(), null, false,
-                "A contract with the fire spirit Salamander.", "Anime: Salamander is fire's spirit.", 250, 390));
-        n.add(node("salamander_breath", "Salamander Breath", NodeType.SPELL, "spirit", 4, 14, List.of("spirit_contract"), null, false,
-                "Spirit magic.", "Anime: Salamander's Breath.", 335, 390));
-        n.add(node("salamander_claw", "Salamander Claw", NodeType.SPELL, "spirit", 4, 16, List.of("salamander_breath"), null, false,
-                "Spirit magic.", "Anime: Salamander's Claw.", 420, 390));
-        n.add(node("spirit_power", "Spirit Power", NodeType.UPGRADE, "spirit", 2, 18, List.of("salamander_claw"), null, false,
-                "Spirit magic.", "Gameplay: original.", 505, 390));
+        // lioness (Mereoleona)
+        n.add(node("calidus_brachium", "Calidus Brachium", NodeType.SPELL, "lioness", 2, 4, List.of(), "CALIDUS_BRACHIUM", true,
+                "A huge fist of flame punches everything right in front of you.", "Anime: Mereoleona's Calidus Brachium.", 250, 390));
+        n.add(node("calidus_barrage", "Calidus Brachium Barrage", NodeType.SPELL, "lioness", 4, 9, List.of("calidus_brachium"), "CALIDUS_BRACHIUM_BARRAGE", true,
+                "Fists of flame strike every enemy around you from all sides.", "Anime: Mereoleona's Calidus Brachium Barrage.", 335, 390));
+        n.add(node("two_step_reinforcement", "Two-step Reinforcement", NodeType.UPGRADE, "lioness", 3, 11, List.of("calidus_barrage"), null, false,
+                "Reinforces both arms: your fists hit much harder.", "Anime: Mereoleona's reinforcement (from the games).", 420, 390));
+        n.add(node("mana_zone", "Mana Zone", NodeType.KEYSTONE, "lioness", 6, 15, List.of("two_step_reinforcement"), null, false,
+                "Mereoleona's mana zone: you sense and strike everything around you.", "Anime: Mereoleona's Mana Zone.", 505, 390));
+
+        // spirit (opens when Salamander bonds with the player)
+        n.add(node("spirit_contract", "Spirit Contract", NodeType.PASSIVE, "spirit", 3, 11, List.of(), null, true,
+                "A contract with the fire spirit Salamander: all your spells deal 15% more damage.", "Anime: Salamander is fire's spirit.", 250, 490));
+        n.add(node("spirit_dive", "Spirit Dive", NodeType.SPELL, "spirit", 4, 12, List.of("spirit_contract"), "SPIRIT_DIVE_FIRE", true,
+                "Fuse with Salamander for 2 minutes: strong buffs, fire immunity and flight.", "Anime: Spirit Dive fuses a mage with their spirit.", 335, 490));
+        n.add(node("salamander_breath", "Salamander Breath", NodeType.SPELL, "spirit", 4, 15, List.of("spirit_dive"), null, false,
+                "Spirit magic.", "Anime: Salamander's Breath.", 420, 490));
+        n.add(node("spirit_power", "Spirit Power", NodeType.UPGRADE, "spirit", 2, 18, List.of("salamander_breath"), null, false,
+                "Spirit magic.", "Gameplay: original.", 505, 490));
         n.add(node("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, "spirit", 6, 20, List.of("spirit_power"), null, false,
-                "Spirit magic.", "Gameplay: original.", 590, 390));
+                "Spirit magic.", "Gameplay: original.", 590, 490));
         return new SkillTree("fire", "FIRE MAGIC", ROOT, branches, n);
     }
 
@@ -159,6 +175,10 @@ public final class SkillTrees {
     private static Def up(String id, String name, int level) {
         return new Def(id, name, NodeType.UPGRADE, 1, level, null, true,
                 "The spells of this branch deal 20% more damage (and healing).", "Gameplay: original.");
+    }
+
+    private static Def ks(String id, String name, int cost, int level, String spell, String desc, String canon) {
+        return new Def(id, name, NodeType.KEYSTONE, cost, level, spell, true, desc, canon);
     }
 
     private static Def soon(String id, String name, NodeType type, int cost, int level, String desc, String canon) {
@@ -185,12 +205,14 @@ public final class SkillTrees {
     private static final int LANE_C = 290;
     private static final int LANE_S = 390;
 
-    private static void spirit(List<SkillNode> out, String spiritName) {
+    private static void spirit(List<SkillNode> out, String el, String spiritName, int laneY) {
         String a = "Anime: " + spiritName + " is the spirit of this element.";
-        chain(out, "spirit", 250, LANE_S, 85, 0,
-                soon("spirit_contract", "Spirit Contract", NodeType.SPELL, 4, 12, "A contract with the spirit " + spiritName + ".", a),
-                soon("spirit_dive", "Spirit Dive", NodeType.SPELL, 4, 14, "Spirit magic.", "Anime: Spirit Dive fuses a mage with their spirit."),
-                soon("spirit_art", "Spirit Art", NodeType.SPELL, 4, 16, "Spirit magic.", a),
+        chain(out, "spirit", 250, laneY, 85, 0,
+                new Def("spirit_contract", "Spirit Contract", NodeType.PASSIVE, 3, 11, null, true,
+                        "A contract with the spirit " + spiritName + ": all your spells deal 15% more damage.", a),
+                sp("spirit_dive", "Spirit Dive", 4, 12, "SPIRIT_DIVE_" + el.toUpperCase(),
+                        "Fuse with " + spiritName + " for 2 minutes: strong buffs and flight.", "Anime: Spirit Dive fuses a mage with their spirit."),
+                soon("spirit_art", "Spirit Art", NodeType.SPELL, 4, 15, "Spirit magic.", a),
                 soon("spirit_power", "Spirit Power", NodeType.UPGRADE, 2, 18, "Spirit magic.", "Gameplay: original."),
                 soon("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, 6, 20, "Spirit magic.", "Gameplay: original."));
     }
@@ -201,7 +223,7 @@ public final class SkillTrees {
         branches.add(new SkillBranch("passive", "PASSIVES", "Mastery", false, 0));
         for (SkillBranch l : lanes) branches.add(l);
         if (spiritName != null) {
-            branches.add(new SkillBranch("spirit", "SPIRIT", spiritName + " - unlocks later", true, LANE_S));
+            branches.add(new SkillBranch("spirit", "SPIRIT", spiritName + " - needs a spirit bond", true, LANE_S));
         }
         List<SkillNode> n = new ArrayList<>();
         String root = el + "_magic";
@@ -210,7 +232,7 @@ public final class SkillTrees {
         chain(n, lanes[0].id(), 250, LANE_A, 85, 0, a);
         chain(n, lanes[1].id(), 250, LANE_B, 85, 0, b);
         chain(n, lanes[2].id(), 250, LANE_C, 85, 0, c);
-        if (spiritName != null) spirit(n, spiritName);
+        if (spiritName != null) spirit(n, el, spiritName, LANE_S);
         return new SkillTree(el, title, root, branches, n);
     }
 
@@ -247,10 +269,10 @@ public final class SkillTrees {
                         up("bastion_depth", "Deep Calm", 3),
                         sp("sea_dragon_nest", "Sea Dragon's Nest", 3, 5, "SEA_DRAGON_NEST",
                                 "A dome of whirlpools protects you and your friends.", "Anime: Noelle's Sea Dragon's Nest."),
-                        soon("sea_gods_shield", "Sea God's Shield", NodeType.SPELL, 4, 8,
-                                "A stronger water shield.", "Anime: a Water Magic defensive spell."),
-                        soon("valkyrie_dress", "Valkyrie Dress", NodeType.KEYSTONE, 6, 14,
-                                "Armor made of water.", "Anime: Noelle's Valkyrie Dress.")},
+                        ks("valkyrie_dress", "Valkyrie Dress", 4, 8, "VALKYRIE_DRESS",
+                                "Armor made of water for one minute.", "Anime: Noelle's Valkyrie Dress."),
+                        soon("sea_gods_shield", "Sea God's Shield", NodeType.KEYSTONE, 6, 14,
+                                "A stronger water shield.", "Anime: a Water Magic defensive spell.")},
                 new Def[] {
                         sp("climbing_coelacanth", "Climbing Coelacanth", 2, 3, "CLIMBING_COELACANTH",
                                 "A rising stream of water lifts enemies into the air.", "Anime: a Water Magic spell."),
@@ -338,7 +360,7 @@ public final class SkillTrees {
                                 "A shell of earth: many extra hearts for you and some for friends.", "Gameplay: original."),
                         soon("stone_wall", "Stone Wall", NodeType.SPELL, 4, 8, "Raises a wall of stone.", "Gameplay: original."),
                         soon("living_fortress", "Living Fortress", NodeType.KEYSTONE, 6, 14, "Keystone of the Fortress branch.", "Gameplay: original.")},
-                "Earth spirit");
+                "Gnome");
     }
 
     private static SkillTree buildIce() {
@@ -406,8 +428,11 @@ public final class SkillTrees {
                         up("charge_current", "Strong Current", 3),
                         sp("overcharge", "Overcharge", 3, 5, "OVERCHARGE",
                                 "Extra strength and speed for a while.", "Gameplay: original."),
-                        soon("afterimage", "Afterimage", NodeType.SPELL, 4, 8, "Leave an afterimage behind as you move.", "Gameplay: original."),
-                        soon("lightning_god", "Lightning God", NodeType.KEYSTONE, 6, 14, "Keystone of the Charge branch.", "Gameplay: original.")},
+                        sp("true_lightning", "True Lightning Magic", 4, 8, "TRUE_LIGHTNING",
+                                "Become a bolt of lightning and shoot forward.", "Anime: Luck's True Lightning Magic."),
+                        ks("lightning_battle_fiend", "Lightning Battle Fiend", 6, 14, "LIGHTNING_BATTLE_FIEND",
+                                "Ultimate lightning magic: speed, strength and lightning around you for one minute.",
+                                "Anime: Ultimate Lightning Magic: Lightning Battle Fiend.")},
                 null);
     }
 
@@ -454,30 +479,63 @@ public final class SkillTrees {
                 new SkillBranch[] {
                         new SkillBranch("void", "VOID", "Offense", false, LANE_A),
                         new SkillBranch("shadow", "SHADOW", "Stealth and control", false, LANE_B),
-                        new SkillBranch("curse", "CURSE", "Hexes", false, LANE_C)},
+                        new SkillBranch("blade", "BLADE", "Yami style", false, LANE_C)},
                 new Def[] {
                         sp("abyss_drain", "Abyss Drain", 2, 2, "ABYSS_DRAIN",
                                 "Drains nearby enemies and gives some of their life to you.", "Gameplay: original."),
                         up("void_deeper", "Deeper Void", 3),
                         sp("dark_pulse", "Dark Pulse", 3, 5, "DARK_PULSE",
                                 "A cone of darkness hits everything in front of you.", "Gameplay: original."),
-                        soon("black_meteor", "Black Meteor", NodeType.SPELL, 4, 8, "A meteor of darkness.", "Gameplay: original."),
-                        soon("event_horizon", "Event Horizon", NodeType.KEYSTONE, 6, 14, "Keystone of the Void branch.", "Gameplay: original.")},
+                        sp("black_hole", "Black Hole", 4, 8, "BLACK_HOLE",
+                                "A small black hole pulls enemies in and hurts them.", "Anime: Yami's Black Hole."),
+                        soon("black_moon", "Black Moon", NodeType.KEYSTONE, 6, 14,
+                                "A black moon that erases magic around it.", "Anime: Yami's Black Moon.")},
                 new Def[] {
                         sp("dark_shroud", "Dark Shroud", 2, 2, "DARK_SHROUD",
                                 "Hides you in darkness: invisible and faster.", "Gameplay: original."),
                         up("shadow_deep", "Deep Shadow", 3),
                         sp("shadow_bind", "Shadow Bind", 3, 5, "SHADOW_BIND",
-                                "Shadows hold a target in place and blind it.", "Gameplay: original."),
+                                "Shadows hold a target in place and blind it.", "Anime: inspired by Yami's Dark Binding."),
                         soon("shadow_step", "Shadow Step", NodeType.SPELL, 4, 8, "Step from shadow to shadow.", "Gameplay: original."),
                         soon("night_veil", "Night Veil", NodeType.KEYSTONE, 5, 12, "Keystone of the Shadow branch.", "Gameplay: original.")},
                 new Def[] {
-                        sp("dread_mark", "Dread Mark", 2, 3, "DREAD_MARK",
-                                "Marks a target: weakened, withering and glowing.", "Gameplay: original."),
-                        up("curse_bitter", "Bitter Curse", 4),
-                        soon("withering_touch", "Withering Touch", NodeType.SPELL, 3, 7, "A touch that rots.", "Gameplay: original."),
-                        soon("soul_chain", "Soul Chain", NodeType.SPELL, 4, 10, "Binds two enemies together.", "Gameplay: original."),
-                        soon("doom", "Doom", NodeType.KEYSTONE, 5, 15, "Keystone of the Curse branch.", "Gameplay: original.")},
+                        sp("avidya_slash", "Dark Cloaked Avidya Slash", 2, 3, "AVIDYA_SLASH",
+                                "Dark magic flies from your blade in a long line.", "Anime: Yami's Dark Cloaked Avidya Slash."),
+                        up("blade_keen", "Keen Edge", 4),
+                        sp("dimension_slash", "Dark Cloaked Dimension Slash", 4, 7, "DIMENSION_SLASH",
+                                "A huge slash through everything in a very long line.", "Anime: Yami's Dark Cloaked Dimension Slash."),
+                        soon("iai_slash", "Dark Cloaked Iai Slash", NodeType.SPELL, 4, 10, "A lightning-fast draw slash.", "Anime: Yami's Dark Cloaked Iai Slash."),
+                        soon("death_thrust", "Death Thrust", NodeType.KEYSTONE, 6, 15, "A thrust that destroys what it hits.", "Anime: Yami's Death Thrust.")},
+                null);
+    }
+
+    private static SkillTree buildAntiMagic() {
+        return build("anti_magic", "ANTI-MAGIC", "Anti-Magic", "SUMMON_DEMON_SLAYER",
+                "The start of every anti-magic user. Summons the Demon-Slayer Sword.", "Anime: Asta's Demon-Slayer Sword.",
+                passives("anti_magic", "Resolve", "Endurance", "Rhythm", "Anti-Magic Skin",
+                        "Magic damage hurts you 40% less."),
+                new SkillBranch[] {
+                        new SkillBranch("swords", "SWORDS", "The five swords", false, LANE_A),
+                        new SkillBranch("devil", "DEVIL", "Asta and Liebe", false, LANE_B),
+                        new SkillBranch("zero", "ZERO", "Cancel magic", false, LANE_C)},
+                new Def[] {
+                        sp("demon_dweller_sword", "Demon-Dweller Sword", 2, 2, "SUMMON_DEMON_DWELLER",
+                                "Summons the Demon-Dweller Sword: strips magic and drains life.", "Anime: Asta's Demon-Dweller Sword."),
+                        up("sword_edge", "Sharp Edge", 3),
+                        sp("demon_destroyer_sword", "Demon-Destroyer Sword", 3, 5, "SUMMON_DEMON_DESTROYER",
+                                "Summons the huge Demon-Destroyer Sword.", "Anime: Asta's Demon-Destroyer Sword."),
+                        soon("black_divider", "Black Divider", NodeType.SPELL, 4, 9, "A slash of pure anti-magic.", "Anime: Asta's Black Divider."),
+                        soon("black_meteorite", "Black Meteorite", NodeType.KEYSTONE, 6, 14, "Keystone of the Swords branch.", "Anime: Asta's Black Meteorite.")},
+                new Def[] {
+                        sp("devil_union", "Devil Union", 5, 7, "DEVIL_UNION",
+                                "Fuse with the devil Liebe for 5 minutes: huge power and flight.", "Anime: Asta and Liebe's Devil Union."),
+                        up("devil_bond", "Liebe's Bond", 9),
+                        soon("black_form", "Black Form", NodeType.SPELL, 4, 10, "Asta's black form.", "Anime: Asta's Black Form."),
+                        soon("black_asta", "Black Asta", NodeType.KEYSTONE, 6, 15, "Keystone of the Devil branch.", "Anime: Black Asta.")},
+                new Def[] {
+                        soon("nullify", "Magic Nullify", NodeType.SPELL, 3, 5, "Cancels the magic around you.", "Anime: anti-magic cancels spells."),
+                        soon("deflect", "Deflect", NodeType.SPELL, 4, 8, "Turns a spell aside.", "Gameplay: original."),
+                        soon("magic_zero", "Magic Zero", NodeType.KEYSTONE, 6, 14, "Keystone of the Zero branch.", "Gameplay: original.")},
                 null);
     }
 }

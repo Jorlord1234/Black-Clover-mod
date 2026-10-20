@@ -16,6 +16,7 @@ public final class Config {
     public static final ModConfigSpec.DoubleValue POWER_PER_LEVEL;
     public static final ModConfigSpec.IntValue NULLIFY_WINDOW_TICKS;
     public static final ModConfigSpec.IntValue MAX_LEVEL;
+    public static final ModConfigSpec.IntValue SPIRIT_BOND_ONE_IN;
 
     static {
         B.push("ceremony");
@@ -39,9 +40,14 @@ public final class Config {
         XP_MULTIPLIER = B.comment("Multiplies the magic XP gained by casting. 0 disables progression.")
                 .defineInRange("xpMultiplier", 1.0, 0.0, 100.0);
         MAX_LEVEL = B.comment("Highest magic level. Skill points: 1 per level, +1 at levels 5, 10, 15 and +2 at 20.")
-                .defineInRange("maxLevel", 20, 5, 50);
+                .defineInRange("maxMagicLevel", 20, 5, 50);
         POWER_PER_LEVEL = B.comment("Spell power gained per magic level (0.04 = +4% per level).")
                 .defineInRange("powerPerLevel", 0.04, 0.0, 10.0);
+        B.pop();
+
+        B.push("spirits");
+        SPIRIT_BOND_ONE_IN = B.comment("Four-Leaf (or better) fire, water, wind and earth mages from magic level 10: every level-up has about 1 in this chance that the spirit bonds with you.")
+                .defineInRange("spiritBondOneIn", 12, 1, 1_000_000);
         B.pop();
 
         B.push("antiMagic");
