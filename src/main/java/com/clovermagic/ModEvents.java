@@ -117,40 +117,12 @@ public final class ModEvents {
         }
     }
 
-    /** Black and red particle horns and wings behind the player (Devil Union). */
+    /** A light red and black mist around the player (Devil Union). The horns and wings are a 3D model, see DevilUnionLayer. */
     private static void devilAura(ServerPlayer sp) {
         net.minecraft.server.level.ServerLevel level = sp.serverLevel();
-        double yaw = Math.toRadians(sp.yBodyRot);
-        net.minecraft.world.phys.Vec3 back = new net.minecraft.world.phys.Vec3(Math.sin(yaw), 0, -Math.cos(yaw));
-        net.minecraft.world.phys.Vec3 right = new net.minecraft.world.phys.Vec3(-Math.cos(yaw), 0, -Math.sin(yaw));
         net.minecraft.core.particles.DustParticleOptions red =
-                new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.9f, 0.03f, 0.05f), 1.2f);
-        net.minecraft.core.particles.DustParticleOptions black =
-                new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.05f, 0.02f, 0.06f), 1.6f);
-        double bx = sp.getX(), by = sp.getY(), bz = sp.getZ();
-        for (int side = -1; side <= 1; side += 2) {
-            for (int i = 0; i <= 9; i++) {
-                double t = i / 9.0;
-                double out = 0.3 + t * 2.3;
-                double up = 1.35 + Math.sin(t * Math.PI * 0.85) * 1.0 - t * 0.55;
-                double behind = 0.3 + t * 0.6;
-                double x = bx + right.x * side * out + back.x * behind;
-                double y = by + up;
-                double z = bz + right.z * side * out + back.z * behind;
-                level.sendParticles(i % 3 == 0 ? red : black, x, y, z, 1, 0.03, 0.03, 0.03, 0);
-                if (i >= 3 && i % 2 == 1) { // wing fingers hanging down
-                    level.sendParticles(black, x, y - 0.5, z, 1, 0.03, 0.12, 0.03, 0);
-                    level.sendParticles(red, x, y - 0.9, z, 1, 0.03, 0.05, 0.03, 0);
-                }
-            }
-            // horns: two curved points on each side of the head
-            for (int i = 0; i < 4; i++) {
-                double t = i / 3.0;
-                double x = bx + right.x * side * (0.2 + t * 0.15);
-                double z = bz + right.z * side * (0.2 + t * 0.15);
-                level.sendParticles(black, x, by + 1.85 + t * 0.4, z, 1, 0.01, 0.01, 0.01, 0);
-            }
-        }
-        level.sendParticles(red, bx, by + 1.0, bz, 2, 0.35, 0.7, 0.35, 0);
+                new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.9f, 0.03f, 0.05f), 1.0f);
+        level.sendParticles(red, sp.getX(), sp.getY() + 1.0, sp.getZ(), 2, 0.4, 0.8, 0.4, 0);
+        level.sendParticles(net.minecraft.core.particles.ParticleTypes.SQUID_INK, sp.getX(), sp.getY() + 1.0, sp.getZ(), 1, 0.4, 0.8, 0.4, 0.01);
     }
 }

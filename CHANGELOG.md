@@ -1,5 +1,14 @@
 # Changelog
 
+## v0.5.4 (NOT yet built or tested in Minecraft)
+
+### Changed
+- **Devil Union now has a real 3D model** instead of particles: two curled horns, a glowing red spiked crown and bat-like wings
+  (arm + 4 fingers with membrane strips) that flap and fold back when you crouch. Everyone nearby sees it, also on other players.
+  It is drawn while the new "Devil Union" status effect lasts (30 seconds, shows up in the effect list with its own icon).
+- Particles are now only a light red/black mist around the body.
+- New files: `ModEffects`, `client/DevilUnionModel`, `client/DevilUnionLayer`, `textures/entity/devil_union.png`, `textures/mob_effect/devil_union.png`.
+
 ## v0.5.3 (NOT yet built or tested in Minecraft)
 
 ### Added

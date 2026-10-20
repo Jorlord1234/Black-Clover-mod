@@ -39,6 +39,8 @@ public final class ClientSetup {
         modBus.addListener(ClientSetup::registerKeys);
         modBus.addListener(ClientSetup::registerLayers);
         modBus.addListener(ClientSetup::registerRenderers);
+        modBus.addListener(ClientSetup::registerModelLayers);
+        modBus.addListener(ClientSetup::addPlayerLayers);
         NeoForge.EVENT_BUS.addListener(ClientSetup::onClientTickPre);
         NeoForge.EVENT_BUS.addListener(ClientSetup::onRenderLayer);
         NeoForge.EVENT_BUS.addListener(ClientSetup::onScroll);
@@ -51,6 +53,25 @@ public final class ClientSetup {
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.FIREBALL.get(), NoopRenderer::new);
+    }
+
+    public static final net.minecraft.client.model.geom.ModelLayerLocation DEVIL_UNION_LAYER =
+            new net.minecraft.client.model.geom.ModelLayerLocation(
+                    ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "devil_union"), "main");
+
+    private static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(DEVIL_UNION_LAYER, DevilUnionModel::createLayer);
+    }
+
+    /** Adds the Devil Union horns and wings layer to both player skin types (wide and slim arms). */
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private static void addPlayerLayers(EntityRenderersEvent.AddLayers event) {
+        DevilUnionModel model = new DevilUnionModel(event.getEntityModels().bakeLayer(DEVIL_UNION_LAYER));
+        for (net.minecraft.client.resources.PlayerSkin.Model skin : event.getSkins()) {
+            if (event.getSkin(skin) instanceof net.minecraft.client.renderer.entity.player.PlayerRenderer renderer) {
+                renderer.addLayer(new DevilUnionLayer(renderer, model));
+            }
+        }
     }
 
     private static void registerLayers(RegisterGuiLayersEvent event) {

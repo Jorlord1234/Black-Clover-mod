@@ -46,3 +46,5 @@ Nothing below has been run by the author. Please report each line as OK / broken
 15. `/clover give 5 anti_magic`, `/clover level 7`, cast Devil Union (4th spell): effects, horns and wings appear for 30 seconds, hunger drops fast.
 16. Build a new world and find 3 Grimoire Towers: the stone bricks should be a random mix of normal, mossy and cracked, different in each tower.
 17. Check the new robe, hood and bandana icons in the inventory.
+18. Devil Union model: cast it, look at yourself in third person (F5): horns, crown and wings must appear, wings flap, crouching folds them.
+    Check with a second player (or a friend) that they see it too. Effect icon and name "Devil Union" show in the effect list. Check the texture is not purple/black.

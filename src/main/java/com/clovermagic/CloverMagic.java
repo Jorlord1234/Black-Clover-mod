@@ -54,6 +54,7 @@ public class CloverMagic {
         ModArmorMaterials.MATERIALS.register(modEventBus);
         ModComponents.COMPONENTS.register(modEventBus);
         ModAttachments.ATTACHMENTS.register(modEventBus);
+        ModEffects.EFFECTS.register(modEventBus);
         TABS.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

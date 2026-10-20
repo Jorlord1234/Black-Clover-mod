@@ -712,6 +712,8 @@ public enum Spell {
         p.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 600, 0));
         p.addEffect(new MobEffectInstance(MobEffects.JUMP, 600, 1));
         p.addEffect(new MobEffectInstance(MobEffects.HEALTH_BOOST, 600, 2));
+        // marker effect: every client draws the horns/wings model while it lasts
+        p.addEffect(new MobEffectInstance(com.clovermagic.ModEffects.DEVIL_UNION, 600, 0, false, false, true));
         p.heal(8.0f);
         for (LivingEntity e : SpellUtil.around(p, 6)) {
             SpellUtil.push(e, SpellUtil.awayFrom(p, e, 1.2, 0.3));
