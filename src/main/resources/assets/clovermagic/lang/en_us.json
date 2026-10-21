@@ -33,5 +33,7 @@
   "item.clovermagic.purple_orca_robe": "Purple Orca Robe",
   "item.clovermagic.aqua_deer_robe": "Aqua Deer Robe",
   "item.clovermagic.magic_beast_core": "Magic Beast Core",
-  "item.clovermagic.page_of_forgetting": "Page of Forgetting"
+  "item.clovermagic.page_of_forgetting": "Page of Forgetting",
+  "entity.clovermagic.fireball": "Fireball",
+  "entity.clovermagic.spell_vfx": "Spell Effect"
 }

@@ -129,6 +129,12 @@ public final class SpellUtil {
         }
     }
 
+    /** Particle zap plus the 3D lightning arc model. */
+    public static void zap(ServerLevel level, Vec3 from, Vec3 to, com.clovermagic.vfx.Fx style) {
+        zap(level, from, to);
+        SpellVfx.arc(level, from, to, style);
+    }
+
     public static void push(LivingEntity e, Vec3 velocity) {
         e.setDeltaMovement(e.getDeltaMovement().add(velocity));
         e.hurtMarked = true;

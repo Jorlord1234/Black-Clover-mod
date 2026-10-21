@@ -55,3 +55,8 @@ Nothing below has been run by the author. Please report each line as OK / broken
 23. Altar: Page of Rebirth (craft it, right-click the altar: ceremony again). Fortune III book on the altar with a 3-leaf grimoire: becomes 4-leaf.
 24. Cutscene: the other books are different elements, none duplicated. Bandana: wear it with a second skin layer (hat layer on): the band must show.
 25. Check the new item icons (cloth, crystal, swords, Page of Rebirth) and the 15 new spell icons.
+26. 3D spell models (v0.6.1): `/clover give 4 fire`, `/clover level 20`, cast every spell once (creative, `/clover mana` if you have it). Each one must show a 3D shape, not only particles.
+    Check: beams start at your hand and end at the first block; buffs follow you without lag when you run; target spells (Leo Palma, Stone Bind, Ice Prison, Shadow Bind, Dread Mark) sit on the target.
+    Earth Spike spikes must sit on the ground (also on stairs and slopes). First person: Stone Armor, Water Veil, Ice Shell etc. must not block your view (shells get faint).
+    Exploding Fireball flies as a 3D orb with a flame tail and bursts. Thunder Chain / Static Shock / Spark Barrage show 3D bolts. Look from far away (50+ blocks): effects must still draw.
+    If anything is wrong set `visuals.spellModels = false` in the config and tell me which spell.

@@ -1,14 +1,19 @@
 package com.clovermagic.entity;
 
+import com.clovermagic.Config;
 import com.clovermagic.ModEntities;
+import com.clovermagic.vfx.Fx;
 import com.clovermagic.magic.FireEffects;
 
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
 import net.minecraft.network.syncher.SynchedEntityData;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -27,6 +32,7 @@ import net.minecraft.world.phys.Vec3;
  * It never damages terrain; the blast is a manual area damage so the caster is never hurt by it.
  */
 public class FireballProjectile extends Projectile {
+    private static final EntityDataAccessor<Float> SCALE = SynchedEntityData.defineId(FireballProjectile.class, EntityDataSerializers.FLOAT);
     private static final int MAX_LIFE = 80;     // ticks
     private int life = 0;
     private float damage = 8.0f;
@@ -44,6 +50,15 @@ public class FireballProjectile extends Projectile {
         this.blastRadius = radius;
     }
 
+    /** Size of the 3D fireball model (1.0 = full size). */
+    public void setVisualScale(float scale) {
+        this.entityData.set(SCALE, scale);
+    }
+
+    public float getVisualScale() {
+        return this.entityData.get(SCALE);
+    }
+
     /** Creates a fireball at the caster's eye, aimed along their look direction plus a yaw offset (not yet added to the world). */
     public static FireballProjectile create(ServerLevel level, ServerPlayer owner, float damage, double blastRadius,
                                             float velocity, float yawOffset) {
@@ -51,6 +66,7 @@ public class FireballProjectile extends Projectile {
         fb.setOwner(owner);
         fb.setDamage(damage);
         fb.setBlastRadius(blastRadius);
+        fb.setVisualScale(Mth.clamp((float) (blastRadius / 3.0), 0.45f, 1.5f));
         fb.setPos(owner.getX(), owner.getEyeY() - 0.2, owner.getZ());
         fb.shootFromRotation(owner, owner.getXRot(), owner.getYRot() + yawOffset, 0.0f, velocity, 0.0f);
         return fb;
@@ -58,6 +74,7 @@ public class FireballProjectile extends Projectile {
 
     @Override
     protected void defineSynchedData(SynchedEntityData.Builder builder) {
+        builder.define(SCALE, 1.0f);
     }
 
     @Override
@@ -132,6 +149,9 @@ public class FireballProjectile extends Projectile {
                     target.setRemainingFireTicks(80);
                 }
             }
+        }
+        if (Config.SPELL_MODELS.get()) {
+            SpellVfxEntity.spawn(level, Fx.FIREBALL_BURST, this.getX(), this.getY(), this.getZ(), 0f, 0f, (float) this.blastRadius, -1, 0L);
         }
         level.sendParticles(ParticleTypes.EXPLOSION, this.getX(), this.getY(), this.getZ(), 3, 0.5, 0.5, 0.5, 0.0);
         level.sendParticles(ParticleTypes.FLAME, this.getX(), this.getY(), this.getZ(), 60, this.blastRadius * 0.4, this.blastRadius * 0.27, this.blastRadius * 0.4, 0.08);

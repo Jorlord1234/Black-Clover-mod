@@ -10,7 +10,6 @@ import com.mojang.blaze3d.platform.InputConstants;
 
 import net.minecraft.client.KeyMapping;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.NoopRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.client.event.ClientTickEvent;
@@ -52,7 +51,8 @@ public final class ClientSetup {
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.FIREBALL.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.FIREBALL.get(), FireballRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPELL_VFX.get(), SpellVfxRenderer::new);
     }
 
     public static final net.minecraft.client.model.geom.ModelLayerLocation DEVIL_UNION_LAYER =

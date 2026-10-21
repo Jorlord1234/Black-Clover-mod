@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.6.1 (NOT yet built or tested in Minecraft)
+
+### Added: 3D models for every spell (66 of 66)
+- Every spell now has its own 3D model instead of only particles. Examples: Leo Rugiens roars a flaming lion head, Leo Palma drops a flaming paw,
+  Sea Dragon's Roar is a water dragon head on a jet, Sea Dragon's Nest coils a dragon around you, Gale White Bow is a bow of wind with a spiral arrow,
+  Swift White Hawk is a flapping hawk, Earth Spike erupts stone spikes that follow the ground, Stone Armor plates your body, Frost Lance, Ice Prison,
+  Thunder Bolt shockwave, Radiant Aegis dome, Prism Burst rainbow rays, Black Hole, Dimension Slash tears a rift, Valkyrie Dress, Spirit Dive wings
+  (one look per element), the three sword summons, Calidus Brachium fist and more. The Exploding Fireball is now a real 3D fireball with a burst.
+- Models are drawn by one small effect entity (`SpellVfxEntity`, no damage, no collision) and one renderer. No model files needed:
+  the shapes are built in code (`client/vfx`), stone and ice use the vanilla block textures, everything else is tinted vertex colours.
+- Buffs (Stone Armor, Ice Shell, Water Veil, Overcharge, Valkyrie Dress, Spirit Dive...) follow you smoothly for as long as the effect lasts.
+- Config `visuals.spellModels` (default true) switches the models off if something looks wrong. A failing model can never break a cast.
+- Fireball projectile now has a renderer (it had none) and detonation shows a fire burst. Lightning arcs (Thunder Chain, Static Shock, Spark Barrage) are 3D bolts.
+- Original designs only. Nothing was copied from other mods (Iron's Spells is All Rights Reserved).
+
+### Notes for the model artist
+- To replace a spell model with a Blockbench/GeckoLib one later: keep the Fx entry, change its recipe in `client/vfx/*Fx.java` (or draw your own in `SpellVfxRenderer`).
+
 ## v0.6.0 (NOT yet built or tested in Minecraft)
 
 ### Fixed

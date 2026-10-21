@@ -17,6 +17,7 @@ public final class Config {
     public static final ModConfigSpec.IntValue NULLIFY_WINDOW_TICKS;
     public static final ModConfigSpec.IntValue MAX_LEVEL;
     public static final ModConfigSpec.IntValue SPIRIT_BOND_ONE_IN;
+    public static final ModConfigSpec.BooleanValue SPELL_MODELS;
 
     static {
         B.push("ceremony");
@@ -48,6 +49,11 @@ public final class Config {
         B.push("spirits");
         SPIRIT_BOND_ONE_IN = B.comment("Four-Leaf (or better) fire, water, wind and earth mages from magic level 10: every level-up has about 1 in this chance that the spirit bonds with you.")
                 .defineInRange("spiritBondOneIn", 12, 1, 1_000_000);
+        B.pop();
+
+        B.push("visuals");
+        SPELL_MODELS = B.comment("Spawn the 3D spell models. Turn off if you suspect them of lag or a render bug (particles stay).")
+                .define("spellModels", true);
         B.pop();
 
         B.push("antiMagic");

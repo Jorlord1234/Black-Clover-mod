@@ -500,7 +500,7 @@ public enum Spell {
         for (int i = 0; i < 5 && cur != null; i++) {
             done.add(cur);
             Vec3 center = cur.getBoundingBox().getCenter();
-            SpellUtil.zap(level, from, center);
+            SpellUtil.zap(level, from, center, com.clovermagic.vfx.Fx.THUNDER_CHAIN);
             cur.hurt(SpellUtil.magic(p), (float) (6 * pw));
             from = center;
             LivingEntity best = null;
@@ -525,7 +525,7 @@ public enum Spell {
         LivingEntity target = hits.get(0);
         target.hurt(SpellUtil.magic(p), (float) (5 * pw));
         target.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 30, 7));
-        SpellUtil.zap(p.serverLevel(), p.getEyePosition().add(0, -0.3, 0), target.getBoundingBox().getCenter());
+        SpellUtil.zap(p.serverLevel(), p.getEyePosition().add(0, -0.3, 0), target.getBoundingBox().getCenter(), com.clovermagic.vfx.Fx.STATIC_SHOCK);
         SpellUtil.sound(p, SoundEvents.LIGHTNING_BOLT_IMPACT, 0.4f, 2.0f);
         return true;
     }),
@@ -537,7 +537,7 @@ public enum Spell {
         for (int i = 0; i < Math.min(5, near.size()); i++) {
             LivingEntity e = near.get(i);
             e.hurt(SpellUtil.magic(p), (float) (4 * pw));
-            SpellUtil.zap(p.serverLevel(), from, e.getBoundingBox().getCenter());
+            SpellUtil.zap(p.serverLevel(), from, e.getBoundingBox().getCenter(), com.clovermagic.vfx.Fx.SPARK_BARRAGE);
         }
         SpellUtil.sound(p, SoundEvents.LIGHTNING_BOLT_THUNDER, 0.4f, 2.0f);
         return true;
@@ -848,7 +848,15 @@ public enum Spell {
     }
 
     public boolean cast(ServerPlayer player, double power) {
-        return cast.cast(player, power);
+        boolean ok = cast.cast(player, power);
+        if (ok) {
+            try {
+                SpellVfx.play(player, this);   // 3D model; must never be able to break a cast
+            } catch (RuntimeException ex) {
+                com.mojang.logging.LogUtils.getLogger().warn("Spell model failed for {}", this, ex);
+            }
+        }
+        return ok;
     }
 
     public static List<Spell> forAttribute(MagicAttribute attribute) {

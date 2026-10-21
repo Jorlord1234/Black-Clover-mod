@@ -53,3 +53,7 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
 ## Outfits
 - Robe models and textures are by the project's outfit artist (shared models `robe`, `hood`, `bandana`; one texture per squad).
 - Pieces: nine robes (chest) and six hoods (helmet; Black Bull's is a bandana). Craft with Mana Cloth, the squad dye (and trim for robes) and Netherite.
+
+## 3D spell models (v0.6.1)
+Every spell has a 3D model, built in code (see `client/vfx`). One effect entity per cast, one renderer. Switch off with `visuals.spellModels`.
+Adding a model for a new spell: add a constant with the same name as the spell to `vfx/Fx.java` (anchor, lifetime, range) and write its recipe in one of the `client/vfx/*Fx.java` files.
