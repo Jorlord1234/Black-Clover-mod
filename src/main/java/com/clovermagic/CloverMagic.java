@@ -41,6 +41,10 @@ public class CloverMagic {
                         output.accept(ModItems.PAGE_OF_FORGETTING.get());
                         output.accept(ModItems.PAGE_OF_REBIRTH.get());
                         output.accept(ModItems.HOBGOBLIN_SPAWN_EGG.get());
+                        output.accept(ModItems.MAGIC_BOAR_SPAWN_EGG.get());
+                        output.accept(ModItems.MIDNIGHT_MAGE_SPAWN_EGG.get());
+                        output.accept(ModItems.YULTIM_SPIDER_SPAWN_EGG.get());
+                        output.accept(ModItems.MANA_POTION.get());
                         output.accept(ModItems.DEVIL_CONTRACT_BOOK.get());
                         output.accept(ModItems.DEVIL_CONTRACT_LEAF.get());
                         for (Squad squad : Squad.values()) {

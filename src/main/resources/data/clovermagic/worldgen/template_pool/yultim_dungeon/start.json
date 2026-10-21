@@ -1,0 +1,14 @@
+{
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "element_type": "minecraft:single_pool_element",
+        "location": "clovermagic:yultim_dungeon",
+        "processors": "clovermagic:grimoire_tower_aging",
+        "projection": "rigid"
+      }
+    }
+  ]
+}

@@ -60,6 +60,20 @@ public final class ModItems {
             props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.HOBGOBLIN, 0x4F7F32, 0x3A2412, props),
             new Item.Properties());
 
+    public static final DeferredItem<Item> MAGIC_BOAR_SPAWN_EGG = ITEMS.registerItem("magic_boar_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.MAGIC_BOAR, 0x4A3322, 0xE8DCC0, props),
+            new Item.Properties());
+    public static final DeferredItem<Item> MIDNIGHT_MAGE_SPAWN_EGG = ITEMS.registerItem("midnight_mage_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.MIDNIGHT_MAGE, 0x24202C, 0xE0702A, props),
+            new Item.Properties());
+    public static final DeferredItem<Item> YULTIM_SPIDER_SPAWN_EGG = ITEMS.registerItem("yultim_spider_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.YULTIM_SPIDER, 0x2A1838, 0xC02030, props),
+            new Item.Properties());
+
+    /** Restores half of your maximum mana. */
+    public static final DeferredItem<Item> MANA_POTION = ITEMS.registerItem("mana_potion",
+            props -> new com.clovermagic.item.ManaPotionItem(props), new Item.Properties().stacksTo(16));
+
     /** Resets your grimoire completely: use it on the altar to go through the ceremony again. */
     public static final DeferredItem<Item> PAGE_OF_REBIRTH = ITEMS.registerItem("page_of_rebirth",
             props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1));

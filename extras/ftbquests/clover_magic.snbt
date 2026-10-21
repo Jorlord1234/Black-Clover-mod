@@ -1,5 +1,5 @@
 {
-	id: "9B1D09A939DA0A61"
+	id: "42518AA107F174CB"
 	group: ""
 	order_index: 0
 	filename: "clover_magic"
@@ -15,11 +15,11 @@
 			description: ["Every mage in the Clover Kingdom receives a grimoire at fifteen. Find a Grimoire Tower and use the altar."]
 			id: "3A37DFE702393E0F"
 			tasks: [{
-				id: "353314B90D4BDCC7"
+				id: "78A6BBEEF965D4F0"
 				type: "checkmark"
 			}]
 			rewards: [{
-				id: "D7450C847008FD8A"
+				id: "BD1529B8430691CC"
 				type: "item"
 				item: { count: 2, id: "clovermagic:mana_crystal" }
 			}]
@@ -32,13 +32,13 @@
 			dependencies: ["3A37DFE702393E0F"]
 			id: "A6C8BBC2A299E490"
 			tasks: [{
-				id: "42518AA107F174CB"
+				id: "5324CA89165999B4"
 				type: "advancement"
 				advancement: "clovermagic:got_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "78A6BBEEF965D4F0"
+				id: "C60FDB505A45030B"
 				type: "item"
 				item: { count: 4, id: "clovermagic:mana_crystal" }
 			}]
@@ -51,13 +51,13 @@
 			dependencies: ["A6C8BBC2A299E490"]
 			id: "BBED2CF3DFC8DF07"
 			tasks: [{
-				id: "BD1529B8430691CC"
+				id: "2B964743AF32C893"
 				type: "advancement"
 				advancement: "clovermagic:talked_orsi"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "5324CA89165999B4"
+				id: "BFF37BEB222F9875"
 				type: "item"
 				item: { count: 8, id: "minecraft:bread" }
 			}]
@@ -70,13 +70,13 @@
 			dependencies: ["A6C8BBC2A299E490"]
 			id: "413DF4F73EF8C9FC"
 			tasks: [{
-				id: "C60FDB505A45030B"
+				id: "ADAAFCA56E7BBDC6"
 				type: "advancement"
 				advancement: "clovermagic:hobgoblin_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "2B964743AF32C893"
+				id: "4E4D8A3A8E8487A4"
 				type: "item"
 				item: { count: 1, id: "clovermagic:magic_beast_core" }
 			}]
@@ -89,13 +89,13 @@
 			dependencies: ["A6C8BBC2A299E490"]
 			id: "D698014EFB68FEFD"
 			tasks: [{
-				id: "BFF37BEB222F9875"
+				id: "389ECC0ADA3F6DBA"
 				type: "advancement"
 				advancement: "clovermagic:level_5"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "ADAAFCA56E7BBDC6"
+				id: "1C50884ADFFA0173"
 				type: "item"
 				item: { count: 8, id: "minecraft:experience_bottle" }
 			}]
@@ -108,13 +108,13 @@
 			dependencies: ["D698014EFB68FEFD"]
 			id: "19AE3E8E5DF28FB3"
 			tasks: [{
-				id: "4E4D8A3A8E8487A4"
+				id: "8A06E8B26034A7E6"
 				type: "advancement"
 				advancement: "clovermagic:level_10"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "389ECC0ADA3F6DBA"
+				id: "592D4308D157FAAB"
 				type: "item"
 				item: { count: 1, id: "clovermagic:page_of_forgetting" }
 			}]
@@ -127,13 +127,13 @@
 			dependencies: ["BBED2CF3DFC8DF07"]
 			id: "6D4E020E267318B4"
 			tasks: [{
-				id: "1C50884ADFFA0173"
+				id: "AF8FA81F40FB8E6B"
 				type: "advancement"
 				advancement: "clovermagic:talked_asta"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "8A06E8B26034A7E6"
+				id: "8C961D29F2AFAAB5"
 				type: "item"
 				item: { count: 1, id: "minecraft:golden_apple" }
 			}]
@@ -146,13 +146,13 @@
 			dependencies: ["D698014EFB68FEFD"]
 			id: "0AF47F492D549DC4"
 			tasks: [{
-				id: "592D4308D157FAAB"
+				id: "258C360E76D468F4"
 				type: "advancement"
 				advancement: "clovermagic:four_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "AF8FA81F40FB8E6B"
+				id: "ABC644441189548B"
 				type: "item"
 				item: { count: 4, id: "clovermagic:mana_cloth" }
 			}]
@@ -165,13 +165,13 @@
 			dependencies: ["19AE3E8E5DF28FB3"]
 			id: "6C03C21BB00FA9EA"
 			tasks: [{
-				id: "8C961D29F2AFAAB5"
+				id: "4E55154DF097B2ED"
 				type: "advancement"
 				advancement: "clovermagic:spirit_bond"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "258C360E76D468F4"
+				id: "4A41F013B8A0562D"
 				type: "item"
 				item: { count: 4, id: "minecraft:diamond" }
 			}]
@@ -184,13 +184,13 @@
 			dependencies: ["19AE3E8E5DF28FB3"]
 			id: "3FE546DAE72C1651"
 			tasks: [{
-				id: "ABC644441189548B"
+				id: "D6577F6B5DDEB69E"
 				type: "advancement"
 				advancement: "clovermagic:level_15"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "4E55154DF097B2ED"
+				id: "F26632B5356D6D04"
 				type: "item"
 				item: { count: 16, id: "minecraft:experience_bottle" }
 			}]
@@ -203,13 +203,13 @@
 			dependencies: ["3FE546DAE72C1651", "6D4E020E267318B4"]
 			id: "1E6F046455C8DD2C"
 			tasks: [{
-				id: "4A41F013B8A0562D"
+				id: "89BC0FE8BF4347BE"
 				type: "advancement"
 				advancement: "clovermagic:magic_knight"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "D6577F6B5DDEB69E"
+				id: "C1A82EEB3891212E"
 				type: "item"
 				item: { count: 1, id: "clovermagic:page_of_rebirth" }
 			}]
@@ -222,13 +222,13 @@
 			dependencies: ["3FE546DAE72C1651"]
 			id: "95B58EFD9E5AFE38"
 			tasks: [{
-				id: "F26632B5356D6D04"
+				id: "3CEF04A403C25801"
 				type: "advancement"
 				advancement: "clovermagic:level_20"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "89BC0FE8BF4347BE"
+				id: "23A49F7AE7C7AD1F"
 				type: "item"
 				item: { count: 1, id: "minecraft:nether_star" }
 			}]
@@ -241,13 +241,13 @@
 			dependencies: ["0AF47F492D549DC4"]
 			id: "36702EAD50B5B638"
 			tasks: [{
-				id: "C1A82EEB3891212E"
+				id: "75E63FCF0F6C1E49"
 				type: "advancement"
 				advancement: "clovermagic:five_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "3CEF04A403C25801"
+				id: "7A8D0B53B625EC33"
 				type: "item"
 				item: { count: 8, id: "minecraft:diamond" }
 			}]
@@ -260,13 +260,13 @@
 			dependencies: ["36702EAD50B5B638"]
 			id: "6984383D531B53A8"
 			tasks: [{
-				id: "23A49F7AE7C7AD1F"
+				id: "DC0761858B285163"
 				type: "advancement"
 				advancement: "clovermagic:devil_union"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "75E63FCF0F6C1E49"
+				id: "E1BE16F192528609"
 				type: "item"
 				item: { count: 2, id: "minecraft:netherite_scrap" }
 			}]
@@ -279,13 +279,13 @@
 			dependencies: ["1E6F046455C8DD2C"]
 			id: "29A58820D8D01370"
 			tasks: [{
-				id: "7A8D0B53B625EC33"
+				id: "1F8257F1B7CE2710"
 				type: "advancement"
 				advancement: "clovermagic:second_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "DC0761858B285163"
+				id: "DC2E55756AC85E20"
 				type: "item"
 				item: { count: 1, id: "minecraft:totem_of_undying" }
 			}]
@@ -298,15 +298,72 @@
 			dependencies: ["29A58820D8D01370"]
 			id: "933BAE1CA6ED3B8C"
 			tasks: [{
-				id: "E1BE16F192528609"
+				id: "B247F4A5F340C2FD"
 				type: "advancement"
 				advancement: "clovermagic:devil_mark"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "1F8257F1B7CE2710"
+				id: "AB20873C795900A5"
 				type: "item"
 				item: { count: 1, id: "minecraft:netherite_ingot" }
+			}]
+		}
+		{
+			title: "Beastly Boars"
+			x: 2.0d
+			y: -2.0d
+			description: ["Boars with magic roam the plains, like the ones the Golden Dawn is sent to defeat in Saussy. Defeat a Magic Boar."]
+			dependencies: ["A6C8BBC2A299E490"]
+			id: "9B1D09A939DA0A61"
+			tasks: [{
+				id: "E37F5F324094D80E"
+				type: "advancement"
+				advancement: "clovermagic:boar_hunter"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "94C0E337AE2C8EE9"
+				type: "item"
+				item: { count: 8, id: "minecraft:cooked_porkchop" }
+			}]
+		}
+		{
+			title: "Eye of the Midnight Sun"
+			x: 4.0d
+			y: -2.0d
+			description: ["Dark mages ambush travellers and throw fire. Defeat a Midnight Sun Mage."]
+			dependencies: ["9B1D09A939DA0A61"]
+			id: "353314B90D4BDCC7"
+			tasks: [{
+				id: "8EDF9A530669C7A5"
+				type: "advancement"
+				advancement: "clovermagic:mage_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "37C4AC69C8BE7591"
+				type: "item"
+				item: { count: 3, id: "clovermagic:mana_potion" }
+			}]
+		}
+		{
+			title: "The Yultim Dungeon"
+			x: 6.0d
+			y: -2.0d
+			description: ["A giant spider lurks in a dungeon under the old gates, like the one the trainees entered. Find the Yultim Dungeon and defeat the Giant Spider."]
+			dependencies: ["353314B90D4BDCC7", "D698014EFB68FEFD"]
+			id: "D7450C847008FD8A"
+			tasks: [{
+				id: "695D4ECF191A9D79"
+				type: "advancement"
+				advancement: "clovermagic:yultim_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "BBC70DDCB7CB0376"
+				type: "item"
+				item: { count: 2, id: "clovermagic:magic_beast_core" }
 			}]
 		}
 	]

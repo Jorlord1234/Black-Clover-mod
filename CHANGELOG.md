@@ -1,5 +1,20 @@
 # Changelog
 
+## v0.8.0 (NOT yet built or tested in Minecraft)
+
+### Added: more content from the anime and manga
+- **Magic Boar** (the beastly boars the Golden Dawn is sent to defeat in Saussy): fast and hard-hitting, drops pork and sometimes a Magic Beast Core. Spawns in the overworld.
+- **Midnight Sun Mage** (hostile mages in the style of the Eye of the Midnight Sun): keeps its distance and throws fire; drops Mana Crystals. Spawns in the overworld and guards the dungeon.
+- **Yultim Dungeon** (the dungeon with the giant spider from the trainee mission): a ruined gate on the surface (forests, plains, taiga, meadow, savanna) with a long staircase down to a boss chamber.
+  - **Boss:** the Giant Spider of the Yultim Dungeon, a boss with a boss bar. Its bite slows you. It drops 3 Magic Beast Cores, Mana Crystals, cobwebs and, with a 25% chance, a Devil's Contract.
+  - **Chamber:** two Midnight Sun Mages and two chests (Mana Crystals, Mana Potions, Page of Forgetting). Find it with `/locate structure clovermagic:yultim_dungeon`.
+- **Mana Potion**: drink it to get half of your mana back. Craft 2 from 2 glass bottles, 2 Mana Crystals and 1 Magic Beast Core (a new use for the Core).
+- Spawn eggs for the new monsters; 3 new quest advancements (boar_hunter, mage_slayer, yultim_slayer) and 3 new quests in the FTB Quests chapter (19 quests now).
+- Placeholder looks again (vanilla pig and spider models with new textures, the player model for the mage): for the model artist to replace.
+
+### Notes
+- The Hobgoblin is an invented magic beast, not from the series (the series has beasts like the giant spider and the boars, and demons). It can be renamed or replaced.
+
 ## v0.7.0 (NOT yet built or tested in Minecraft; includes the 3D spell models of v0.6.1)
 
 ### Fixed

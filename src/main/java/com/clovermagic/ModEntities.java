@@ -4,7 +4,10 @@ import java.util.function.Supplier;
 
 import com.clovermagic.entity.FireballProjectile;
 import com.clovermagic.entity.HobgoblinEntity;
+import com.clovermagic.entity.MagicBoarEntity;
 import com.clovermagic.entity.MagicNpcEntity;
+import com.clovermagic.entity.MidnightMageEntity;
+import com.clovermagic.entity.YultimSpiderEntity;
 import com.clovermagic.entity.SpellVfxEntity;
 
 import net.minecraft.core.registries.Registries;
@@ -37,13 +40,38 @@ public final class ModEntities {
                     .clientTrackingRange(10)
                     .build("magic_npc"));
 
+    public static final Supplier<EntityType<MagicBoarEntity>> MAGIC_BOAR = ENTITIES.register("magic_boar",
+            () -> EntityType.Builder.<MagicBoarEntity>of(MagicBoarEntity::new, MobCategory.MONSTER)
+                    .sized(1.0f, 1.0f).clientTrackingRange(8).build("magic_boar"));
+
+    public static final Supplier<EntityType<MidnightMageEntity>> MIDNIGHT_MAGE = ENTITIES.register("midnight_mage",
+            () -> EntityType.Builder.<MidnightMageEntity>of(MidnightMageEntity::new, MobCategory.MONSTER)
+                    .sized(0.6f, 1.95f).clientTrackingRange(10).build("midnight_mage"));
+
+    public static final Supplier<EntityType<YultimSpiderEntity>> YULTIM_SPIDER = ENTITIES.register("yultim_spider",
+            () -> EntityType.Builder.<YultimSpiderEntity>of(YultimSpiderEntity::new, MobCategory.MONSTER)
+                    .sized(3.4f, 2.0f).clientTrackingRange(12).build("yultim_spider"));
+
     public static void attributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
         event.put(HOBGOBLIN.get(), HobgoblinEntity.createAttributes().build());
         event.put(MAGIC_NPC.get(), MagicNpcEntity.createAttributes().build());
+        event.put(MAGIC_BOAR.get(), MagicBoarEntity.createAttributes().build());
+        event.put(MIDNIGHT_MAGE.get(), MidnightMageEntity.createAttributes().build());
+        event.put(YULTIM_SPIDER.get(), YultimSpiderEntity.createAttributes().build());
     }
 
     public static void spawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event) {
         event.register(HOBGOBLIN.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules,
+                net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.OR);
+        registerMonster(event, MAGIC_BOAR.get());
+        registerMonster(event, MIDNIGHT_MAGE.get());
+    }
+
+    private static <T extends net.minecraft.world.entity.monster.Monster> void registerMonster(
+            net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event, EntityType<T> type) {
+        event.register(type, net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND,
                 net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
                 net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules,
                 net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.OR);

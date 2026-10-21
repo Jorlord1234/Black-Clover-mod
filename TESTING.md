@@ -67,3 +67,6 @@ Nothing below has been run by the author. Please report each line as OK / broken
 30. Devil Deals: craft both contracts (creative: Devil's Contracts are in the Clover Magic tab), right-click the altar with one. Second grimoire: sneak + right-click to switch; hearts drop by 2 per deal.
 31. Quests: `/advancement grant @s only clovermagic:level_5` etc. With FTB Quests: copy `extras/ftbquests/clover_magic.snbt` as described in its README.
 32. Curios (optional): with Curios installed, the Grimoire slot appears in the Curios screen; a grimoire placed there must still cast.
+33. Spawn eggs: Magic Boar (charges you), Midnight Sun Mage (shoots fireballs from a distance), Yultim Spider (huge, boss bar on top, slows you on hit).
+34. `/locate structure clovermagic:yultim_dungeon`, walk in through the gate, down the stairs: boss chamber with the spider, 2 mages, 2 chests. Check the boss drops and the boss bar.
+35. Craft Mana Potions, drink one: half of your mana comes back, you get the empty bottle back.
