@@ -18,8 +18,23 @@ public class MagicData {
             Codec.INT.optionalFieldOf("selected", 0).forGetter(d -> d.selected),
             Codec.INT.optionalFieldOf("xp", 0).forGetter(d -> d.xp),
             Codec.INT.optionalFieldOf("generation", 0).forGetter(d -> d.generation),
-            Codec.STRING.listOf().optionalFieldOf("unlocked", List.of()).forGetter(d -> new ArrayList<>(d.unlocked))
-    ).apply(inst, (a, l, m, s, x, g, u) -> new MagicData(a, l, m, s, x, g, u)));
+            Codec.STRING.listOf().optionalFieldOf("unlocked", List.of()).forGetter(d -> new ArrayList<>(d.unlocked)),
+            Codec.STRING.optionalFieldOf("attribute2", "none").forGetter(d -> d.attribute2),
+            Codec.INT.optionalFieldOf("leaves2", 0).forGetter(d -> d.leaves2),
+            Codec.INT.optionalFieldOf("xp2", 0).forGetter(d -> d.xp2),
+            Codec.INT.optionalFieldOf("generation2", 0).forGetter(d -> d.generation2),
+            Codec.STRING.listOf().optionalFieldOf("unlocked2", List.of()).forGetter(d -> new ArrayList<>(d.unlocked2)),
+            Codec.BOOL.optionalFieldOf("devilMark", false).forGetter(d -> d.devilMark)
+    ).apply(inst, (a, l, m, s, x, g, u, a2, l2, x2, g2, u2, dm) -> {
+        MagicData d = new MagicData(a, l, m, s, x, g, u);
+        d.attribute2 = a2;
+        d.leaves2 = l2;
+        d.xp2 = x2;
+        d.generation2 = g2;
+        d.unlocked2.addAll(u2);
+        d.devilMark = dm;
+        return d;
+    }));
 
     /** Attribute id ("none" until the ceremony). */
     public String attribute = "none";
@@ -31,6 +46,15 @@ public class MagicData {
     public int xp = 0;
     /** Grimoire serial: reclaiming bumps it, which invalidates any older copy. */
     public int generation = 0;
+
+    /** The second grimoire (Devil Deal), waiting in the background: swap with the active one by sneak + right-click. */
+    public String attribute2 = "none";
+    public int leaves2 = 0;
+    public int xp2 = 0;
+    public int generation2 = 0;
+    public final Set<String> unlocked2 = new LinkedHashSet<>();
+    /** Devil Deal "Fifth Leaf": more mana and stronger spells. */
+    public boolean devilMark = false;
 
     /** Not saved: game tick until which the action bar status is shown. */
     public transient int showUntil = 0;
@@ -76,5 +100,25 @@ public class MagicData {
 
     public static int xpForLevel(int level) {
         return 25 * (level - 1) * (level - 1);
+    }
+
+    /** Highest mana, including the Devil's Mark bonus. */
+    public int maxMana() {
+        int m = com.clovermagic.item.GrimoireItem.maxMana(level(), leaves);
+        return devilMark ? (int) (m * 1.5) : m;
+    }
+
+    /** Makes the second grimoire the active one (and the active one the second). */
+    public void swapGrimoires() {
+        String a = attribute; attribute = attribute2; attribute2 = a;
+        int l = leaves; leaves = leaves2; leaves2 = l;
+        int x = xp; xp = xp2; xp2 = x;
+        int g = generation; generation = generation2; generation2 = g;
+        Set<String> u = new LinkedHashSet<>(unlocked);
+        unlocked.clear(); unlocked.addAll(unlocked2);
+        unlocked2.clear(); unlocked2.addAll(u);
+        selected = 0;
+        for (int i = 0; i < cooldownEnd.length; i++) cooldownEnd[i] = 0;
+        mana = Math.min(Math.max(mana, 0), maxMana());
     }
 }

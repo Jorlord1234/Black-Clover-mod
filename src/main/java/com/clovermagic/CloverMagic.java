@@ -40,6 +40,9 @@ public class CloverMagic {
                         output.accept(ModItems.MAGIC_BEAST_CORE.get());
                         output.accept(ModItems.PAGE_OF_FORGETTING.get());
                         output.accept(ModItems.PAGE_OF_REBIRTH.get());
+                        output.accept(ModItems.HOBGOBLIN_SPAWN_EGG.get());
+                        output.accept(ModItems.DEVIL_CONTRACT_BOOK.get());
+                        output.accept(ModItems.DEVIL_CONTRACT_LEAF.get());
                         for (Squad squad : Squad.values()) {
                             output.accept(ModItems.ROBES.get(squad).get());
                             if (ModItems.HOODS.containsKey(squad)) {
@@ -60,6 +63,8 @@ public class CloverMagic {
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
         modEventBus.addListener(ModNetwork::register);
+        modEventBus.addListener(ModEntities::attributes);
+        modEventBus.addListener(ModEntities::spawnPlacements);
         if (FMLEnvironment.dist == Dist.CLIENT) {
             ClientSetup.init(modEventBus);
         }

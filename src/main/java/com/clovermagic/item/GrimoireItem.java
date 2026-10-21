@@ -65,6 +65,23 @@ public class GrimoireItem extends Item {
             return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         }
         MagicData data = sp.getData(ModAttachments.MAGIC.get());
+        GrimoireData own = stack.get(ModComponents.GRIMOIRE_DATA.get());
+        if (own != null && own.owner().equals(sp.getUUID()) && data.leaves2 > 0
+                && (own.generation() == data.generation || own.generation() == data.generation2)) {
+            if (sp.isShiftKeyDown()) {
+                data.swapGrimoires();
+                com.clovermagic.magic.MagicSync.send(sp);
+                MagicAttribute now = data.leaves == 5 ? MagicAttribute.ANTI_MAGIC : MagicAttribute.fromId(data.attribute);
+                sp.displayClientMessage(Component.literal("You switch to your " + (now == null ? "" : now.displayName + " ") + "grimoire.")
+                        .withStyle(ChatFormatting.LIGHT_PURPLE), true);
+                return InteractionResultHolder.success(stack);
+            }
+            if (own.generation() == data.generation2) {
+                sp.displayClientMessage(Component.literal("This is your second grimoire. Sneak + right-click to switch to it.")
+                        .withStyle(ChatFormatting.GRAY), true);
+                return InteractionResultHolder.success(stack);
+            }
+        }
         if (!GrimoireManager.isValid(stack, sp, data)) {
             GrimoireData gd = stack.get(ModComponents.GRIMOIRE_DATA.get());
             String who = gd == null ? "nobody" : gd.ownerName();
@@ -72,7 +89,8 @@ public class GrimoireItem extends Item {
                     .withStyle(ChatFormatting.RED), true);
             return InteractionResultHolder.fail(stack);
         }
-        sp.displayClientMessage(Component.literal("Press G for Grimoire Mode, K for your spell list.")
+        sp.displayClientMessage(Component.literal(data.leaves2 > 0 ? "Press G for Grimoire Mode, K for your skill tree. Sneak + right-click: switch grimoire."
+                : "Press G for Grimoire Mode, K for your spell list.")
                 .withStyle(ChatFormatting.GRAY), true);
         return InteractionResultHolder.success(stack);
     }

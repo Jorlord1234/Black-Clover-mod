@@ -53,6 +53,11 @@ public final class GrimoireManager {
 
     /** The player's valid grimoire anywhere in their inventory, or EMPTY. */
     public static ItemStack find(ServerPlayer sp, MagicData data) {
+        ItemStack inInventory = findInInventory(sp, data);
+        return inInventory.isEmpty() ? CuriosCompat.find(sp, data) : inInventory;
+    }
+
+    private static ItemStack findInInventory(ServerPlayer sp, MagicData data) {
         Inventory inv = sp.getInventory();
         for (int i = 0; i < inv.getContainerSize(); i++) {
             ItemStack s = inv.getItem(i);

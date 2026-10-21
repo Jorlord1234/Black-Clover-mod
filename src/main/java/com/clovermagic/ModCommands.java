@@ -83,12 +83,16 @@ public final class ModCommands {
                                             return 1;
                                         }))))
                 .then(Commands.literal("level")
-                        .then(Commands.argument("level", IntegerArgumentType.integer(1, 10))
+                        .then(Commands.argument("level", IntegerArgumentType.integer(1, 50))
                                 .executes(ctx -> {
                                     ServerPlayer p = ctx.getSource().getPlayerOrException();
                                     MagicData d = p.getData(ModAttachments.MAGIC.get());
-                                    d.xp = MagicData.xpForLevel(IntegerArgumentType.getInteger(ctx, "level"));
-                                    ctx.getSource().sendSuccess(() -> Component.literal("Magic level set"), false);
+                                    int lvl = IntegerArgumentType.getInteger(ctx, "level");
+                                    d.xp = MagicData.xpForLevel(lvl);
+                                    com.clovermagic.magic.MagicSync.send(p);
+                                    int shown = d.level();
+                                    ctx.getSource().sendSuccess(() -> Component.literal("Magic level set to " + shown
+                                            + (shown < lvl ? " (the maximum, see maxMagicLevel in the config)" : "")), false);
                                     return 1;
                                 })))
                 .then(Commands.literal("mana")

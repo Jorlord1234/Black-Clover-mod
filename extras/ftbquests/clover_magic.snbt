@@ -1,0 +1,313 @@
+{
+	id: "9B1D09A939DA0A61"
+	group: ""
+	order_index: 0
+	filename: "clover_magic"
+	title: "Clover Magic"
+	icon: "clovermagic:grimoire"
+	default_quest_shape: ""
+	default_hide_dependency_lines: false
+	quests: [
+		{
+			title: "A Magical World"
+			x: 0.0d
+			y: 0.0d
+			description: ["Every mage in the Clover Kingdom receives a grimoire at fifteen. Find a Grimoire Tower and use the altar."]
+			id: "3A37DFE702393E0F"
+			tasks: [{
+				id: "353314B90D4BDCC7"
+				type: "checkmark"
+			}]
+			rewards: [{
+				id: "D7450C847008FD8A"
+				type: "item"
+				item: { count: 2, id: "clovermagic:mana_crystal" }
+			}]
+		}
+		{
+			title: "A Grimoire Chooses You"
+			x: 2.0d
+			y: 0.0d
+			description: ["Use the altar in a Grimoire Tower. Your grimoire and your attribute are chosen for you."]
+			dependencies: ["3A37DFE702393E0F"]
+			id: "A6C8BBC2A299E490"
+			tasks: [{
+				id: "42518AA107F174CB"
+				type: "advancement"
+				advancement: "clovermagic:got_grimoire"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "78A6BBEEF965D4F0"
+				type: "item"
+				item: { count: 4, id: "clovermagic:mana_crystal" }
+			}]
+		}
+		{
+			title: "Father Orsi"
+			x: 2.0d
+			y: 2.0d
+			description: ["The priest at the Clover Church welcomes everyone who is looking for their path. Find a church and talk to him."]
+			dependencies: ["A6C8BBC2A299E490"]
+			id: "BBED2CF3DFC8DF07"
+			tasks: [{
+				id: "BD1529B8430691CC"
+				type: "advancement"
+				advancement: "clovermagic:talked_orsi"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "5324CA89165999B4"
+				type: "item"
+				item: { count: 8, id: "minecraft:bread" }
+			}]
+		}
+		{
+			title: "Hobgoblin Hunter"
+			x: 4.0d
+			y: 2.0d
+			description: ["Magic beasts roam at night and around their camps. Defeat a Hobgoblin."]
+			dependencies: ["A6C8BBC2A299E490"]
+			id: "413DF4F73EF8C9FC"
+			tasks: [{
+				id: "C60FDB505A45030B"
+				type: "advancement"
+				advancement: "clovermagic:hobgoblin_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "2B964743AF32C893"
+				type: "item"
+				item: { count: 1, id: "clovermagic:magic_beast_core" }
+			}]
+		}
+		{
+			title: "Magic Level 5"
+			x: 4.0d
+			y: 0.0d
+			description: ["Keep casting. At level 5 you earn an extra skill point."]
+			dependencies: ["A6C8BBC2A299E490"]
+			id: "D698014EFB68FEFD"
+			tasks: [{
+				id: "BFF37BEB222F9875"
+				type: "advancement"
+				advancement: "clovermagic:level_5"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "ADAAFCA56E7BBDC6"
+				type: "item"
+				item: { count: 8, id: "minecraft:experience_bottle" }
+			}]
+		}
+		{
+			title: "Magic Level 10"
+			x: 6.0d
+			y: 0.0d
+			description: ["Halfway there. A Four-Leaf mage may now be chosen by a spirit."]
+			dependencies: ["D698014EFB68FEFD"]
+			id: "19AE3E8E5DF28FB3"
+			tasks: [{
+				id: "4E4D8A3A8E8487A4"
+				type: "advancement"
+				advancement: "clovermagic:level_10"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "389ECC0ADA3F6DBA"
+				type: "item"
+				item: { count: 1, id: "clovermagic:page_of_forgetting" }
+			}]
+		}
+		{
+			title: "Never Give Up"
+			x: 6.0d
+			y: 2.0d
+			description: ["A boy with no magic and a big dream trains at the Black Bull Hideout. Find Asta and talk to him."]
+			dependencies: ["BBED2CF3DFC8DF07"]
+			id: "6D4E020E267318B4"
+			tasks: [{
+				id: "1C50884ADFFA0173"
+				type: "advancement"
+				advancement: "clovermagic:talked_asta"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "8A06E8B26034A7E6"
+				type: "item"
+				item: { count: 1, id: "minecraft:golden_apple" }
+			}]
+		}
+		{
+			title: "Within the Four-Leaf Lies Good Luck"
+			x: 8.0d
+			y: -2.0d
+			description: ["Be chosen by a Four-Leaf Grimoire at the altar, or upgrade yours with a Fortune III book."]
+			dependencies: ["D698014EFB68FEFD"]
+			id: "0AF47F492D549DC4"
+			tasks: [{
+				id: "592D4308D157FAAB"
+				type: "advancement"
+				advancement: "clovermagic:four_leaf"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "AF8FA81F40FB8E6B"
+				type: "item"
+				item: { count: 4, id: "clovermagic:mana_cloth" }
+			}]
+		}
+		{
+			title: "A Spirit Likes You"
+			x: 8.0d
+			y: 0.0d
+			description: ["A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10."]
+			dependencies: ["19AE3E8E5DF28FB3"]
+			id: "6C03C21BB00FA9EA"
+			tasks: [{
+				id: "8C961D29F2AFAAB5"
+				type: "advancement"
+				advancement: "clovermagic:spirit_bond"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "258C360E76D468F4"
+				type: "item"
+				item: { count: 4, id: "minecraft:diamond" }
+			}]
+		}
+		{
+			title: "Magic Level 15"
+			x: 8.0d
+			y: 2.0d
+			description: ["A true Magic Knight candidate. The Wizard King can tell when you are ready."]
+			dependencies: ["19AE3E8E5DF28FB3"]
+			id: "3FE546DAE72C1651"
+			tasks: [{
+				id: "ABC644441189548B"
+				type: "advancement"
+				advancement: "clovermagic:level_15"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "4E55154DF097B2ED"
+				type: "item"
+				item: { count: 16, id: "minecraft:experience_bottle" }
+			}]
+		}
+		{
+			title: "Magic Knight"
+			x: 10.0d
+			y: 2.0d
+			description: ["Find the Royal Pavilion and talk to Julius Novachrono, the Wizard King."]
+			dependencies: ["3FE546DAE72C1651", "6D4E020E267318B4"]
+			id: "1E6F046455C8DD2C"
+			tasks: [{
+				id: "4A41F013B8A0562D"
+				type: "advancement"
+				advancement: "clovermagic:magic_knight"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "D6577F6B5DDEB69E"
+				type: "item"
+				item: { count: 1, id: "clovermagic:page_of_rebirth" }
+			}]
+		}
+		{
+			title: "Magic Level 20"
+			x: 10.0d
+			y: 0.0d
+			description: ["The highest level of magic. Your skill tree is nearly complete."]
+			dependencies: ["3FE546DAE72C1651"]
+			id: "95B58EFD9E5AFE38"
+			tasks: [{
+				id: "F26632B5356D6D04"
+				type: "advancement"
+				advancement: "clovermagic:level_20"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "89BC0FE8BF4347BE"
+				type: "item"
+				item: { count: 1, id: "minecraft:nether_star" }
+			}]
+		}
+		{
+			title: "The Fifth Leaf"
+			x: 12.0d
+			y: -2.0d
+			description: ["Be chosen by a rare Five-Leaf Grimoire: the anti-magic of a devil."]
+			dependencies: ["0AF47F492D549DC4"]
+			id: "36702EAD50B5B638"
+			tasks: [{
+				id: "C1A82EEB3891212E"
+				type: "advancement"
+				advancement: "clovermagic:five_leaf"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "3CEF04A403C25801"
+				type: "item"
+				item: { count: 8, id: "minecraft:diamond" }
+			}]
+		}
+		{
+			title: "Devil Union"
+			x: 12.0d
+			y: 0.0d
+			description: ["Anti-Magic: fuse with a devil for five minutes."]
+			dependencies: ["36702EAD50B5B638"]
+			id: "6984383D531B53A8"
+			tasks: [{
+				id: "23A49F7AE7C7AD1F"
+				type: "advancement"
+				advancement: "clovermagic:devil_union"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "75E63FCF0F6C1E49"
+				type: "item"
+				item: { count: 2, id: "minecraft:netherite_scrap" }
+			}]
+		}
+		{
+			title: "A Second Book"
+			x: 12.0d
+			y: 2.0d
+			description: ["Make a Devil's Deal at the altar: a second grimoire, for a price in hearts."]
+			dependencies: ["1E6F046455C8DD2C"]
+			id: "29A58820D8D01370"
+			tasks: [{
+				id: "7A8D0B53B625EC33"
+				type: "advancement"
+				advancement: "clovermagic:second_grimoire"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "DC0761858B285163"
+				type: "item"
+				item: { count: 1, id: "minecraft:totem_of_undying" }
+			}]
+		}
+		{
+			title: "The Devil's Mark"
+			x: 14.0d
+			y: 2.0d
+			description: ["Make the deal of the fifth leaf: more mana and stronger spells, for another price in hearts."]
+			dependencies: ["29A58820D8D01370"]
+			id: "933BAE1CA6ED3B8C"
+			tasks: [{
+				id: "E1BE16F192528609"
+				type: "advancement"
+				advancement: "clovermagic:devil_mark"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "1F8257F1B7CE2710"
+				type: "item"
+				item: { count: 1, id: "minecraft:netherite_ingot" }
+			}]
+		}
+	]
+}

@@ -795,6 +795,7 @@ public enum Spell {
             (p, pw) -> SwordSummon.toggle(p, com.clovermagic.ModItems.DEMON_DESTROYER_SWORD.get(), 6000)),
     DEVIL_UNION("Devil Union", MagicAttribute.ANTI_MAGIC, 60, 12000, (p, pw) -> {
         int ticks = 6000; // 5 minutes, like in the anime
+        QuestHooks.award(p, "devil_union");
         long now = p.level().getGameTime();
         MagicData md = p.getData(ModAttachments.MAGIC.get());
         md.devilUnionUntil = now + ticks;

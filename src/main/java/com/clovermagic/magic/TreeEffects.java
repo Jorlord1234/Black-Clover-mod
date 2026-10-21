@@ -52,6 +52,6 @@ public final class TreeEffects {
     /** True when the element's _skin passive is unlocked and the player still has at least 20% mana. */
     public static boolean skinActive(MagicData d, String element) {
         return d.leaves > 0 && d.leaves != 5 && element.equals(d.attribute) && has(d, element + "_skin")
-                && d.mana * 5 >= GrimoireItem.maxMana(d.level(), d.leaves);
+                && d.mana * 5 >= d.maxMana();
     }
 }

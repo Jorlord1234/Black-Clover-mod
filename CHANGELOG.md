@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.7.0 (NOT yet built or tested in Minecraft; includes the 3D spell models of v0.6.1)
+
+### Fixed
+- **`/clover level 20` now works**: the command only accepted 1 to 10 and did not update the client. The HUD and grimoire screen also stopped at level 10; they use the real maximum now.
+
+### Changed
+- **Devil Union looks like the anime** (new model): big ram horns that curl around the ears, spiky black hair, a red thorn crown, spiked shoulder plates, a tail,
+  large ragged bat wings, and a black armored suit with red markings drawn over your skin (head stays visible). Flight and the 5 minutes stay.
+
+### Added
+- **Mobs**: the Hobgoblin (first Magic Beast: strong melee, 25% Magic Beast Core and 40% Mana Crystal drops, spawns in the overworld, spawn egg in the creative tab).
+- **Story characters (NPCs)**: Asta, Julius Novachrono (the Wizard King) and Father Orsi. Right-click to talk. They cannot be hurt. Julius makes you a Magic Knight at magic level 15.
+  Placeholder skins on the player model. Spawn with `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"asta"}` (asta, julius, orsi).
+- **Structures**: Clover Church (Father Orsi, chest), Hobgoblin Camp (2 hobgoblins, chest with a Magic Beast Core), Black Bull Hideout (Asta), Royal Pavilion (Julius).
+- **Quests**: 16 hidden advancements (got_grimoire, level_5/10/15/20, four_leaf, five_leaf, spirit_bond, devil_union, magic_knight, talked_*, hobgoblin_slayer, second_grimoire, devil_mark)
+  and a ready FTB Quests chapter in `extras/ftbquests/` (see the README there).
+- **Devil Deals** (at the altar, each costs 2 hearts of maximum health for ever): Devil's Contract: Second Grimoire (a second grimoire of another element: sneak + right-click a grimoire to switch;
+  it keeps its own level and skill tree) and Devil's Contract: Fifth Leaf (+50% mana, +25% spell power). Recipes: nether star, 4 mana crystals, 2 magic beast cores, plus a book or a wither skeleton skull.
+- **Curios slot** "Grimoire" (only when Curios is installed; the mod does not need Curios to build or run). A grimoire in that slot works like one in the inventory.
+
 ## v0.6.1 (NOT yet built or tested in Minecraft)
 
 ### Added: 3D models for every spell (66 of 66)

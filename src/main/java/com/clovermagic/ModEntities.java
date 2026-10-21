@@ -3,6 +3,8 @@ package com.clovermagic;
 import java.util.function.Supplier;
 
 import com.clovermagic.entity.FireballProjectile;
+import com.clovermagic.entity.HobgoblinEntity;
+import com.clovermagic.entity.MagicNpcEntity;
 import com.clovermagic.entity.SpellVfxEntity;
 
 import net.minecraft.core.registries.Registries;
@@ -23,6 +25,29 @@ public final class ModEntities {
                     .noSave()
                     .build("fireball"));
 
+    public static final Supplier<EntityType<HobgoblinEntity>> HOBGOBLIN = ENTITIES.register("hobgoblin",
+            () -> EntityType.Builder.<HobgoblinEntity>of(HobgoblinEntity::new, MobCategory.MONSTER)
+                    .sized(0.7f, 1.9f)
+                    .clientTrackingRange(8)
+                    .build("hobgoblin"));
+
+    public static final Supplier<EntityType<MagicNpcEntity>> MAGIC_NPC = ENTITIES.register("magic_npc",
+            () -> EntityType.Builder.<MagicNpcEntity>of(MagicNpcEntity::new, MobCategory.MISC)
+                    .sized(0.6f, 1.8f)
+                    .clientTrackingRange(10)
+                    .build("magic_npc"));
+
+    public static void attributes(net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent event) {
+        event.put(HOBGOBLIN.get(), HobgoblinEntity.createAttributes().build());
+        event.put(MAGIC_NPC.get(), MagicNpcEntity.createAttributes().build());
+    }
+
+    public static void spawnPlacements(net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent event) {
+        event.register(HOBGOBLIN.get(), net.minecraft.world.entity.SpawnPlacementTypes.ON_GROUND,
+                net.minecraft.world.level.levelgen.Heightmap.Types.MOTION_BLOCKING_NO_LEAVES,
+                net.minecraft.world.entity.monster.Monster::checkMonsterSpawnRules,
+                net.neoforged.neoforge.event.entity.RegisterSpawnPlacementsEvent.Operation.OR);
+    }
     /** Visual-only entity that carries a spell's 3D model (see SpellVfxEntity). */
     public static final Supplier<EntityType<SpellVfxEntity>> SPELL_VFX = ENTITIES.register("spell_vfx",
             () -> EntityType.Builder.<SpellVfxEntity>of(SpellVfxEntity::new, MobCategory.MISC)

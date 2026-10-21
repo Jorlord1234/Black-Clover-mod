@@ -60,3 +60,10 @@ Nothing below has been run by the author. Please report each line as OK / broken
     Earth Spike spikes must sit on the ground (also on stairs and slopes). First person: Stone Armor, Water Veil, Ice Shell etc. must not block your view (shells get faint).
     Exploding Fireball flies as a 3D orb with a flame tail and bursts. Thunder Chain / Static Shock / Spark Barrage show 3D bolts. Look from far away (50+ blocks): effects must still draw.
     If anything is wrong set `visuals.spellModels = false` in the config and tell me which spell.
+26. `/clover level 20` must set level 20 and the HUD must show it.
+27. Devil Union (cast it, look at yourself in third person): ram horns, spiky hair, crown, shoulder plates, tail, big wings, black suit with red marks. Face must stay visible.
+28. Mobs and NPCs: hobgoblin spawn egg; `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`; right-click them (chat lines). `/clover level 15` then talk to Julius.
+29. Structures: `/locate structure clovermagic:clover_church` (also hobgoblin_camp, black_bull_hideout, royal_pavilion). Check that NPCs and chests are inside.
+30. Devil Deals: craft both contracts (creative: Devil's Contracts are in the Clover Magic tab), right-click the altar with one. Second grimoire: sneak + right-click to switch; hearts drop by 2 per deal.
+31. Quests: `/advancement grant @s only clovermagic:level_5` etc. With FTB Quests: copy `extras/ftbquests/clover_magic.snbt` as described in its README.
+32. Curios (optional): with Curios installed, the Grimoire slot appears in the Curios screen; a grimoire placed there must still cast.

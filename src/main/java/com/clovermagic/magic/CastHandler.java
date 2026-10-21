@@ -61,7 +61,7 @@ public final class CastHandler {
         }
 
         double power = GrimoireItem.power(leaves) * (1.0 + Config.POWER_PER_LEVEL.get() * (level - 1))
-                * TreeEffects.powerMult(data, attr, spell);
+                * TreeEffects.powerMult(data, attr, spell) * (data.devilMark ? 1.25 : 1.0);
         if (!spell.cast(sp, power)) return;
 
         if (!free) {
@@ -93,6 +93,7 @@ public final class CastHandler {
             sp.sendSystemMessage(Component.literal("Your magic grew stronger! Magic level " + after)
                     .withStyle(ChatFormatting.GOLD));
             rollSpirit(sp, data, attr, before, after);
+            QuestHooks.awardLevels(sp, after);
             com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(data);
             if (tree != null) {
                 sp.sendSystemMessage(Component.literal("You have " + SkillLogic.points(data, tree)
@@ -123,6 +124,7 @@ public final class CastHandler {
 
     public static void bondSpirit(ServerPlayer sp, MagicData data, MagicAttribute attr) {
         data.unlocked.add(com.clovermagic.skill.SkillTrees.SPIRIT_BOND);
+        QuestHooks.award(sp, "spirit_bond");
         String name = switch (attr) {
             case FIRE -> "Salamander";
             case WATER -> "Undine";

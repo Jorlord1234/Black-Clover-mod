@@ -19,6 +19,8 @@ import net.minecraft.resources.ResourceLocation;
 public class DevilUnionLayer extends RenderLayer<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> {
     private static final ResourceLocation TEXTURE =
             ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union.png");
+    private static final ResourceLocation SUIT =
+            ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union_suit.png");
     private final DevilUnionModel model;
 
     public DevilUnionLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, DevilUnionModel model) {
@@ -35,9 +37,13 @@ public class DevilUnionLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
         int overlay = LivingEntityRenderer.getOverlayCoords(player, 0.0F);
         model.animate(ageInTicks, player.isCrouching());
 
+        // the black armored suit with red markings: the player's own model drawn again with the suit texture
+        // (head is transparent in the texture, so the face stays visible)
+        this.getParentModel().renderToBuffer(ps, buffers.getBuffer(RenderType.armorCutoutNoCull(SUIT)), light, overlay, -1);
+
         ps.pushPose();
         this.getParentModel().body.translateAndRotate(ps);
-        model.renderWings(ps, vc, light, overlay);
+        model.renderBody(ps, vc, light, overlay);
         ps.popPose();
 
         ps.pushPose();

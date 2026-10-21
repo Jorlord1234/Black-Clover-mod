@@ -50,6 +50,16 @@ public final class ModItems {
     public static final DeferredItem<Item> PAGE_OF_FORGETTING = ITEMS.registerItem("page_of_forgetting",
             props -> new Item(props), new Item.Properties().rarity(Rarity.RARE).stacksTo(16));
 
+    /** Devil Deals, used on the altar. Each one costs 2 hearts of maximum health, for ever. */
+    public static final DeferredItem<Item> DEVIL_CONTRACT_BOOK = ITEMS.registerItem("devil_contract_book",
+            props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
+    public static final DeferredItem<Item> DEVIL_CONTRACT_LEAF = ITEMS.registerItem("devil_contract_leaf",
+            props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
+
+    public static final DeferredItem<Item> HOBGOBLIN_SPAWN_EGG = ITEMS.registerItem("hobgoblin_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.HOBGOBLIN, 0x4F7F32, 0x3A2412, props),
+            new Item.Properties());
+
     /** Resets your grimoire completely: use it on the altar to go through the ceremony again. */
     public static final DeferredItem<Item> PAGE_OF_REBIRTH = ITEMS.registerItem("page_of_rebirth",
             props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1));

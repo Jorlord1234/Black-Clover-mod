@@ -11,91 +11,129 @@ import net.minecraft.client.model.geom.builders.MeshDefinition;
 import net.minecraft.client.model.geom.builders.PartDefinition;
 
 /**
- * Asta's Devil Union: two curved horns, a spiked crown and a pair of bat-like wings (arm, four fingers with a membrane
- * strip on each). Pure code model, texture is textures/entity/devil_union.png (128x64).
- * The wings are drawn relative to the player's body and the horns/crown relative to the head.
+ * Asta's Devil Union (v2, after the anime): big ram horns that curl around the ears, spiky black hair, a red thorn crown,
+ * shoulder plates with spikes, a tail, and large ragged bat wings (arm + five fingers with membrane strips).
+ * Pure code model, texture is textures/entity/devil_union.png (128x64). Wings, plates and tail are drawn relative
+ * to the body, horns, hair and crown relative to the head. The model artist can replace all of it later.
  */
 public class DevilUnionModel {
-    private final ModelPart wings;
+    private final ModelPart body;
     private final ModelPart gear;
     private final ModelPart wingR;
     private final ModelPart wingL;
+    private final ModelPart tail;
 
     public DevilUnionModel(ModelPart root) {
-        this.wings = root.getChild("wings");
+        this.body = root.getChild("body");
         this.gear = root.getChild("gear");
-        this.wingR = wings.getChild("wing_r");
-        this.wingL = wings.getChild("wing_l");
+        this.wingR = body.getChild("wing_r");
+        this.wingL = body.getChild("wing_l");
+        this.tail = body.getChild("tail");
     }
 
     public static LayerDefinition createLayer() {
         MeshDefinition mesh = new MeshDefinition();
         PartDefinition root = mesh.getRoot();
 
-        PartDefinition wings = root.addOrReplaceChild("wings", CubeListBuilder.create(), PartPose.ZERO);
-        wing(wings, "wing_r", 1);
-        wing(wings, "wing_l", -1);
+        PartDefinition body = root.addOrReplaceChild("body", CubeListBuilder.create(), PartPose.ZERO);
+        wing(body, "wing_r", 1);
+        wing(body, "wing_l", -1);
+        shoulder(body, "plate_r", 1);
+        shoulder(body, "plate_l", -1);
+        // tail: four segments curling up behind the player
+        PartDefinition t = body.addOrReplaceChild("tail", CubeListBuilder.create().texOffs(0, 24)
+                .addBox(-0.7F, -0.7F, 0F, 1.4F, 1.4F, 4F), PartPose.offsetAndRotation(0F, 11F, 2F, -0.2F, 0F, 0F));
+        PartDefinition cur = t;
+        for (int i = 0; i < 3; i++) {
+            cur = cur.addOrReplaceChild("t" + i, CubeListBuilder.create().texOffs(0, i == 2 ? 0 : 24)
+                    .addBox(-0.6F + i * 0.05F, -0.6F, 0F, 1.2F - i * 0.2F, 1.2F - i * 0.2F, 4F), PartPose.offsetAndRotation(0F, 0F, 4F, -0.35F, 0F, 0F));
+        }
 
         PartDefinition gear = root.addOrReplaceChild("gear", CubeListBuilder.create(), PartPose.ZERO);
         horn(gear, "horn_r", 1);
         horn(gear, "horn_l", -1);
-        // spiked crown: a thin red band around the head with small spikes (red area of the texture)
+        // spiky black hair
+        float[][] spikes = {{0F, -8.6F, -1.5F, 0F, 0F}, {-2.4F, -8.4F, -1F, 0.1F, -0.35F}, {2.4F, -8.4F, -1F, 0.1F, 0.35F},
+                {-1.2F, -8.5F, 1.8F, -0.3F, -0.2F}, {1.2F, -8.5F, 1.8F, -0.3F, 0.2F}, {0F, -8.5F, 3.2F, -0.6F, 0F}};
+        for (int i = 0; i < spikes.length; i++) {
+            gear.addOrReplaceChild("hair" + i, CubeListBuilder.create().texOffs(0, 24)
+                    .addBox(-0.9F, -4.2F, -0.9F, 1.8F, 4.2F, 1.8F),
+                    PartPose.offsetAndRotation(spikes[i][0], spikes[i][1], spikes[i][2], spikes[i][3], 0F, spikes[i][4]));
+        }
+        // red thorn crown band with spikes (red area of the texture)
         CubeListBuilder crown = CubeListBuilder.create().texOffs(0, 0)
-                .addBox(-4.4F, -7.2F, -4.5F, 8.8F, 1.0F, 0.5F)   // front
-                .addBox(-4.4F, -7.2F, 4.0F, 8.8F, 1.0F, 0.5F)    // back
-                .addBox(-4.5F, -7.2F, -4.0F, 0.5F, 1.0F, 8.0F)   // left
-                .addBox(4.0F, -7.2F, -4.0F, 0.5F, 1.0F, 8.0F)    // right
-                .addBox(-0.5F, -8.6F, -4.6F, 1.0F, 1.6F, 0.6F)   // spikes
-                .addBox(-2.6F, -8.2F, -4.6F, 0.8F, 1.2F, 0.6F)
-                .addBox(1.8F, -8.2F, -4.6F, 0.8F, 1.2F, 0.6F);
+                .addBox(-4.5F, -7.0F, -4.6F, 9.0F, 1.2F, 0.6F)
+                .addBox(-4.5F, -7.0F, 4.0F, 9.0F, 1.2F, 0.6F)
+                .addBox(-4.6F, -7.0F, -4.0F, 0.6F, 1.2F, 8.0F)
+                .addBox(4.0F, -7.0F, -4.0F, 0.6F, 1.2F, 8.0F)
+                .addBox(-0.5F, -8.8F, -4.7F, 1.0F, 1.9F, 0.7F)
+                .addBox(-2.8F, -8.3F, -4.7F, 0.9F, 1.4F, 0.7F)
+                .addBox(1.9F, -8.3F, -4.7F, 0.9F, 1.4F, 0.7F)
+                .addBox(-4.7F, -8.3F, -1.0F, 0.7F, 1.4F, 0.9F)
+                .addBox(4.0F, -8.3F, -1.0F, 0.7F, 1.4F, 0.9F);
         gear.addOrReplaceChild("crown", crown, PartPose.ZERO);
         return LayerDefinition.create(mesh, 128, 64);
     }
 
-    /** One horn in three curved segments, curling outward and back. side = +1 right, -1 left. */
+    /** Ram horn: five segments, thick at the base, curling out, back and then down around the ear. */
     private static void horn(PartDefinition gear, String name, int side) {
-        PartDefinition a = gear.addOrReplaceChild(name, CubeListBuilder.create().texOffs(0, 24)
-                .addBox(-1.2F, -3.0F, -1.2F, 2.4F, 3.0F, 2.4F), PartPose.offsetAndRotation(side * 3.0F, -7.6F, -0.5F, 0.15F, 0F, side * 0.45F));
-        PartDefinition b = a.addOrReplaceChild("b", CubeListBuilder.create().texOffs(0, 24)
-                .addBox(-0.9F, -3.0F, -0.9F, 1.8F, 3.0F, 1.8F), PartPose.offsetAndRotation(0F, -3.0F, 0F, 0.25F, 0F, side * 0.35F));
-        b.addOrReplaceChild("c", CubeListBuilder.create().texOffs(0, 24)
-                .addBox(-0.55F, -3.0F, -0.55F, 1.1F, 3.0F, 1.1F), PartPose.offsetAndRotation(0F, -3.0F, 0F, 0.4F, 0F, side * 0.4F));
+        float[] w = {2.6F, 2.2F, 1.8F, 1.4F, 1.0F};
+        float[] zr = {0.9F, 0.7F, 0.6F, 0.6F, 0.5F};   // outward curl
+        float[] xr = {0.0F, 0.15F, 0.45F, 0.6F, 0.7F};  // forward curl (down in front of the ear)
+        PartDefinition cur = gear.addOrReplaceChild(name, CubeListBuilder.create().texOffs(0, 24)
+                        .addBox(-w[0] / 2, -2.6F, -w[0] / 2, w[0], 2.6F, w[0]),
+                PartPose.offsetAndRotation(side * 2.6F, -7.8F, -0.8F, 0.1F, 0F, side * 0.7F));
+        for (int i = 1; i < 5; i++) {
+            cur = cur.addOrReplaceChild("s" + i, CubeListBuilder.create().texOffs(0, 24)
+                            .addBox(-w[i] / 2, -2.8F, -w[i] / 2, w[i], 2.8F, w[i]),
+                    PartPose.offsetAndRotation(0F, -2.6F, 0F, xr[i], 0F, side * zr[i]));
+        }
     }
 
-    /** One wing: arm, then four fingers fanning out from the wrist, each with a hanging membrane strip. */
-    private static void wing(PartDefinition wings, String name, int side) {
-        float x0 = side > 0 ? 0F : -1F;       // boxes grow outward from the pivot on both sides
-        PartDefinition root = wings.addOrReplaceChild(name, CubeListBuilder.create(),
-                PartPose.offsetAndRotation(side * 1.5F, 2.5F, 2.2F, 0F, side * 0.55F, 0F));
-        float armLen = 11F;
+    /** Shoulder plate with a red spike (body-space, sits on top of the shoulders). */
+    private static void shoulder(PartDefinition body, String name, int side) {
+        PartDefinition plate = body.addOrReplaceChild(name, CubeListBuilder.create().texOffs(0, 24)
+                        .addBox(-2.4F, -0.6F, -3.0F, 4.8F, 1.6F, 6.0F),
+                PartPose.offsetAndRotation(side * 5.6F, -0.8F, 0F, 0F, 0F, side * 0.25F));
+        plate.addOrReplaceChild("spike", CubeListBuilder.create().texOffs(0, 0)
+                        .addBox(-0.8F, -3.4F, -0.8F, 1.6F, 3.4F, 1.6F),
+                PartPose.offsetAndRotation(0F, -0.4F, 0F, 0F, 0F, side * 0.3F));
+    }
+
+    /** One big ragged wing: arm, then five fingers fanning out from the wrist, each with a hanging membrane strip. */
+    private static void wing(PartDefinition body, String name, int side) {
+        PartDefinition root = body.addOrReplaceChild(name, CubeListBuilder.create(),
+                PartPose.offsetAndRotation(side * 1.5F, 2.0F, 2.4F, 0F, side * 0.5F, 0F));
+        float armLen = 14F;
         PartDefinition arm = root.addOrReplaceChild("arm", CubeListBuilder.create().texOffs(0, 40)
-                        .addBox(side > 0 ? 0F : -armLen, -1.0F, -0.5F, armLen, 2.0F, 1.0F),
-                PartPose.rotation(0F, 0F, side * -0.75F));
-        float[] len = {19F, 17F, 14F, 10F};
-        float[] ang = {0.05F, 0.55F, 1.05F, 1.55F};
-        float[] membrane = {9F, 9F, 8F, 6F};
-        for (int i = 0; i < 4; i++) {
+                        .addBox(side > 0 ? 0F : -armLen, -1.2F, -0.6F, armLen, 2.4F, 1.2F),
+                PartPose.rotation(0F, 0F, side * -0.8F));
+        float[] len = {27F, 24F, 20F, 15F, 10F};
+        float[] ang = {-0.05F, 0.4F, 0.8F, 1.2F, 1.6F};
+        float[] membrane = {10F, 13F, 11F, 8F, 5F};
+        for (int i = 0; i < 5; i++) {
             PartDefinition finger = arm.addOrReplaceChild("finger" + i, CubeListBuilder.create().texOffs(0, 40)
-                            .addBox(side > 0 ? 0F : -len[i], -0.5F, -0.5F, len[i], 1.0F, 1.0F),
+                            .addBox(side > 0 ? 0F : -len[i], -0.6F, -0.6F, len[i], 1.2F, 1.2F),
                     PartPose.offsetAndRotation(side * armLen, 0F, 0F, 0F, 0F, side * ang[i]));
             finger.addOrReplaceChild("membrane", CubeListBuilder.create().texOffs(0, 44)
-                            .addBox(side > 0 ? 0F : -len[i], 0.5F, -0.25F, len[i], membrane[i], 0.5F),
+                            .addBox(side > 0 ? 0F : -len[i], 0.6F, -0.3F, len[i], membrane[i], 0.6F),
                     PartPose.ZERO);
         }
     }
 
-    /** Flaps the wings gently; crouching folds them back a little. */
+    /** Slow wing beats, a swaying tail; crouching folds the wings back. */
     public void animate(float ageInTicks, boolean crouching) {
-        float flap = (float) Math.sin(ageInTicks * 0.18F) * 0.18F;
-        float fold = crouching ? 0.35F : 0F;
+        float flap = (float) Math.sin(ageInTicks * 0.15F) * 0.16F;
+        float fold = crouching ? 0.4F : 0F;
         wingR.zRot = flap;
         wingL.zRot = -flap;
-        wingR.yRot = 0.55F - fold;
-        wingL.yRot = -0.55F + fold;
+        wingR.yRot = 0.5F - fold;
+        wingL.yRot = -0.5F + fold;
+        tail.yRot = (float) Math.sin(ageInTicks * 0.1F) * 0.3F;
     }
 
-    public void renderWings(PoseStack ps, VertexConsumer vc, int light, int overlay) {
-        wings.render(ps, vc, light, overlay, -1);
+    public void renderBody(PoseStack ps, VertexConsumer vc, int light, int overlay) {
+        body.render(ps, vc, light, overlay, -1);
     }
 
     public void renderGear(PoseStack ps, VertexConsumer vc, int light, int overlay) {

@@ -57,7 +57,7 @@ public class GrimoireScreen extends Screen {
         y += 14;
         int level = ClientMagicState.level();
         int cur = MagicData.xpForLevel(level);
-        int next = level >= 10 ? cur : MagicData.xpForLevel(level + 1);
+        int next = level >= ClientMagicState.maxLevel ? cur : MagicData.xpForLevel(level + 1);
         String xpText = level >= 10 ? "Magic level 10 (max)"
                 : "Magic level " + level + "  -  " + (ClientMagicState.xp - cur) + " / " + (next - cur) + " xp";
         g.drawCenteredString(this.font, xpText, cx, y, 0xFFFFD84A);

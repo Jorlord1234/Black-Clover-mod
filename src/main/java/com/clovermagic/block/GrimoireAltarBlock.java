@@ -74,6 +74,52 @@ public class GrimoireAltarBlock extends Block {
             return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
 
+        if (stack.is(ModItems.DEVIL_CONTRACT_BOOK.get()) && data.leaves > 0) {
+            if (data.leaves2 > 0) {
+                sp.displayClientMessage(Component.literal("You already made this deal.").withStyle(ChatFormatting.RED), true);
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
+            }
+            RandomSource r = sp.getRandom();
+            MagicAttribute attr2;
+            do {
+                attr2 = MagicAttribute.roll(r);
+            } while (attr2.id.equals(data.attribute));
+            data.attribute2 = attr2.id;
+            data.leaves2 = r.nextInt(Config.FOUR_LEAF_ONE_IN.get()) == 0 ? 4 : 3;
+            data.xp2 = 0;
+            data.generation2 = 1000 + r.nextInt(1_000_000);
+            data.swapGrimoires();
+            ItemStack second = GrimoireManager.create(sp, data);
+            data.swapGrimoires();
+            sp.getInventory().placeItemBackInInventory(second);
+            if (!creative) stack.shrink(1);
+            devilPrice(sp, "second_grimoire");
+            com.clovermagic.magic.QuestHooks.award(sp, "second_grimoire");
+            MagicSync.send(sp);
+            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
+                    new com.clovermagic.net.CutscenePayload(attr2.id, data.leaves2));
+            sp.sendSystemMessage(Component.literal("The devil grants you a second grimoire: " + attr2.displayName
+                    + ". It costs you 2 hearts, for ever. Sneak + right-click a grimoire to switch.").withStyle(ChatFormatting.DARK_RED));
+            devilFx(sl, pos);
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
+        }
+        if (stack.is(ModItems.DEVIL_CONTRACT_LEAF.get()) && data.leaves > 0) {
+            if (data.devilMark) {
+                sp.displayClientMessage(Component.literal("You already made this deal.").withStyle(ChatFormatting.RED), true);
+                return net.minecraft.world.ItemInteractionResult.SUCCESS;
+            }
+            data.devilMark = true;
+            data.mana = data.maxMana();
+            if (!creative) stack.shrink(1);
+            devilPrice(sp, "devil_mark");
+            com.clovermagic.magic.QuestHooks.award(sp, "devil_mark");
+            MagicSync.send(sp);
+            sp.sendSystemMessage(Component.literal("A fifth leaf grows on your grimoire, black as the devil's contract: 50% more mana and 25% stronger spells. It costs you 2 hearts, for ever.")
+                    .withStyle(ChatFormatting.DARK_RED));
+            devilFx(sl, pos);
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
+        }
+
         net.minecraft.world.item.enchantment.ItemEnchantments ench =
                 stack.get(net.minecraft.core.component.DataComponents.STORED_ENCHANTMENTS);
         if (ench != null && data.leaves == 3) {
@@ -85,11 +131,12 @@ public class GrimoireAltarBlock extends Block {
                 if (!old.isEmpty()) old.setCount(0);
                 if (!creative) stack.shrink(1);
                 data.leaves = 4;
-                data.mana = GrimoireItem.maxMana(data.level(), 4);
+                data.mana = data.maxMana();
                 GrimoireManager.issue(sp, data);
                 MagicSync.send(sp);
                 net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
                         new com.clovermagic.net.CutscenePayload(data.attribute, 4));
+                com.clovermagic.magic.QuestHooks.award(sp, "four_leaf");
                 sp.sendSystemMessage(Component.literal("Within the four-leaf lies good luck. Your grimoire has grown a fourth leaf!")
                         .withStyle(ChatFormatting.GREEN));
                 sl.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 60, 0.8, 0.8, 0.8, 0.1);
@@ -158,9 +205,12 @@ public class GrimoireAltarBlock extends Block {
         data.attribute = attr.id;
         data.xp = 0;
         data.selected = 0;
-        data.mana = GrimoireItem.maxMana(1, leaves);
+        data.mana = data.maxMana();
         GrimoireManager.issue(sp, data);
         MagicSync.send(sp);
+        com.clovermagic.magic.QuestHooks.award(sp, "got_grimoire");
+        if (leaves == 4) com.clovermagic.magic.QuestHooks.award(sp, "four_leaf");
+        if (leaves == 5) com.clovermagic.magic.QuestHooks.award(sp, "five_leaf");
 
         // the cutscene on the player's screen shows the name and attribute (it replaces the old title text)
         net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
@@ -176,5 +226,25 @@ public class GrimoireAltarBlock extends Block {
         if (leaves == 5) {
             level.playSound(null, pos, SoundEvents.WITHER_SPAWN, SoundSource.BLOCKS, 0.6f, 1.6f);
         }
+    }
+
+    /** Devil Deals cost 2 hearts of maximum health, permanently (one modifier per deal). */
+    private static void devilPrice(ServerPlayer sp, String deal) {
+        net.minecraft.world.entity.ai.attributes.AttributeInstance inst =
+                sp.getAttribute(net.minecraft.world.entity.ai.attributes.Attributes.MAX_HEALTH);
+        if (inst == null) return;
+        net.minecraft.resources.ResourceLocation id =
+                net.minecraft.resources.ResourceLocation.fromNamespaceAndPath("clovermagic", "devil_price_" + deal);
+        if (!inst.hasModifier(id)) {
+            inst.addPermanentModifier(new net.minecraft.world.entity.ai.attributes.AttributeModifier(id, -4.0,
+                    net.minecraft.world.entity.ai.attributes.AttributeModifier.Operation.ADD_VALUE));
+        }
+        if (sp.getHealth() > sp.getMaxHealth()) sp.setHealth(sp.getMaxHealth());
+    }
+
+    private static void devilFx(ServerLevel sl, BlockPos pos) {
+        sl.sendParticles(ParticleTypes.SOUL_FIRE_FLAME, pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 80, 0.8, 0.8, 0.8, 0.1);
+        sl.sendParticles(ParticleTypes.SQUID_INK, pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 40, 0.8, 0.8, 0.8, 0.05);
+        sl.playSound(null, pos, SoundEvents.WITHER_SPAWN, SoundSource.BLOCKS, 0.7f, 0.6f);
     }
 }

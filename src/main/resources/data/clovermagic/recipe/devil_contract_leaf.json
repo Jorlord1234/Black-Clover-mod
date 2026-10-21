@@ -1,0 +1,34 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:nether_star"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:mana_crystal"
+    },
+    {
+      "item": "clovermagic:magic_beast_core"
+    },
+    {
+      "item": "clovermagic:magic_beast_core"
+    },
+    {
+      "item": "minecraft:wither_skeleton_skull"
+    }
+  ],
+  "result": {
+    "id": "clovermagic:devil_contract_leaf",
+    "count": 1
+  }
+}

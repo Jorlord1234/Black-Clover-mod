@@ -37,7 +37,7 @@ public final class ModEvents {
         if (sp.tickCount % 10 == 0) MagicSync.send(sp);
         if (data.leaves == 0) return;
 
-        int max = GrimoireItem.maxMana(data.level(), data.leaves);
+        int max = data.maxMana();
         if (data.mana > max) data.mana = max;
         if (sp.tickCount % 20 == 0 && data.mana < max) {
             data.mana = Math.min(max, data.mana + Config.MANA_REGEN_PER_SECOND.get() + data.level() / 3);
@@ -113,7 +113,7 @@ public final class ModEvents {
         // Ember Skin (fire tree): with at least 20% mana, fire and lava cannot hurt you
         if (data.leaves > 0 && data.leaves != 5 && data.unlocked.contains("ember_skin")
                 && event.getSource().is(DamageTypeTags.IS_FIRE)
-                && data.mana * 5 >= GrimoireItem.maxMana(data.level(), data.leaves)) {
+                && data.mana * 5 >= data.maxMana()) {
             event.setCanceled(true);
             return;
         }

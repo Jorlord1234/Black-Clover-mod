@@ -22,7 +22,7 @@ public final class MagicSync {
         com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(d);
         int points = tree == null ? 0 : SkillLogic.points(d, tree);
         PacketDistributor.sendToPlayer(sp, new SyncPayload(d.attribute, d.leaves, d.mana,
-                com.clovermagic.item.GrimoireItem.maxMana(d.level(), d.leaves), d.xp, has, cds,
+                d.maxMana(), d.xp, has, cds,
                 new java.util.ArrayList<>(d.unlocked), com.clovermagic.Config.MAX_LEVEL.get(), points));
     }
 }

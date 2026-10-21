@@ -53,6 +53,8 @@ public final class ClientSetup {
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.FIREBALL.get(), FireballRenderer::new);
         event.registerEntityRenderer(ModEntities.SPELL_VFX.get(), SpellVfxRenderer::new);
+        event.registerEntityRenderer(ModEntities.HOBGOBLIN.get(), HobgoblinRenderer::new);
+        event.registerEntityRenderer(ModEntities.MAGIC_NPC.get(), MagicNpcRenderer::new);
     }
 
     public static final net.minecraft.client.model.geom.ModelLayerLocation DEVIL_UNION_LAYER =

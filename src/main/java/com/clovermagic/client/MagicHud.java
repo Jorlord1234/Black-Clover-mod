@@ -130,7 +130,7 @@ public class MagicHud implements LayeredDraw.Layer {
         g.drawString(font, lvText, bx + bw - font.width(lvText), by - 21, 0xFFFFD84A);
         // magic xp progress
         int cur = MagicData.xpForLevel(level);
-        int next = level >= 10 ? cur : MagicData.xpForLevel(level + 1);
+        int next = level >= ClientMagicState.maxLevel ? cur : MagicData.xpForLevel(level + 1);
         float xpFrac = next <= cur ? 1f : Math.min(1f, (float) (ClientMagicState.xp - cur) / (next - cur));
         g.fill(bx, by + 8, bx + bw, by + 10, 0xFF000000);
         g.fill(bx, by + 8, bx + Math.round(bw * xpFrac), by + 10, 0xFFFFD84A);
