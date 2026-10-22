@@ -42,7 +42,7 @@ public final class ModItems {
     public static final DeferredItem<Item> GRIMOIRE_ALTAR = ITEMS.registerItem("grimoire_altar",
             props -> new BlockItem(ModBlocks.GRIMOIRE_ALTAR.get(), props), new Item.Properties().rarity(Rarity.RARE));
 
-    /** Rare drop of Magic Beasts (the Hobgoblin is the first one planned). Used to craft the Page of Forgetting. */
+    /** Rare drop of Magic Beasts (Magic Boars, Midnight Sun Mages, demons, devils and bosses drop it). Used to craft the Page of Forgetting. */
     public static final DeferredItem<Item> MAGIC_BEAST_CORE = ITEMS.registerItem("magic_beast_core",
             props -> new Item(props), new Item.Properties().rarity(Rarity.UNCOMMON));
 
@@ -56,10 +56,6 @@ public final class ModItems {
     public static final DeferredItem<Item> DEVIL_CONTRACT_LEAF = ITEMS.registerItem("devil_contract_leaf",
             props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
 
-    public static final DeferredItem<Item> HOBGOBLIN_SPAWN_EGG = ITEMS.registerItem("hobgoblin_spawn_egg",
-            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.HOBGOBLIN, 0x4F7F32, 0x3A2412, props),
-            new Item.Properties());
-
     public static final DeferredItem<Item> MAGIC_BOAR_SPAWN_EGG = ITEMS.registerItem("magic_boar_spawn_egg",
             props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.MAGIC_BOAR, 0x4A3322, 0xE8DCC0, props),
             new Item.Properties());
@@ -69,6 +65,17 @@ public final class ModItems {
     public static final DeferredItem<Item> YULTIM_SPIDER_SPAWN_EGG = ITEMS.registerItem("yultim_spider_spawn_egg",
             props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.YULTIM_SPIDER, 0x2A1838, 0xC02030, props),
             new Item.Properties());
+
+    public static final DeferredItem<Item> DEMON_SPAWN_EGG = ITEMS.registerItem("demon_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.DEMON, 0x5A1010, 0x181010, props),
+            new Item.Properties());
+    public static final DeferredItem<Item> DEVIL_SPAWN_EGG = ITEMS.registerItem("devil_spawn_egg",
+            props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.DEVIL, 0x701020, 0xE0A020, props),
+            new Item.Properties());
+
+    /** A flying broom, like the Magic Knights ride. */
+    public static final DeferredItem<Item> MAGIC_BROOM = ITEMS.registerItem("magic_broom",
+            props -> new com.clovermagic.item.MagicBroomItem(props), new Item.Properties().stacksTo(1));
 
     /** Restores half of your maximum mana. */
     public static final DeferredItem<Item> MANA_POTION = ITEMS.registerItem("mana_potion",

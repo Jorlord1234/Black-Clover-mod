@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:second_grimoire",
+  "display": {
+    "icon": {
+      "id": "clovermagic:devil_contract_leaf"
+    },
+    "title": "The Devil's Mark",
+    "description": "Make the deal of the fifth leaf: more mana and stronger spells, for another price in hearts.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 300,
+    "loot": [
+      "clovermagic:quest/devil_mark"
+    ]
   }
 }

@@ -34,18 +34,95 @@ final class AntiFx {
         return true;
     }
 
-    private static void sword(Gfx g) {
-        int blade = Col.rgb(0x15151C), edge = Col.rgb(0x7A7A8C);
-        g.box(-0.13, -0.025, 0.5, 0.13, 0.025, 3.0, blade);
-        g.box(-0.13, 0.025, 0.5, -0.1, 0.03, 3.0, edge);
-        for (int i = 0; i < 6; i++) {
-            double z = 0.9 + i * 0.38;
-            g.tri(0.13, 0, z, 0.27, 0, z + 0.12, 0.13, 0, z + 0.3, edge, blade, blade);
-            g.tri(-0.13, 0, z + 0.1, -0.24, 0, z + 0.2, -0.13, 0, z + 0.34, edge, blade, blade);
+    /** Flat blade made of cross-sections (z, half width); the last one is the tip (z, 0). Black with a light fuller. */
+    private static void bladeStrip(Gfx g, double[][] sec, double tipZ, int body, int edge) {
+        for (int i = 0; i + 1 < sec.length; i++) {
+            double z0 = sec[i][0], w0 = sec[i][1], z1 = sec[i + 1][0], w1 = sec[i + 1][1];
+            g.quad(-w0, 0, z0, w0, 0, z0, w1, 0, z1, -w1, 0, z1, body, body, body, body);
+            g.rod(-w0, 0, z0, -w1, 0, z1, 0.012, 0.012, edge, edge);
+            g.rod(w0, 0, z0, w1, 0, z1, 0.012, 0.012, edge, edge);
         }
-        g.tri(-0.13, 0, 3.0, 0.13, 0, 3.0, 0.0, 0, 3.35, blade, blade, edge);
-        g.box(-0.4, -0.05, 0.38, 0.4, 0.05, 0.5, Col.rgb(0x2A2A36));     // crossguard
-        g.box(-0.05, -0.05, -0.2, 0.05, 0.05, 0.38, Col.rgb(0x3A2A20));  // grip
+        double[] last = sec[sec.length - 1];
+        g.tri(-last[1], 0, last[0], last[1], 0, last[0], 0, 0, tipZ, body, body, edge);
+    }
+
+    /** The three summoned swords, drawn along +Z with the hilt at z<0.5: tier 1 Demon-Slayer, 2 Demon-Dweller, 3 Demon-Destroyer. */
+    private static void sword(Gfx g, int tier) {
+        int blade = Col.rgb(0x101016), edge = Col.rgb(0x8A8A9C), white = Col.rgb(0xE8E8F0), dark = Col.rgb(0x2A2A36);
+        if (tier == 1) {
+            // wide blade, narrow at the guard, widest near the top, pointed tip; thin long crossguard with ball ends
+            bladeStrip(g, new double[][] {{0.5, 0.10}, {1.2, 0.26}, {2.2, 0.40}, {3.0, 0.43}}, 3.65, blade, edge);
+            g.box(-0.03, 0.002, 0.6, 0.03, 0.02, 3.3, edge);
+            for (int i = 0; i < 9; i++) {
+                double z = 1.0 + 0.27 * i, x = (i % 2 == 0 ? -1 : 1) * (0.08 + 0.2 * Rnd.h(5, i)) * (0.4 + z * 0.15);
+                g.tri(x, 0.003, z, x + 0.09, 0.003, z + 0.12, x - 0.02, 0.003, z + 0.2, white, white, white);
+            }
+            g.box(-0.6, -0.03, 0.38, 0.6, 0.03, 0.47, dark);
+            g.sphere(0.07, 4, 6, edge, edge);
+            g.push();
+            g.translate(-0.62, 0, 0.42);
+            g.sphere(0.07, 4, 6, edge, edge);
+            g.pop();
+            g.push();
+            g.translate(0.62, 0, 0.42);
+            g.sphere(0.07, 4, 6, edge, edge);
+            g.pop();
+            g.box(-0.04, -0.04, -0.4, 0.04, 0.04, 0.4, dark);
+            g.push();
+            g.translate(0, 0, -0.45);
+            g.sphere(0.09, 5, 8, edge, edge);
+            g.pop();
+        } else if (tier == 2) {
+            // long straight double-edged blade with an ornate white centre; small ornate guard, round pommel
+            bladeStrip(g, new double[][] {{0.5, 0.12}, {1.0, 0.15}, {2.8, 0.15}, {3.4, 0.11}}, 4.1, blade, edge);
+            g.box(-0.035, 0.002, 0.55, 0.035, 0.02, 3.6, white);
+            for (int i = 0; i < 10; i++) {
+                double z = 0.8 + 0.3 * i;
+                g.push();
+                g.translate(0, 0.004, z);
+                g.rotY(PI / 4);
+                g.box(-0.04, 0, -0.04, 0.04, 0.012, 0.04, white);
+                g.pop();
+            }
+            g.box(-0.34, -0.04, 0.38, 0.34, 0.04, 0.47, edge);
+            for (int sd = -1; sd <= 1; sd += 2) {
+                g.push();
+                g.translate(sd * 0.34, 0, 0.42);
+                g.coneY(0.2, 0.06, 4, edge, dark);
+                g.pop();
+            }
+            g.box(-0.04, -0.04, -0.3, 0.04, 0.04, 0.4, dark);
+            g.push();
+            g.translate(0, 0, -0.38);
+            g.sphere(0.1, 5, 8, edge, edge);
+            g.pop();
+        } else {
+            // huge cleaver: straight spine, curved cutting edge, slanted tip, white scribble pattern and a clover mark; cross guard with big paddles
+            double[][] sec = {{0.5, 0.10}, {1.2, 0.46}, {2.0, 0.62}, {2.8, 0.62}, {3.3, 0.52}};
+            for (int i = 0; i + 1 < sec.length; i++) {
+                g.quad(-0.22, 0, sec[i][0], sec[i][1], 0, sec[i][0], sec[i + 1][1], 0, sec[i + 1][0], -0.22, 0, sec[i + 1][0], blade, blade, blade, blade);
+                g.rod(sec[i][1], 0, sec[i][0], sec[i + 1][1], 0, sec[i + 1][0], 0.014, 0.014, edge, edge);
+            }
+            g.tri(-0.22, 0, 3.3, 0.52, 0, 3.3, 0.2, 0, 3.85, blade, blade, edge);
+            g.rod(-0.22, 0, 0.5, -0.22, 0, 3.3, 0.016, 0.016, edge, edge);
+            for (int i = 0; i < 12; i++) {
+                double z = 0.9 + 0.22 * i, x = -0.1 + 0.55 * Rnd.h(9, i);
+                g.rod(x, 0.003, z, x + 0.12, 0.003, z + 0.16, 0.012, 0.012, white, white);
+                g.rod(x + 0.05, 0.003, z, x - 0.04, 0.003, z + 0.2, 0.008, 0.008, white, white);
+            }
+            for (int i = 0; i < 3; i++) {
+                double a = PI * 2 * i / 3 + PI / 2;
+                g.push();
+                g.translate(0.12 + Math.cos(a) * 0.07, 0.004, 3.0 + Math.sin(a) * 0.07);
+                g.box(-0.04, 0, -0.04, 0.04, 0.01, 0.04, white);
+                g.pop();
+            }
+            g.box(-0.62, -0.06, 0.34, 0.62, 0.06, 0.46, dark);
+            for (int sd = -1; sd <= 1; sd += 2) {
+                g.box(Math.min(sd * 0.46, sd * 0.78), -0.07, 0.24, Math.max(sd * 0.46, sd * 0.78), 0.07, 0.58, edge);
+            }
+            g.box(-0.05, -0.05, -0.15, 0.05, 0.05, 0.36, dark);
+        }
     }
 
     /** The sword materialises in the caster's right hand above a rotating anti-magic circle (tier 1 slayer, 2 dweller, 3 destroyer). */
@@ -62,10 +139,10 @@ final class AntiFx {
         g.translate(-0.5, 0.6 + 0.9 * grow, 0.45);
         g.rotX(-PI / 2);
         g.rotZ(c.t * 0.35);
-        double sc = tier == 3 ? 0.62 : tier == 2 ? 0.5 : 0.42;
+        double sc = tier == 3 ? 0.5 : tier == 2 ? 0.45 : 0.45;
         g.scale(sc);
-        g.translate(0, 0, -1.6);
-        sword(g);
+        g.translate(0, 0, -1.8);
+        sword(g, tier);
         g.pop();
         for (int i = 0; i < 6 + 2 * tier; i++) {
             double a = c.t * 0.2 + PI * 2 * i / (6 + 2 * tier);

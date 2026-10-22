@@ -193,45 +193,99 @@ final class LightningFx {
         g.pop();
     }
 
-    /** Luck's ultimate: a storm of crackling bolts, bolt horns, lightning wings and a thundering ground ring. */
+    /**
+     * Luck's Lightning Battle Fiend: glowing white-blue body with lightning markings and spiky hair, six big glowing orbs hanging
+     * behind the caster, a dark horned beast looming behind them, drifting snow-like sparks and bolts that re-roll every few ticks.
+     */
     private static void battleFiend(Gfx g, Ctx c) {
-        g.alpha = c.fade(8, 14);
+        float fade = c.fade(10, 16);
+        g.alpha = fade;
         long s = c.seed * 29 + (long) (c.t / 2);
-        for (int i = 0; i < 11; i++) {
-            double a = PI * 2 * Rnd.h(s, i), a2 = a + Rnd.s(s, i + 10) * 1.5;
-            double y1 = 0.1 + 1.9 * Rnd.h(s, i + 20), y2 = 0.1 + 1.9 * Rnd.h(s, i + 30);
-            g.bolt(Math.cos(a) * 0.35, y1, Math.sin(a) * 0.35, Math.cos(a2) * 1.1, y2, Math.sin(a2) * 1.1, 4, 0.2, s * 13 + i, 0.03, CORE, blue(0.7f));
-        }
-        g.push();
-        g.translate(0, 0.95, 0);
-        g.scale(0.85, 1.3, 0.85);
-        g.sphere(0.85, 6, 10, blue(0.1f * c.shell()), gold(0.14f * c.shell()));
-        g.pop();
-        // bolt horns above the head
-        for (int sd = -1; sd <= 1; sd += 2) {
-            double px = sd * 0.15, py = 1.9, pz = 0;
-            for (int i = 1; i <= 4; i++) {
-                double f = i / 4.0;
-                double x = sd * (0.15 + 0.55 * Math.sin(f * 1.4)), y = 1.9 + 0.7 * f, z = -0.1 * f;
-                g.rod(px, py, pz, x, y, z, 0.05 * (1.2 - f), 0.05 * (1.2 - f + 0.25), gold(0.95f), CORE);
-                px = x;
-                py = y;
-                pz = z;
-            }
-        }
-        // lightning wings behind
+        int white = Col.rgb(0xFFFFFF), ice = Col.rgb(0x7FD8FF), deep = Col.rgb(0x1E78E0);
+        float sh = c.shell();
         g.push();
         g.rotY(-Math.toRadians(c.bodyYaw));
+        // ---- glowing body shell (player-shaped)
+        int body = Col.rgba(0xBFEFFF, 0.30f * sh);
+        g.boxG(-0.27, 0.72, -0.17, 0.27, 1.48, 0.17, Col.rgba(0x7FD8FF, 0.3f * sh), body);
+        g.box(-0.52, 0.72, -0.12, -0.28, 1.48, 0.12, body);
+        g.box(0.28, 0.72, -0.12, 0.52, 1.48, 0.12, body);
+        g.box(-0.27, 0.0, -0.13, -0.01, 0.72, 0.13, body);
+        g.box(0.01, 0.0, -0.13, 0.27, 0.72, 0.13, body);
+        g.push();
+        g.translate(0, 1.5, 0);
+        g.sphere(0.34, 5, 8, Col.rgba(0xBFEFFF, 0.3f * sh * 0.5f), Col.rgba(0xFFFFFF, 0.3f * sh * 0.5f));
+        g.pop();
+        // ---- spiky hair crown
+        for (int i = 0; i < 10; i++) {
+            double a = PI * 2 * i / 10 + 0.3;
+            g.push();
+            g.translate(Math.cos(a) * 0.14, 2.02, Math.sin(a) * 0.14);
+            g.rotZ(-Math.cos(a) * (0.45 + 0.3 * Rnd.h(c.seed, i)));
+            g.rotX(Math.sin(a) * (0.45 + 0.3 * Rnd.h(c.seed, i + 9)));
+            g.coneY(0.45 + 0.35 * Rnd.h(c.seed, i + 20), 0.07, 4, white, Col.rgba(0xBFEFFF, 0.1f));
+            g.pop();
+        }
+        // ---- lightning markings on chest, arms and legs
+        int dk = Col.rgba(0x0A3C8C, 0.95f);
+        g.bolt(-0.2, 1.45, 0.19, 0.08, 1.05, 0.19, 5, 0.07, 3, 0.012, dk, Col.rgba(0xFFFFFF, 0.5f));
+        g.bolt(0.15, 1.4, 0.19, -0.05, 0.8, 0.19, 5, 0.06, 5, 0.012, dk, Col.rgba(0xFFFFFF, 0.5f));
         for (int sd = -1; sd <= 1; sd += 2) {
-            for (int i = 0; i < 3; i++) {
-                g.bolt(sd * 0.2, 1.3, -0.3, sd * (1.2 + 0.4 * i), 1.9 - 0.35 * i + 0.6, -0.9 - 0.2 * i, 5, 0.18, s * 3 + sd * 7 + i, 0.03, CORE, blue(0.6f));
+            g.bolt(sd * 0.4, 1.46, 0.13, sd * 0.4, 0.78, 0.13, 6, 0.06, 7 + sd, 0.012, dk, Col.rgba(0xFFFFFF, 0.5f));
+            g.bolt(sd * 0.14, 0.7, 0.14, sd * 0.14, 0.05, 0.14, 6, 0.05, 11 + sd, 0.012, dk, Col.rgba(0xFFFFFF, 0.5f));
+        }
+        // ---- six big glowing orbs hanging behind the caster
+        for (int i = 0; i < 6; i++) {
+            double th = Math.toRadians(-75 + i * 30);
+            double bob = 0.1 * Math.sin(c.t * 0.07 + i * 1.3);
+            double x = Math.sin(th) * 2.3, z = -0.6 - Math.cos(th) * 1.9;
+            double y = 1.5 + 0.9 * Math.cos(th * 1.6) + bob + (i % 2 == 0 ? 0.35 : -0.15);
+            g.push();
+            g.translate(x, y, z);
+            g.sphere(0.34, 7, 12, white, white);
+            g.sphere(0.5, 7, 12, Col.rgba(0x7FD8FF, 0.35f), Col.rgba(0xBFEFFF, 0.35f));
+            g.sphere(0.7, 6, 10, Col.rgba(0x1E90FF, 0.1f), Col.rgba(0x7FD8FF, 0.1f));
+            g.pop();
+        }
+        // ---- the dark horned beast looming behind
+        g.push();
+        g.translate(0, 2.0, -3.6);
+        g.sphere(1.3, 7, 12, Col.rgba(0x05060C, 0.4f * sh), Col.rgba(0x0A1030, 0.4f * sh));
+        for (int sd = -1; sd <= 1; sd += 2) {
+            double[][] pts = new double[9][];
+            for (int i = 0; i < 9; i++) {
+                double f = i / 8.0;
+                pts[i] = new double[] {sd * (0.8 + 1.7 * Math.sin(f * 1.3)), 0.6 + 1.6 * Math.sin(f * 1.0) - 2.0 * f * f, 0.3 * f};
             }
+            Parts.tube(g, pts, 0.2, 0.04, Col.rgba(0x1C1C2A, 0.8f * sh), Col.rgba(0x4A4A60, 0.8f * sh));
+            g.push();
+            g.translate(sd * 0.5, 0.3, 1.0);
+            g.scale(1.0, 0.5, 0.3);
+            g.sphere(0.4, 5, 8, Col.rgba(0xC040B0, 0.9f), Col.rgba(0xFF80E0, 0.9f));
+            g.pop();
         }
         g.pop();
+        g.pop();
+        // ---- drifting sparks like snow, and bolts that re-roll
+        for (int i = 0; i < 26; i++) {
+            double ph = (c.t * 0.01 + Rnd.h(c.seed, i)) % 1.0;
+            double a = PI * 2 * Rnd.h(c.seed, i + 40), r = 0.8 + 3.6 * Rnd.h(c.seed, i + 80);
+            g.push();
+            g.translate(Math.cos(a) * r, 4.0 - ph * 4.2, Math.sin(a) * r);
+            g.rotY(c.t * 0.05 + i);
+            g.rotX(c.t * 0.04 + i);
+            g.box(-0.05, -0.012, -0.025, 0.05, 0.012, 0.025, Col.rgba(0xFFFFFF, 0.9f));
+            g.pop();
+        }
+        for (int i = 0; i < 9; i++) {
+            double a = PI * 2 * Rnd.h(s, i), a2 = a + Rnd.s(s, i + 10) * 1.5;
+            double y1 = 0.1 + 1.9 * Rnd.h(s, i + 20), y2 = 0.1 + 1.9 * Rnd.h(s, i + 30);
+            g.bolt(Math.cos(a) * 0.4, y1, Math.sin(a) * 0.4, Math.cos(a2) * 1.3, y2, Math.sin(a2) * 1.3, 4, 0.2, s * 13 + i, 0.028, CORE, blue(0.7f));
+        }
         g.push();
         g.translate(0, 0.05, 0);
         g.rotY(c.t * 0.25);
-        g.ring(0.6, 1.8, 20, gold(0.55f), blue(0f));
+        g.ring(0.6, 1.8, 20, Col.rgba(0xFFFFFF, 0.5f), blue(0f));
         for (int i = 0; i < 6; i++) {
             double a = PI * i / 3;
             g.bolt(0, 0, 0, Math.cos(a) * 3.2, 0.05, Math.sin(a) * 3.2, 6, 0.3, s * 5 + i, 0.03, CORE, blue(0.55f));

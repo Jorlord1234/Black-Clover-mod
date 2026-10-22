@@ -125,119 +125,153 @@ final class FireFx {
         g.pop();
     }
 
+    /** Leo Rugiens after the anime: a giant fire beast head with wide-open fanged jaws and a blazing sun of fire in its mouth. */
     private static void leoRugiens(Gfx g, Ctx c) {
-        float grow = Math.min(1f, c.t / 6f);
+        float grow = (float) Parts.ease(c.t / 5.0);
         g.alpha = c.fade(0, 7);
         g.aim(c);
-        double L = c.len * grow;
-        // roar cone, nested
-        g.frustumZ(L, 0.15, L * 0.33, 10, Col.rgba(0xFFD040, 0.5f), Col.rgba(0xFF4000, 0.0f), 0);
-        g.frustumZ(L * 0.8, 0.1, L * 0.22, 10, Col.rgba(0xFFF0A0, 0.6f), Col.rgba(0xFF8000, 0.0f), 0);
-        // shock rings along the cone
-        for (int i = 0; i < 5; i++) {
-            double z = ((c.t * 1.4 + i * 1.8) % c.len);
-            double r = 0.3 + z * 0.3;
-            g.push();
-            g.translate(0, 0, z);
-            g.rotX(PI / 2);
-            g.torus(r, 0.06, 16, 4, Col.rgba(0xFFB030, 0.7f * (1f - (float) (z / c.len))));
-            g.pop();
-        }
-        // flaming lion head
+        double L = c.len;
+        double zh = 2.2 + 1.4 * grow;
+        // the blast pouring out of the mouth
         g.push();
-        g.translate(0, 0, 1.4 + 3.0 * grow);
-        double s = 0.55 + 0.45 * grow;
-        g.scale(s);
-        lionHead(g, c.t, c.seed);
+        g.translate(0, -0.15, zh + 1.0);
+        double jet = Math.max(0.5, (L - zh) * grow);
+        g.frustumZ(jet, 0.5, 1.6, 12, Col.rgba(0xFFF0A0, 0.8f), Col.rgba(0xFF6010, 0.0f), 0);
+        g.frustumZ(jet * 0.8, 0.8, 2.3, 12, Col.rgba(0xFFB030, 0.4f), Col.rgba(0xFF4000, 0.0f), 0);
+        g.pop();
+        g.push();
+        g.translate(0, 0, zh);
+        g.scale(1.1 + 0.4 * grow);
+        fireBeastHead(g, c.t, c.seed, (float) (0.55 + 0.1 * Math.sin(c.t * 0.6)));
         g.pop();
     }
 
-    /** Stylised lion head made of flame: mane of spikes, round face, snout, ears, fangs. Looks toward +Z. */
-    static void lionHead(Gfx g, float t, long seed) {
-        g.sphere(0.5, 6, 10, Col.rgba(0xFFB020, 0.95f), Col.rgba(0xFFD860, 0.95f));
+    /** Fire beast head looking toward +Z: orange body, open jaws, rows of fangs, big slit eye, flame mane, sun in the mouth. */
+    static void fireBeastHead(Gfx g, float t, long seed, float open) {
+        int body = Col.rgba(0xFF8A10, 0.88f), top = Col.rgba(0xFFC030, 0.88f), dark = Col.rgba(0xC02A08, 0.9f);
         g.push();
-        g.translate(0, 0.05, 0.1);
-        g.sphere(0.72, 6, 12, Col.rgba(0xD03008, 0.35f), Col.rgba(0xFF6010, 0.35f));
+        g.scale(1.0, 0.9, 1.15);
+        g.sphere(0.8, 7, 12, dark, top);
         g.pop();
-        // mane: two rings of spikes pointing outward
-        for (int ring = 0; ring < 2; ring++) {
-            int n = 14;
-            for (int i = 0; i < n; i++) {
-                double a = PI * 2 * i / n + ring * 0.22;
+        // upper jaw / snout
+        g.push();
+        g.translate(0, 0.08, 0.45);
+        g.rotX(-0.12);
+        g.scale(1.0, 0.65, 1.0);
+        g.frustumZ(1.6, 0.55, 0.32, 8, body, top, 0);
+        g.pop();
+        // lower jaw dropped open
+        g.push();
+        g.translate(0, -0.25, 0.25);
+        g.rotX(open);
+        g.scale(1.0, 0.5, 1.0);
+        g.frustumZ(1.35, 0.46, 0.25, 8, dark, body, 0);
+        g.pop();
+        for (int i = 0; i < 7; i++) {
+            for (int s = -1; s <= 1; s += 2) {
+                double z = 0.7 + i * 0.2;
                 g.push();
-                g.rotZ(a);
-                g.rotY(PI / 2 + (ring == 0 ? -0.18 : 0.12));   // tilt back
-                g.rotX(-PI / 2);
-                g.translate(0, 0, 0.35 + 0.05 * ring);
-                double len = (0.55 + 0.25 * Rnd.h(seed, i + ring * 20)) * (ring == 0 ? 1 : 0.8)
-                        * (1 + 0.12 * Math.sin(t * 0.8 + i));
-                g.coneZ(len, 0.14, 4, Col.rgba(0xFF8A10, 0.9f), Col.rgba(0xC01800, 0.2f));
+                g.translate(s * (0.3 - i * 0.015), -0.05, z);
+                g.rotX(PI);
+                g.coneY(0.26 + 0.06 * (i % 2), 0.05, 4, Col.rgb(0xFFFFF0), Col.rgb(0xFFF0B0));
+                g.pop();
+                g.push();
+                g.translate(s * (0.26 - i * 0.012), -0.28 - open * 0.8 * (z / 1.4) * 0.5, 0.3 + z * 0.8);
+                g.coneY(0.24 + 0.05 * (i % 2), 0.045, 4, Col.rgb(0xFFFFF0), Col.rgb(0xFFF0B0));
                 g.pop();
             }
         }
-        // snout + nose + mouth
-        g.box(-0.2, -0.22, 0.38, 0.2, -0.02, 0.72, Col.rgb(0xFFE08A));
-        g.box(-0.08, -0.04, 0.7, 0.08, 0.04, 0.76, Col.rgb(0x501008));
-        g.box(-0.16, -0.3, 0.4, 0.16, -0.22, 0.66, Col.rgb(0xFF7020));
+        // eyes
         for (int s = -1; s <= 1; s += 2) {
             g.push();
-            g.translate(s * 0.1, -0.22, 0.62);
-            g.rotX(PI);
-            g.coneY(0.14, 0.035, 4, WHITE, WHITE);
+            g.translate(s * 0.5, 0.32, 0.5);
+            g.scale(0.55, 0.8, 1.2);
+            g.sphere(0.2, 5, 8, Col.rgb(0xFFE070), Col.rgb(0xFFFFB0));
             g.pop();
-            g.cube(s * 0.2, 0.16, 0.45, 0.1, Col.rgb(0xFFFFFF));   // eyes
-            g.cube(s * 0.2, 0.16, 0.5, 0.05, Col.rgb(0xC01000));
+            g.box(s * 0.5 - 0.02, 0.22, 0.45, s * 0.5 + 0.02, 0.42, 0.7, Col.rgb(0xC02000));
+        }
+        // blazing sun of fire in the mouth
+        g.push();
+        g.translate(0, -0.25, 1.15);
+        double pulse = 1.0 + 0.06 * Math.sin(t * 0.8);
+        g.sphere(0.55 * pulse, 6, 10, Col.rgb(0xFFFFFF), Col.rgb(0xFFF8B0));
+        g.sphere(0.8 * pulse, 6, 10, Col.rgba(0xFFD040, 0.55f), Col.rgba(0xFFE880, 0.55f));
+        g.pop();
+        // flame mane streaming back
+        for (int i = 0; i < 14; i++) {
+            double a = PI * 2 * i / 14;
             g.push();
-            g.translate(s * 0.34, 0.42, 0.0);                       // ears
-            g.sphere(0.13, 4, 6, Col.rgb(0xFF9010), Col.rgb(0xFFD040));
+            g.translate(Math.cos(a) * 0.55, Math.sin(a) * 0.5, -0.3);
+            g.rotX(PI - 0.2);
+            g.rotZ(a);
+            g.coneZ(0.9 + 0.5 * Rnd.h(seed, i) + 0.15 * Math.sin(t * 0.8 + i), 0.16, 4, Col.rgba(0xFF8A10, 0.85f), Col.rgba(0xC01800, 0f));
             g.pop();
         }
     }
 
-    private static void leoPalma(Gfx g, Ctx c) {
-        g.alpha = c.fade(3, 8);
-        double h = c.fh;
-        float drop = Math.min(1f, c.t / 6f);
-        double y = h + 1.6 * (1 - drop * drop) + 0.2;
-        float press = c.t > 6 ? (float) (0.12 * Math.sin((c.t - 6) * 0.8)) : 0f;
-        g.push();
-        g.translate(0, y - press, 0);
-        g.scale(Math.max(0.9, c.fw * 1.4));
-        // palm (flattened), toe pads, claws
+
+
+    /** One giant flame hand: palm, four curling fingers, thumb. Fingers point up (+Y) and curl toward -X. */
+    private static void flameHand(Gfx g, float t, double curl, long seed) {
         g.push();
         g.scale(1.0, 0.45, 0.9);
-        g.sphere(0.75, 6, 10, Col.rgba(0xE05010, 0.85f), Col.rgba(0xFFB030, 0.9f));
+        g.sphere(0.72, 6, 10, Col.rgba(0xE03008, 0.9f), Col.rgba(0xFFB030, 0.9f));
         g.pop();
         for (int i = 0; i < 4; i++) {
-            double x = -0.58 + i * 0.39;
-            double z = 0.62 + (i == 0 || i == 3 ? -0.1 : 0.05);
+            double z = -0.42 + i * 0.28;
+            double[] segLen = {0.62, 0.5, 0.38};
             g.push();
-            g.translate(x, -0.05, z);
-            g.scale(1, 0.7, 1.2);
-            g.sphere(0.2, 4, 8, Col.rgba(0xFF8010, 0.95f), Col.rgba(0xFFD860, 0.95f));
-            g.pop();
-            g.push();
-            g.translate(x, -0.1, z + 0.22);
-            g.rotX(PI / 2 + 0.5);
-            g.coneZ(0.34, 0.07, 4, Col.rgb(0xFFF0C0), Col.rgb(0xFFFFFF));
+            g.translate(0.0, 0.2, z);
+            for (int k = 0; k < 3; k++) {
+                g.rotZ(curl * (0.35 + 0.25 * k) + 0.04 * Math.sin(t * 0.3 + i));
+                double w = 0.19 - 0.02 * k;
+                g.frustumY(segLen[k], w, w * 0.85, 6, Col.rgba(0xFF6010, 0.88f), Col.rgba(0xFFC040, 0.88f), 0);
+                g.push();
+                g.translate(0, segLen[k], 0);
+                g.sphere(w * 0.9, 4, 6, Col.rgba(0xFFA020, 0.9f), Col.rgba(0xFFD860, 0.9f));
+                g.pop();
+                g.translate(0, segLen[k], 0);
+            }
+            Parts.flame(g, 0.55, 0.12, t, i + (int) (seed % 7), Col.rgba(0xFFC040, 0.85f), Col.rgba(0xFF3000, 0f));
             g.pop();
         }
         g.push();
-        g.translate(0, -0.12, -0.05);
-        g.scale(1.1, 0.5, 1);
-        g.sphere(0.38, 5, 8, Col.rgba(0xFFB040, 0.95f), Col.rgba(0xFFD870, 0.95f));
+        g.translate(0.55, 0.05, 0.0);
+        g.rotZ(-0.9 + curl * 0.3);
+        g.rotX(0.0);
+        for (int k = 0; k < 2; k++) {
+            g.frustumY(0.45, 0.19 - 0.03 * k, 0.16 - 0.03 * k, 6, Col.rgba(0xFF6010, 0.88f), Col.rgba(0xFFC040, 0.88f), 0);
+            g.translate(0, 0.45, 0);
+            g.rotZ(curl * 0.4);
+        }
         g.pop();
-        g.pop();
-        // flame crown under the paw + ground ring
-        for (int i = 0; i < 6; i++) {
-            double a = PI * 2 * i / 6 + c.t * 0.2;
+    }
+
+    /** Leo Palma after the anime: two huge hands of fire rise from the ground around the target and close around it. */
+    private static void leoPalma(Gfx g, Ctx c) {
+        g.alpha = c.fade(2, 8);
+        double sc = Math.max(0.9, c.fh * 0.55);
+        double rise = Parts.ease(c.t / 5.0);
+        double curl = Parts.ease((c.t - 1.0) / 6.0) * 1.15;
+        double off = c.fw * 0.5 + 1.1 * sc;
+        for (int side = 0; side < 2; side++) {
             g.push();
-            g.translate(Math.cos(a) * c.fw * 0.9, 0, Math.sin(a) * c.fw * 0.9);
-            Parts.flame(g, 1.0 * drop, 0.2, c.t, i, Col.rgba(0xFF9010, 0.85f), Col.rgba(0xC02000, 0f));
+            g.rotY(side == 0 ? 0.0 : PI);
+            g.translate(-off, -1.6 * (1 - rise), 0);
+            g.rotZ(-0.2);
+            g.scale(sc);
+            flameHand(g, c.t, curl, c.seed + side);
+            g.pop();
+        }
+        for (int i = 0; i < 8; i++) {
+            double a = PI * 2 * i / 8 + c.t * 0.2;
+            g.push();
+            g.translate(Math.cos(a) * (off + 0.2), 0, Math.sin(a) * (off + 0.2));
+            Parts.flame(g, 1.1 * rise, 0.2, c.t, i, Col.rgba(0xFF9010, 0.85f), Col.rgba(0xC02000, 0f));
             g.pop();
         }
         g.translate(0, 0.05, 0);
-        g.ring(c.fw * 0.9, c.fw * 1.3, 20, Col.rgba(0xFFB030, 0.8f), Col.rgba(0xFF4000, 0f));
+        g.ring(c.fw * 0.5, off + 1.0, 22, Col.rgba(0xFFB030, 0.8f), Col.rgba(0xFF4000, 0f));
     }
 
     private static void ignisColumna(Gfx g, Ctx c) {
@@ -328,34 +362,40 @@ final class FireFx {
         }
     }
 
-    /** Fists punching out in every direction around the caster. */
+    /** Calidus Brachium Barrage after the anime: thick glowing arms of fire radiating in every direction from a blinding core. */
     private static void calidusBarrage(Gfx g, Ctx c) {
         float p = c.p();
-        g.alpha = c.fade(0, 8);
+        g.alpha = c.fade(0, 7);
         double R = c.len;
-        for (int i = 0; i < 8; i++) {
-            double a = PI * 2 * i / 8 + 0.3;
-            double start = (i % 4) * 1.5;
-            double f = Parts.ease((c.t - start) / 3.0);
-            double out = Parts.clamp01((c.life - c.t) / 6.0);
-            if (f <= 0) continue;
+        double ext = Parts.ease(c.t / 3.0);
+        int n = 18;
+        double ga = PI * (3 - Math.sqrt(5));
+        for (int i = 0; i < n; i++) {
+            double y = Math.max(-0.7, Math.min(0.7, 1 - 2.0 * (i + 0.5) / n));
+            double rr = Math.sqrt(1 - y * y), th = i * ga + 0.3;
+            double dx = Math.cos(th) * rr, dz = Math.sin(th) * rr;
+            double len = R * (0.55 + 0.45 * Rnd.h(c.seed, i)) * ext;
+            double w = i % 2 == 0 ? 0.36 : 0.29;
+            int col = i % 2 == 0 ? Col.rgba(0xFFE020, 0.9f) : Col.rgba(0xFF8A1A, 0.92f);
             g.push();
-            g.translate(0, 1.1, 0);
-            g.rotY(Math.atan2(Math.cos(a), Math.sin(a)));
-            g.translate(0, 0, (0.8 + (R * 0.55 - 0.8) * f) * (0.6 + 0.4 * out));
-            g.scale(0.75);
-            flameFist(g, c.t, c.seed + i);
+            g.lookFromTo(0, 1.1, 0, dx, 1.1 + y, dz);
+            g.frustumZ(len, w * 0.9, w, 8, col, col, 0);
+            g.push();
+            g.translate(0, 0, len);
+            g.sphere(w, 5, 8, col, col);
+            g.pop();
             g.pop();
         }
+        double pulse = 1.0 + 0.1 * Math.sin(c.t * 1.2);
+        g.push();
+        g.translate(0, 1.1, 0);
+        g.sphere(0.8 * pulse, 6, 10, Col.rgb(0xFFFFFF), Col.rgb(0xFFFFFF));
+        g.sphere(1.3 * pulse, 6, 10, Col.rgba(0xFFE880, 0.5f), Col.rgba(0xFFE880, 0.5f));
+        g.pop();
         double r = R * Parts.ease(p * 1.8);
-        g.ring(0.3, r, 28, Col.rgba(0xFFB030, 0.7f), Col.rgba(0xFF3000, 0f));
         g.push();
         g.translate(0, 0.08, 0);
-        g.torus(r, 0.12, 28, 4, Col.rgba(0xFFD060, 0.85f * (1 - p)));
-        g.pop();
-        g.push();
-        g.translate(0, 1.0, 0);
-        g.sphere(r * 0.6, 6, 10, Col.rgba(0xFF6010, 0.22f * (1 - p)), Col.rgba(0xFFD060, 0.22f * (1 - p)));
+        g.torus(r, 0.1, 28, 4, Col.rgba(0xFFD060, 0.8f * (1 - p)));
         g.pop();
     }
 }

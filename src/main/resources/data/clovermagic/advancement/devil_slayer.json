@@ -1,0 +1,25 @@
+{
+  "parent": "clovermagic:demon_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:soul_campfire"
+    },
+    "title": "Devils of the Underworld",
+    "description": "Devils such as Megicula and Lucifugus guard ruined gates. Defeat a Devil.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 200,
+    "loot": [
+      "clovermagic:quest/devil_slayer"
+    ]
+  }
+}

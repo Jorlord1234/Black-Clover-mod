@@ -1,0 +1,25 @@
+{
+  "parent": "clovermagic:yultim_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:blackstone"
+    },
+    "title": "Born From Hatred",
+    "description": "Demons are huge creatures born from hatred. Defeat a Demon in a dark forest or swamp.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 120,
+    "loot": [
+      "clovermagic:quest/demon_slayer"
+    ]
+  }
+}

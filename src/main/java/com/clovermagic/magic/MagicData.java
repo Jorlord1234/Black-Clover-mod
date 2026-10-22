@@ -77,8 +77,10 @@ public class MagicData {
     public transient boolean flightGranted = false;
     /** Not saved: Luck's Lightning Battle Fiend is active until this game time. */
     public transient long fiendUntil = 0;
+    /** Not saved: Crystal Mirror / Deflect: half of the damage is reflected to the attacker until this game time. */
+    public transient long mirrorUntil = 0;
 
-    public final transient long[] cooldownEnd = new long[12];
+    public final transient long[] cooldownEnd = new long[24];
 
     public MagicData() {
     }

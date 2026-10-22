@@ -46,9 +46,9 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
 
 ## v0.5 skill tree notes
 - Press **K** with a fire grimoire to open the Fire skill tree. Every element except Anti-Magic now has a tree (Anti-Magic still uses the old level-based spells).
-- Respec: one Page of Forgetting resets one branch. Pages are crafted from a Magic Beast Core (planned Hobgoblin drop), paper and a Mana Crystal.
+- Respec: one Page of Forgetting resets one branch. Pages are crafted from a Magic Beast Core (dropped by Magic Boars, mages, demons and devils), paper and a Mana Crystal.
 - The tree is defined in Java for now (`skill/SkillTrees.java`); moving it to data files is planned once all elements share the template.
-- Known limits: plain screen art, only some fire nodes implemented, Hobgoblin mob not built, HUD still the old v0.4 bar.
+- Known limits: plain screen art, placeholder looks for mobs and NPCs, HUD still the old v0.4 bar, 60 spells without a 3D model yet.
 
 ## Outfits
 - Robe models and textures are by the project's outfit artist (shared models `robe`, `hood`, `bandana`; one texture per squad).

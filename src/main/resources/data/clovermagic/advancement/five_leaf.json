@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:four_leaf",
+  "display": {
+    "icon": {
+      "id": "clovermagic:five_leaf_grimoire"
+    },
+    "title": "The Fifth Leaf",
+    "description": "Be chosen by a rare Five-Leaf Grimoire: the anti-magic of a devil.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 120,
+    "loot": [
+      "clovermagic:quest/five_leaf"
+    ]
   }
 }

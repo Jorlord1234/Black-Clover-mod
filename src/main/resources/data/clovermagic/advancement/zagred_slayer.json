@@ -1,0 +1,25 @@
+{
+  "parent": "clovermagic:devil_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": "The Devil Lord",
+    "description": "Zagred sits on his throne in the Devil's Throne. Defeat him.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 500,
+    "loot": [
+      "clovermagic:quest/zagred_slayer"
+    ]
+  }
+}

@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:got_grimoire",
+  "display": {
+    "icon": {
+      "id": "minecraft:cooked_porkchop"
+    },
+    "title": "Beastly Boars",
+    "description": "Boars with magic roam the plains, like the ones the Golden Dawn is sent to defeat in Saussy. Defeat a Magic Boar.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 30,
+    "loot": [
+      "clovermagic:quest/boar_hunter"
+    ]
   }
 }

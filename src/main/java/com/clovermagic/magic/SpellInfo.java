@@ -53,6 +53,66 @@ public final class SpellInfo {
         DESC.put(Spell.AVIDYA_SLASH, "Yami's slash: dark magic flies from your blade in a long line.");
         DESC.put(Spell.DIMENSION_SLASH, "A huge slash that cuts through everything in a very long line and rips away good effects.");
         DESC.put(Spell.BLACK_HOLE, "A small black hole pulls nearby enemies towards it and hurts them.");
+        DESC.put(Spell.TIMED_SCATTERSHOT, "Six fire bolts fly at the six nearest enemies.");
+        DESC.put(Spell.VANISHING_FIREBALL, "A fireball explodes where you stand while you vanish and appear ten blocks ahead.");
+        DESC.put(Spell.PROFOUND_SPIRAL, "A wide, powerful spiral of flame.");
+        DESC.put(Spell.CRIMSON_ERUPTION, "The ground erupts in flames around you and throws everything into the air.");
+        DESC.put(Spell.MANA_ZONE, "You sense and strike everything around you, and move faster and hit harder for 30 seconds.");
+        DESC.put(Spell.SALAMANDER_BREATH, "The fire spirit breathes a long cone of fire.");
+        DESC.put(Spell.POINT_BLANK_ROAR, "The Sea Dragon roars right in front of you: short range, huge damage.");
+        DESC.put(Spell.SEA_GODS_HAMMER, "A huge hammer of water crushes the first enemy in front of you and splashes around it.");
+        DESC.put(Spell.SEA_GODS_SHIELD, "A shield of the sea for you and the players around you: strong resistance and many extra hearts.");
+        DESC.put(Spell.SURGING_WAVES, "Waves roll over a wide area in front of you and sweep everything away.");
+        DESC.put(Spell.AQUA_JAVELIN, "A fast lance of water that pierces everything in a long line.");
+        DESC.put(Spell.SEA_SERPENTS_BELLOW, "A giant bellow shakes everything around you and slows it down.");
+        DESC.put(Spell.SPIRIT_ART_WATER, "Undine washes a tide over the area: enemies are thrown back, you and your friends are healed.");
+        DESC.put(Spell.TORNADO_FANG, "A tornado bites through enemies and sucks them up into the air.");
+        DESC.put(Spell.SPIRIT_STORM, "A storm around you lifts and hurts everything in reach.");
+        DESC.put(Spell.HEAVENLY_WIND_ARK, "A ship of wind carries you: speed, soft landings and flight for 20 seconds.");
+        DESC.put(Spell.SLICING_WIND_EMPEROR, "A gigantic wind blade cuts through everything in a very long line.");
+        DESC.put(Spell.PIERCING_TORNADO_NEEDLE, "A thin needle of wind that pierces far and hard.");
+        DESC.put(Spell.WIND_BLADES_SHOWER, "A shower of wind blades hits the six nearest enemies.");
+        DESC.put(Spell.KILLING_KAKARA_BLADE, "You become a blade of wind and cut straight through your enemies.");
+        DESC.put(Spell.SPIRIT_ART_WIND, "Sylph blows a tempest: enemies are lifted and hurt, you get faster.");
+        DESC.put(Spell.AVALANCHE, "A wall of rocks rolls over a wide area in front of you.");
+        DESC.put(Spell.MOUNTAIN_BREAKER, "You break the ground itself: a huge slam around you.");
+        DESC.put(Spell.SINKING_GROUND, "The ground turns soft: everything around you sinks and can hardly move.");
+        DESC.put(Spell.ROCK_CAGE, "Traps the first enemy in front of you in a cage of stone for 7 seconds.");
+        DESC.put(Spell.EARTH_PRISON, "The earth grips every enemy around you: they cannot move and are weakened.");
+        DESC.put(Spell.STONE_WALL, "Raises a wall of stone in front of you for 20 seconds.");
+        DESC.put(Spell.LIVING_FORTRESS, "You become a fortress for 30 seconds: huge resistance and hearts, but you are slower.");
+        DESC.put(Spell.SPIRIT_ART_EARTH, "Gnome shakes the earth under all your enemies.");
+        DESC.put(Spell.ICE_SPEARS, "Five spears of ice fly at the five nearest enemies.");
+        DESC.put(Spell.ABSOLUTE_ZERO, "Everything around you freezes almost solid.");
+        DESC.put(Spell.FROZEN_CHAINS, "Chains of ice bind the four nearest enemies.");
+        DESC.put(Spell.GLACIER_WALL, "Raises a wall of ice in front of you for 20 seconds.");
+        DESC.put(Spell.FROZEN_WORLD, "A huge area around you freezes over.");
+        DESC.put(Spell.CRYSTAL_MIRROR, "For 10 seconds a mirror of ice halves the damage you take and throws half of it back at the attacker.");
+        DESC.put(Spell.ETERNAL_WINTER, "Winter that never ends: a very large area freezes for a long time.");
+        DESC.put(Spell.THUNDER_RAIN, "Lightning strikes the six nearest enemies.");
+        DESC.put(Spell.JUDGEMENT_BOLT, "One huge bolt of lightning strikes the first enemy in front of you.");
+        DESC.put(Spell.PARALYZING_FIELD, "A field of electricity stuns everything around you for 3 seconds.");
+        DESC.put(Spell.ARC_CAGE, "A cage of iron and electric arcs traps the first enemy in front of you for 5 seconds.");
+        DESC.put(Spell.THUNDER_PRISON, "A thunder prison: iron bars and lightning hold and hurt the first enemy in front of you.");
+        DESC.put(Spell.LIGHT_SPEAR, "A spear of light pierces everything in a long line.");
+        DESC.put(Spell.SUNBURST, "A burst of sunlight hurts and blinds enemies around you and heals your friends.");
+        DESC.put(Spell.BLESSING, "A blessing for you and the players around you: regeneration, speed and strength for 20 seconds.");
+        DESC.put(Spell.REVIVAL_LIGHT, "A light that brings back to life: it fully heals you, cleanses you and heals the players near you.");
+        DESC.put(Spell.LIGHT_BARRIER, "A wall of light in front of you for 15 seconds.");
+        DESC.put(Spell.HALO, "A halo guards you for a minute: extra hearts and resistance.");
+        DESC.put(Spell.DIVINE_SHIELD, "For 8 seconds you and your friends nearby are almost invulnerable.");
+        DESC.put(Spell.BLACK_MOON, "A black moon rises: it rips away good effects and blinds everything around you.");
+        DESC.put(Spell.SHADOW_STEP, "You step through the shadows to right behind the nearest enemy.");
+        DESC.put(Spell.NIGHT_VEIL, "A veil of night for 45 seconds: invisible, very fast and able to see in the dark.");
+        DESC.put(Spell.IAI_SLASH, "A lightning-fast draw slash: you rush forward and cut everything on the way.");
+        DESC.put(Spell.DEATH_THRUST, "A deadly thrust: very high damage and heavy withering.");
+        DESC.put(Spell.BLACK_DIVIDER, "A slash of pure anti-magic cuts a long line and rips away good effects.");
+        DESC.put(Spell.BLACK_METEORITE, "A black meteorite crashes down where you look.");
+        DESC.put(Spell.BLACK_FORM, "Asta takes his black form for a minute: strength, speed and resistance.");
+        DESC.put(Spell.BLACK_ASTA, "Black Asta, for 2 minutes: huge strength, speed, resistance and regeneration, and magic cannot hurt you.");
+        DESC.put(Spell.NULLIFY, "Cancels the magic around you: enemies lose their good effects and magic cannot hurt you for 5 seconds.");
+        DESC.put(Spell.DEFLECT, "For 8 seconds half of all damage is turned aside and sent back to the attacker.");
+        DESC.put(Spell.MAGIC_ZERO, "Zero magic: everything around you loses good effects and is slowed, and magic cannot hurt you for 30 seconds.");
         DESC.put(Spell.DEVIL_UNION, "Asta and Liebe become one: huge strength, speed, resistance and extra hearts for 5 minutes, with devil horns and wings of darkness. Magic cannot hurt you for the first 10 seconds. You can fly. Lasts 5 minutes.");
         DESC.put(Spell.SEA_DRAGON_ROAR, "A roaring dragon of water crashes through a long line, hitting hard and throwing everything back.");
         DESC.put(Spell.CLIMBING_COELACANTH, "A rising stream of water lifts every enemy in front of you into the air.");
@@ -88,6 +148,12 @@ public final class SpellInfo {
     private static final java.util.Set<Spell> AREAS = EnumSet.of(Spell.LEO_RUGIENS, Spell.IGNIS_COLUMNA, Spell.SEA_DRAGON_WAVE,
             Spell.WHIRLWIND, Spell.QUAKE, Spell.FROZEN_RING, Spell.ABYSS_DRAIN,
             Spell.FROST_BARRIER, Spell.SPARK_BARRAGE, Spell.DARK_PULSE, Spell.PRISM_BURST, Spell.CALIDUS_BRACHIUM_BARRAGE, Spell.BLACK_HOLE);
+
+    static {
+        BEAMS.addAll(java.util.List.of(Spell.VANISHING_FIREBALL, Spell.PROFOUND_SPIRAL, Spell.SALAMANDER_BREATH, Spell.POINT_BLANK_ROAR, Spell.SEA_GODS_HAMMER, Spell.SURGING_WAVES, Spell.AQUA_JAVELIN, Spell.TORNADO_FANG, Spell.SLICING_WIND_EMPEROR, Spell.PIERCING_TORNADO_NEEDLE, Spell.KILLING_KAKARA_BLADE, Spell.AVALANCHE, Spell.ROCK_CAGE, Spell.JUDGEMENT_BOLT, Spell.ARC_CAGE, Spell.THUNDER_PRISON, Spell.LIGHT_SPEAR, Spell.IAI_SLASH, Spell.DEATH_THRUST, Spell.BLACK_DIVIDER, Spell.BLACK_METEORITE));
+        AREAS.addAll(java.util.List.of(Spell.TIMED_SCATTERSHOT, Spell.CRIMSON_ERUPTION, Spell.MANA_ZONE, Spell.SEA_SERPENTS_BELLOW, Spell.SPIRIT_ART_WATER, Spell.SPIRIT_STORM, Spell.WIND_BLADES_SHOWER, Spell.SPIRIT_ART_WIND, Spell.MOUNTAIN_BREAKER, Spell.SINKING_GROUND, Spell.EARTH_PRISON, Spell.SPIRIT_ART_EARTH, Spell.ICE_SPEARS, Spell.ABSOLUTE_ZERO, Spell.FROZEN_CHAINS, Spell.FROZEN_WORLD, Spell.ETERNAL_WINTER, Spell.THUNDER_RAIN, Spell.PARALYZING_FIELD, Spell.SUNBURST, Spell.BLACK_MOON, Spell.NULLIFY, Spell.MAGIC_ZERO));
+    }
+
 
     public static Kind kind(Spell s) {
         return BEAMS.contains(s) ? Kind.BEAM : (AREAS.contains(s) ? Kind.AREA : Kind.BUFF);

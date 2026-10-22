@@ -23,7 +23,20 @@ public final class TreeEffects {
     public static double powerMult(MagicData d, MagicAttribute attr, Spell spell) {
         double m = 1.0;
         if (has(d, "spirit_contract")) m *= 1.15;
-        if (attr == MagicAttribute.FIRE) return m;
+        if (has(d, "spirit_power")) m *= 1.15;
+        if (attr == MagicAttribute.FIRE) {
+            SkillTree fire = SkillTrees.forAttribute(attr.id);
+            if (fire != null) {
+                for (SkillNode n : fire.nodes) {
+                    if (!spell.name().equals(n.spellName())) continue;
+                    if ("lion".equals(n.branch()) && has(d, "lion_mastery")) m *= 1.2;
+                    for (SkillNode u : fire.nodesOfBranch(n.branch())) {
+                        if ((u.id().equals("multi_circle") || u.id().equals("two_step_reinforcement")) && has(d, u.id())) m *= 1.25;
+                    }
+                }
+            }
+            return m;
+        }
         if (has(d, attr.id + "_focus")) m *= 1.10;
         SkillTree tree = SkillTrees.forAttribute(attr.id);
         if (tree == null) return m;
@@ -42,7 +55,9 @@ public final class TreeEffects {
     }
 
     public static double costMult(MagicData d, MagicAttribute attr) {
-        return has(d, attr.id + "_flow") ? 0.9 : 1.0;
+        double m = has(d, attr.id + "_flow") ? 0.9 : 1.0;
+        if (has(d, "spirit_absorption")) m *= 0.75;
+        return m;
     }
 
     public static double cooldownMult(MagicData d, MagicAttribute attr) {

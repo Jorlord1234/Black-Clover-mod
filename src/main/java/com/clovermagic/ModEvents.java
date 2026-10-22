@@ -130,6 +130,12 @@ public final class ModEvents {
                 && (hit.is(DamageTypes.MAGIC) || hit.is(DamageTypes.INDIRECT_MAGIC))) {
             event.setAmount(event.getAmount() * 0.6f);
         }
+        if (sp.level().getGameTime() < data.mirrorUntil) {
+            if (hit.getEntity() instanceof net.minecraft.world.entity.LivingEntity attacker && attacker != sp) {
+                attacker.hurt(sp.damageSources().magic(), event.getAmount() * 0.5f);
+            }
+            event.setAmount(event.getAmount() * 0.5f);
+        }
         if (TreeEffects.skinActive(data, "earth")) {
             event.setAmount(event.getAmount() * 0.85f);
         }

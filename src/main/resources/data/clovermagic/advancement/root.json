@@ -1,0 +1,19 @@
+{
+  "display": {
+    "icon": {
+      "id": "clovermagic:four_leaf_grimoire"
+    },
+    "title": "Clover Magic",
+    "description": "Your journey as a mage of the Clover Kingdom.",
+    "background": "minecraft:textures/gui/advancements/backgrounds/stone.png",
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "auto": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

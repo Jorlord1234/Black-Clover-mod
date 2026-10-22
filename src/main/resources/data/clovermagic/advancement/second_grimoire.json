@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:magic_knight",
+  "display": {
+    "icon": {
+      "id": "clovermagic:devil_contract_book"
+    },
+    "title": "A Second Book",
+    "description": "Make a Devil's Deal at the altar: a second grimoire, for a price in hearts.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 200,
+    "loot": [
+      "clovermagic:quest/second_grimoire"
+    ]
   }
 }

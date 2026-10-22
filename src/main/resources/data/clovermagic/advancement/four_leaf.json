@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_5",
+  "display": {
+    "icon": {
+      "id": "clovermagic:four_leaf_grimoire"
+    },
+    "title": "Within the Four-Leaf Lies Good Luck",
+    "description": "Be chosen by a Four-Leaf Grimoire at the altar, or upgrade yours with a Fortune III book.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 60,
+    "loot": [
+      "clovermagic:quest/four_leaf"
+    ]
   }
 }

@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_5",
+  "display": {
+    "icon": {
+      "id": "clovermagic:page_of_forgetting"
+    },
+    "title": "Magic Level 10",
+    "description": "Halfway there. A Four-Leaf mage may now be chosen by a spirit.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 60,
+    "loot": [
+      "clovermagic:quest/level_10"
+    ]
   }
 }

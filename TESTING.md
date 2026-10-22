@@ -62,11 +62,16 @@ Nothing below has been run by the author. Please report each line as OK / broken
     If anything is wrong set `visuals.spellModels = false` in the config and tell me which spell.
 26. `/clover level 20` must set level 20 and the HUD must show it.
 27. Devil Union (cast it, look at yourself in third person): ram horns, spiky hair, crown, shoulder plates, tail, big wings, black suit with red marks. Face must stay visible.
-28. Mobs and NPCs: hobgoblin spawn egg; `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`; right-click them (chat lines). `/clover level 15` then talk to Julius.
-29. Structures: `/locate structure clovermagic:clover_church` (also hobgoblin_camp, black_bull_hideout, royal_pavilion). Check that NPCs and chests are inside.
+28. Mobs and NPCs: `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`; right-click them (chat lines). `/clover level 15` then talk to Julius.
+29. Structures: `/locate structure clovermagic:clover_church` (also midnight_camp, black_bull_hideout, royal_pavilion). Check that NPCs and chests are inside.
 30. Devil Deals: craft both contracts (creative: Devil's Contracts are in the Clover Magic tab), right-click the altar with one. Second grimoire: sneak + right-click to switch; hearts drop by 2 per deal.
 31. Quests: `/advancement grant @s only clovermagic:level_5` etc. With FTB Quests: copy `extras/ftbquests/clover_magic.snbt` as described in its README.
 32. Curios (optional): with Curios installed, the Grimoire slot appears in the Curios screen; a grimoire placed there must still cast.
 33. Spawn eggs: Magic Boar (charges you), Midnight Sun Mage (shoots fireballs from a distance), Yultim Spider (huge, boss bar on top, slows you on hit).
 34. `/locate structure clovermagic:yultim_dungeon`, walk in through the gate, down the stairs: boss chamber with the spider, 2 mages, 2 chests. Check the boss drops and the boss bar.
 35. Craft Mana Potions, drink one: half of your mana comes back, you get the empty bottle back.
+36. Skill trees: `/clover give 3 fire`, `/clover level 20`, `/clover skill points`... unlock every node of a tree (K): no node may say "coming later" any more. Cast a few new spells per element; walls and cages must vanish after 10-20 seconds.
+37. Broom: craft or take it from the creative tab, right-click: you sit on it. Steer, fly up and down, get off with sneak. Pick it up again.
+38. `/summon clovermagic:demon ~ ~ ~`, `/summon clovermagic:devil ~ ~ ~ {DevilType:"megicula"}` (also lucifugus, zagred): check skins, boss bar (Zagred), curse and skulls, Zagred calling mages at half health.
+39. `/locate structure clovermagic:devil_gate`, `clovermagic:devil_throne`, `clovermagic:midnight_camp`.
+40. Press L: the "Clover Magic" tab is the quest book. `/advancement grant @s only clovermagic:level_5` must give a toast, items and experience.

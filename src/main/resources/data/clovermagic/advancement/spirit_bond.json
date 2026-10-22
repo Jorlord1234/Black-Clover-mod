@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_10",
+  "display": {
+    "icon": {
+      "id": "minecraft:amethyst_shard"
+    },
+    "title": "A Spirit Likes You",
+    "description": "A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 150,
+    "loot": [
+      "clovermagic:quest/spirit_bond"
+    ]
   }
 }

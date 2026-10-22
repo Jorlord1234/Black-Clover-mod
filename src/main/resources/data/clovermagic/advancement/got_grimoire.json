@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:root",
+  "display": {
+    "icon": {
+      "id": "clovermagic:grimoire"
+    },
+    "title": "A Grimoire Chooses You",
+    "description": "Use the altar in a Grimoire Tower. Your grimoire and your attribute are chosen for you.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 30,
+    "loot": [
+      "clovermagic:quest/got_grimoire"
+    ]
   }
 }

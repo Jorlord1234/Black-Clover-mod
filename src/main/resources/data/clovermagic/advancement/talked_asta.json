@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:talked_orsi",
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_apple"
+    },
+    "title": "Never Give Up",
+    "description": "A boy with no magic and a big dream trains at the Black Bull Hideout. Find Asta and talk to him.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 25,
+    "loot": [
+      "clovermagic:quest/talked_asta"
+    ]
   }
 }

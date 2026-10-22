@@ -1,274 +1,371 @@
 {
-	id: "42518AA107F174CB"
+	id: "30F600C2394A4847"
 	group: ""
 	order_index: 0
 	filename: "clover_magic"
 	title: "Clover Magic"
-	icon: "clovermagic:grimoire"
+	icon: "clovermagic:four_leaf_grimoire"
 	default_quest_shape: ""
 	default_hide_dependency_lines: false
 	quests: [
-		{
-			title: "A Magical World"
-			x: 0.0d
-			y: 0.0d
-			description: ["Every mage in the Clover Kingdom receives a grimoire at fifteen. Find a Grimoire Tower and use the altar."]
-			id: "3A37DFE702393E0F"
-			tasks: [{
-				id: "78A6BBEEF965D4F0"
-				type: "checkmark"
-			}]
-			rewards: [{
-				id: "BD1529B8430691CC"
-				type: "item"
-				item: { count: 2, id: "clovermagic:mana_crystal" }
-			}]
-		}
 		{
 			title: "A Grimoire Chooses You"
 			x: 2.0d
 			y: 0.0d
 			description: ["Use the altar in a Grimoire Tower. Your grimoire and your attribute are chosen for you."]
-			dependencies: ["3A37DFE702393E0F"]
-			id: "A6C8BBC2A299E490"
+			id: "3E20AC5C5B5892A9"
 			tasks: [{
-				id: "5324CA89165999B4"
+				id: "E927B61A90DCBBC9"
 				type: "advancement"
 				advancement: "clovermagic:got_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "C60FDB505A45030B"
-				type: "item"
-				item: { count: 4, id: "clovermagic:mana_crystal" }
+				id: "AD5DAC90FE4C5599"
+				type: "xp"
+				xp: 30
 			}]
 		}
 		{
 			title: "Father Orsi"
-			x: 2.0d
-			y: 2.0d
+			x: 4.0d
+			y: 0.0d
 			description: ["The priest at the Clover Church welcomes everyone who is looking for their path. Find a church and talk to him."]
-			dependencies: ["A6C8BBC2A299E490"]
-			id: "BBED2CF3DFC8DF07"
+			dependencies: ["3E20AC5C5B5892A9"]
+			id: "288D75AB7CEC5EBA"
 			tasks: [{
-				id: "2B964743AF32C893"
+				id: "44B70963147B31E2"
 				type: "advancement"
 				advancement: "clovermagic:talked_orsi"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "BFF37BEB222F9875"
-				type: "item"
-				item: { count: 8, id: "minecraft:bread" }
-			}]
-		}
-		{
-			title: "Hobgoblin Hunter"
-			x: 4.0d
-			y: 2.0d
-			description: ["Magic beasts roam at night and around their camps. Defeat a Hobgoblin."]
-			dependencies: ["A6C8BBC2A299E490"]
-			id: "413DF4F73EF8C9FC"
-			tasks: [{
-				id: "ADAAFCA56E7BBDC6"
-				type: "advancement"
-				advancement: "clovermagic:hobgoblin_slayer"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "4E4D8A3A8E8487A4"
-				type: "item"
-				item: { count: 1, id: "clovermagic:magic_beast_core" }
-			}]
-		}
-		{
-			title: "Magic Level 5"
-			x: 4.0d
-			y: 0.0d
-			description: ["Keep casting. At level 5 you earn an extra skill point."]
-			dependencies: ["A6C8BBC2A299E490"]
-			id: "D698014EFB68FEFD"
-			tasks: [{
-				id: "389ECC0ADA3F6DBA"
-				type: "advancement"
-				advancement: "clovermagic:level_5"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "1C50884ADFFA0173"
-				type: "item"
-				item: { count: 8, id: "minecraft:experience_bottle" }
-			}]
-		}
-		{
-			title: "Magic Level 10"
-			x: 6.0d
-			y: 0.0d
-			description: ["Halfway there. A Four-Leaf mage may now be chosen by a spirit."]
-			dependencies: ["D698014EFB68FEFD"]
-			id: "19AE3E8E5DF28FB3"
-			tasks: [{
-				id: "8A06E8B26034A7E6"
-				type: "advancement"
-				advancement: "clovermagic:level_10"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "592D4308D157FAAB"
-				type: "item"
-				item: { count: 1, id: "clovermagic:page_of_forgetting" }
+				id: "14DC97ABFC192BFF"
+				type: "xp"
+				xp: 20
 			}]
 		}
 		{
 			title: "Never Give Up"
 			x: 6.0d
-			y: 2.0d
+			y: 0.0d
 			description: ["A boy with no magic and a big dream trains at the Black Bull Hideout. Find Asta and talk to him."]
-			dependencies: ["BBED2CF3DFC8DF07"]
-			id: "6D4E020E267318B4"
+			dependencies: ["288D75AB7CEC5EBA"]
+			id: "361AF838DC25822D"
 			tasks: [{
-				id: "AF8FA81F40FB8E6B"
+				id: "7E9B8C53CAC2D5FC"
 				type: "advancement"
 				advancement: "clovermagic:talked_asta"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "8C961D29F2AFAAB5"
-				type: "item"
-				item: { count: 1, id: "minecraft:golden_apple" }
+				id: "70A022265D521DA2"
+				type: "xp"
+				xp: 25
+			}]
+		}
+		{
+			title: "Beastly Boars"
+			x: 4.0d
+			y: 2.0d
+			description: ["Boars with magic roam the plains, like the ones the Golden Dawn is sent to defeat in Saussy. Defeat a Magic Boar."]
+			dependencies: ["3E20AC5C5B5892A9"]
+			id: "2F761392034AE040"
+			tasks: [{
+				id: "5A32BFFA7B8AE8D0"
+				type: "advancement"
+				advancement: "clovermagic:boar_hunter"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "96177DA7A4596E16"
+				type: "xp"
+				xp: 30
+			}]
+		}
+		{
+			title: "Eye of the Midnight Sun"
+			x: 6.0d
+			y: 2.0d
+			description: ["Dark mages ambush travellers and throw fire. Defeat a Midnight Sun Mage."]
+			dependencies: ["2F761392034AE040"]
+			id: "0AB9CFE6CE5F870F"
+			tasks: [{
+				id: "34FA77291FC9ACF8"
+				type: "advancement"
+				advancement: "clovermagic:mage_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "D0FF781320485CAD"
+				type: "xp"
+				xp: 40
+			}]
+		}
+		{
+			title: "The Yultim Dungeon"
+			x: 8.0d
+			y: 0.0d
+			description: ["A giant spider lurks in a dungeon under old gates, like the one the trainees entered. Find the Yultim Dungeon and defeat the Giant Spider."]
+			dependencies: ["0AB9CFE6CE5F870F"]
+			id: "846B7329FD48E48D"
+			tasks: [{
+				id: "16A7C28EC2F97D48"
+				type: "advancement"
+				advancement: "clovermagic:yultim_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "BA5BA8637DB5EC65"
+				type: "xp"
+				xp: 100
+			}]
+		}
+		{
+			title: "Born From Hatred"
+			x: 10.0d
+			y: 0.0d
+			description: ["Demons are huge creatures born from hatred. Defeat a Demon in a dark forest or swamp."]
+			dependencies: ["846B7329FD48E48D"]
+			id: "8B7D06E4954C968B"
+			tasks: [{
+				id: "6CC842C3C67B4137"
+				type: "advancement"
+				advancement: "clovermagic:demon_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "53F0CA9D89EBCB54"
+				type: "xp"
+				xp: 120
+			}]
+		}
+		{
+			title: "Devils of the Underworld"
+			x: 12.0d
+			y: 0.0d
+			description: ["Devils such as Megicula and Lucifugus guard ruined gates. Defeat a Devil."]
+			dependencies: ["8B7D06E4954C968B"]
+			id: "6C89863378D20E14"
+			tasks: [{
+				id: "E859C123D9019888"
+				type: "advancement"
+				advancement: "clovermagic:devil_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "8EC60760B695EB87"
+				type: "xp"
+				xp: 200
+			}]
+		}
+		{
+			title: "The Devil Lord"
+			x: 14.0d
+			y: 0.0d
+			description: ["Zagred sits on his throne in the Devil's Throne. Defeat him."]
+			dependencies: ["6C89863378D20E14"]
+			id: "0C698C32D826CA64"
+			tasks: [{
+				id: "0A163469E72157D6"
+				type: "advancement"
+				advancement: "clovermagic:zagred_slayer"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "F914ABBE80DBDF6C"
+				type: "xp"
+				xp: 500
+			}]
+		}
+		{
+			title: "Magic Level 5"
+			x: 4.0d
+			y: 4.0d
+			description: ["Keep casting. At level 5 you earn an extra skill point."]
+			dependencies: ["3E20AC5C5B5892A9"]
+			id: "25ADC4150EA65936"
+			tasks: [{
+				id: "AE58ECA2AC9C31B8"
+				type: "advancement"
+				advancement: "clovermagic:level_5"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "9A979358340E64F4"
+				type: "xp"
+				xp: 30
 			}]
 		}
 		{
 			title: "Within the Four-Leaf Lies Good Luck"
-			x: 8.0d
-			y: -2.0d
+			x: 6.0d
+			y: 4.0d
 			description: ["Be chosen by a Four-Leaf Grimoire at the altar, or upgrade yours with a Fortune III book."]
-			dependencies: ["D698014EFB68FEFD"]
-			id: "0AF47F492D549DC4"
+			dependencies: ["25ADC4150EA65936"]
+			id: "E672A635F44F2C71"
 			tasks: [{
-				id: "258C360E76D468F4"
+				id: "060CA0BEE5DE9BB1"
 				type: "advancement"
 				advancement: "clovermagic:four_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "ABC644441189548B"
-				type: "item"
-				item: { count: 4, id: "clovermagic:mana_cloth" }
-			}]
-		}
-		{
-			title: "A Spirit Likes You"
-			x: 8.0d
-			y: 0.0d
-			description: ["A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10."]
-			dependencies: ["19AE3E8E5DF28FB3"]
-			id: "6C03C21BB00FA9EA"
-			tasks: [{
-				id: "4E55154DF097B2ED"
-				type: "advancement"
-				advancement: "clovermagic:spirit_bond"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "4A41F013B8A0562D"
-				type: "item"
-				item: { count: 4, id: "minecraft:diamond" }
-			}]
-		}
-		{
-			title: "Magic Level 15"
-			x: 8.0d
-			y: 2.0d
-			description: ["A true Magic Knight candidate. The Wizard King can tell when you are ready."]
-			dependencies: ["19AE3E8E5DF28FB3"]
-			id: "3FE546DAE72C1651"
-			tasks: [{
-				id: "D6577F6B5DDEB69E"
-				type: "advancement"
-				advancement: "clovermagic:level_15"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "F26632B5356D6D04"
-				type: "item"
-				item: { count: 16, id: "minecraft:experience_bottle" }
-			}]
-		}
-		{
-			title: "Magic Knight"
-			x: 10.0d
-			y: 2.0d
-			description: ["Find the Royal Pavilion and talk to Julius Novachrono, the Wizard King."]
-			dependencies: ["3FE546DAE72C1651", "6D4E020E267318B4"]
-			id: "1E6F046455C8DD2C"
-			tasks: [{
-				id: "89BC0FE8BF4347BE"
-				type: "advancement"
-				advancement: "clovermagic:magic_knight"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "C1A82EEB3891212E"
-				type: "item"
-				item: { count: 1, id: "clovermagic:page_of_rebirth" }
-			}]
-		}
-		{
-			title: "Magic Level 20"
-			x: 10.0d
-			y: 0.0d
-			description: ["The highest level of magic. Your skill tree is nearly complete."]
-			dependencies: ["3FE546DAE72C1651"]
-			id: "95B58EFD9E5AFE38"
-			tasks: [{
-				id: "3CEF04A403C25801"
-				type: "advancement"
-				advancement: "clovermagic:level_20"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "23A49F7AE7C7AD1F"
-				type: "item"
-				item: { count: 1, id: "minecraft:nether_star" }
+				id: "90BE601869AD5DED"
+				type: "xp"
+				xp: 60
 			}]
 		}
 		{
 			title: "The Fifth Leaf"
-			x: 12.0d
-			y: -2.0d
+			x: 8.0d
+			y: 2.0d
 			description: ["Be chosen by a rare Five-Leaf Grimoire: the anti-magic of a devil."]
-			dependencies: ["0AF47F492D549DC4"]
-			id: "36702EAD50B5B638"
+			dependencies: ["E672A635F44F2C71"]
+			id: "E45EF6269276E05C"
 			tasks: [{
-				id: "75E63FCF0F6C1E49"
+				id: "3215A18C45AD8B4C"
 				type: "advancement"
 				advancement: "clovermagic:five_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "7A8D0B53B625EC33"
-				type: "item"
-				item: { count: 8, id: "minecraft:diamond" }
+				id: "6C4D6659262CBF70"
+				type: "xp"
+				xp: 120
 			}]
 		}
 		{
 			title: "Devil Union"
-			x: 12.0d
-			y: 0.0d
+			x: 10.0d
+			y: 2.0d
 			description: ["Anti-Magic: fuse with a devil for five minutes."]
-			dependencies: ["36702EAD50B5B638"]
-			id: "6984383D531B53A8"
+			dependencies: ["E45EF6269276E05C"]
+			id: "9E16C568281D488D"
 			tasks: [{
-				id: "DC0761858B285163"
+				id: "F7707D2AA516CB15"
 				type: "advancement"
 				advancement: "clovermagic:devil_union"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "E1BE16F192528609"
-				type: "item"
-				item: { count: 2, id: "minecraft:netherite_scrap" }
+				id: "CAEB90E889FD524B"
+				type: "xp"
+				xp: 300
+			}]
+		}
+		{
+			title: "Magic Level 10"
+			x: 6.0d
+			y: 6.0d
+			description: ["Halfway there. A Four-Leaf mage may now be chosen by a spirit."]
+			dependencies: ["25ADC4150EA65936"]
+			id: "F94540115348F5FB"
+			tasks: [{
+				id: "516C45E9AA11FA8E"
+				type: "advancement"
+				advancement: "clovermagic:level_10"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "0D7B221B393FBB7D"
+				type: "xp"
+				xp: 60
+			}]
+		}
+		{
+			title: "A Spirit Likes You"
+			x: 8.0d
+			y: 4.0d
+			description: ["A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10."]
+			dependencies: ["F94540115348F5FB"]
+			id: "6A59EB12B8EEE1A5"
+			tasks: [{
+				id: "F7B87DDD7595AB0C"
+				type: "advancement"
+				advancement: "clovermagic:spirit_bond"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "5D261E15CD748A3A"
+				type: "xp"
+				xp: 150
+			}]
+		}
+		{
+			title: "Magic Level 15"
+			x: 8.0d
+			y: 6.0d
+			description: ["A true Magic Knight candidate. The Wizard King can tell when you are ready."]
+			dependencies: ["F94540115348F5FB"]
+			id: "D6EDBFE8BA32123E"
+			tasks: [{
+				id: "9A8FD19D70F7DD19"
+				type: "advancement"
+				advancement: "clovermagic:level_15"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "9396AC0056979475"
+				type: "xp"
+				xp: 100
+			}]
+		}
+		{
+			title: "The Wizard King"
+			x: 10.0d
+			y: 4.0d
+			description: ["Find the Royal Pavilion and meet Julius Novachrono."]
+			dependencies: ["D6EDBFE8BA32123E"]
+			id: "E26FF02598C99C2B"
+			tasks: [{
+				id: "350A40A2959F7D44"
+				type: "advancement"
+				advancement: "clovermagic:talked_julius"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "12C163C9A4A98F79"
+				type: "xp"
+				xp: 40
+			}]
+		}
+		{
+			title: "Magic Knight"
+			x: 10.0d
+			y: 6.0d
+			description: ["Talk to Julius Novachrono at level 15 and become a Magic Knight of the Clover Kingdom."]
+			dependencies: ["D6EDBFE8BA32123E"]
+			id: "DBCC814FB2B0D403"
+			tasks: [{
+				id: "54FDBA80BB63CE40"
+				type: "advancement"
+				advancement: "clovermagic:magic_knight"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "20E73B7D9A6AA844"
+				type: "xp"
+				xp: 200
+			}]
+		}
+		{
+			title: "Magic Level 20"
+			x: 10.0d
+			y: 8.0d
+			description: ["The highest level of magic. Your skill tree is nearly complete."]
+			dependencies: ["D6EDBFE8BA32123E"]
+			id: "3457F3F3B0C0F5BE"
+			tasks: [{
+				id: "FC3FD78CC64C3069"
+				type: "advancement"
+				advancement: "clovermagic:level_20"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "7950CF0CCC514325"
+				type: "xp"
+				xp: 300
 			}]
 		}
 		{
@@ -276,18 +373,18 @@
 			x: 12.0d
 			y: 2.0d
 			description: ["Make a Devil's Deal at the altar: a second grimoire, for a price in hearts."]
-			dependencies: ["1E6F046455C8DD2C"]
-			id: "29A58820D8D01370"
+			dependencies: ["DBCC814FB2B0D403"]
+			id: "B4F6F5D30EE6CCCF"
 			tasks: [{
-				id: "1F8257F1B7CE2710"
+				id: "AB3C41A0B0CC670C"
 				type: "advancement"
 				advancement: "clovermagic:second_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "DC2E55756AC85E20"
-				type: "item"
-				item: { count: 1, id: "minecraft:totem_of_undying" }
+				id: "D23E4F8ABD7CDD60"
+				type: "xp"
+				xp: 200
 			}]
 		}
 		{
@@ -295,75 +392,18 @@
 			x: 14.0d
 			y: 2.0d
 			description: ["Make the deal of the fifth leaf: more mana and stronger spells, for another price in hearts."]
-			dependencies: ["29A58820D8D01370"]
-			id: "933BAE1CA6ED3B8C"
+			dependencies: ["B4F6F5D30EE6CCCF"]
+			id: "CAA0155C671CFFFC"
 			tasks: [{
-				id: "B247F4A5F340C2FD"
+				id: "FFE97D6F698870E0"
 				type: "advancement"
 				advancement: "clovermagic:devil_mark"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "AB20873C795900A5"
-				type: "item"
-				item: { count: 1, id: "minecraft:netherite_ingot" }
-			}]
-		}
-		{
-			title: "Beastly Boars"
-			x: 2.0d
-			y: -2.0d
-			description: ["Boars with magic roam the plains, like the ones the Golden Dawn is sent to defeat in Saussy. Defeat a Magic Boar."]
-			dependencies: ["A6C8BBC2A299E490"]
-			id: "9B1D09A939DA0A61"
-			tasks: [{
-				id: "E37F5F324094D80E"
-				type: "advancement"
-				advancement: "clovermagic:boar_hunter"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "94C0E337AE2C8EE9"
-				type: "item"
-				item: { count: 8, id: "minecraft:cooked_porkchop" }
-			}]
-		}
-		{
-			title: "Eye of the Midnight Sun"
-			x: 4.0d
-			y: -2.0d
-			description: ["Dark mages ambush travellers and throw fire. Defeat a Midnight Sun Mage."]
-			dependencies: ["9B1D09A939DA0A61"]
-			id: "353314B90D4BDCC7"
-			tasks: [{
-				id: "8EDF9A530669C7A5"
-				type: "advancement"
-				advancement: "clovermagic:mage_slayer"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "37C4AC69C8BE7591"
-				type: "item"
-				item: { count: 3, id: "clovermagic:mana_potion" }
-			}]
-		}
-		{
-			title: "The Yultim Dungeon"
-			x: 6.0d
-			y: -2.0d
-			description: ["A giant spider lurks in a dungeon under the old gates, like the one the trainees entered. Find the Yultim Dungeon and defeat the Giant Spider."]
-			dependencies: ["353314B90D4BDCC7", "D698014EFB68FEFD"]
-			id: "D7450C847008FD8A"
-			tasks: [{
-				id: "695D4ECF191A9D79"
-				type: "advancement"
-				advancement: "clovermagic:yultim_slayer"
-				criterion: ""
-			}]
-			rewards: [{
-				id: "BBC70DDCB7CB0376"
-				type: "item"
-				item: { count: 2, id: "clovermagic:magic_beast_core" }
+				id: "E66E3A4C4C5169D3"
+				type: "xp"
+				xp: 300
 			}]
 		}
 	]

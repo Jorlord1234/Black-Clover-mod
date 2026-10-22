@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:mage_slayer",
+  "display": {
+    "icon": {
+      "id": "minecraft:cobweb"
+    },
+    "title": "The Yultim Dungeon",
+    "description": "A giant spider lurks in a dungeon under old gates, like the one the trainees entered. Find the Yultim Dungeon and defeat the Giant Spider.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 100,
+    "loot": [
+      "clovermagic:quest/yultim_slayer"
+    ]
   }
 }

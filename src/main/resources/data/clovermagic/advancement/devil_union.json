@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:five_leaf",
+  "display": {
+    "icon": {
+      "id": "clovermagic:demon_destroyer_sword"
+    },
+    "title": "Devil Union",
+    "description": "Anti-Magic: fuse with a devil for five minutes.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 300,
+    "loot": [
+      "clovermagic:quest/devil_union"
+    ]
   }
 }

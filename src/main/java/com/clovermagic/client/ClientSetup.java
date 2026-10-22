@@ -53,18 +53,26 @@ public final class ClientSetup {
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
         event.registerEntityRenderer(ModEntities.FIREBALL.get(), FireballRenderer::new);
         event.registerEntityRenderer(ModEntities.SPELL_VFX.get(), SpellVfxRenderer::new);
-        event.registerEntityRenderer(ModEntities.HOBGOBLIN.get(), HobgoblinRenderer::new);
         event.registerEntityRenderer(ModEntities.MAGIC_NPC.get(), MagicNpcRenderer::new);
         event.registerEntityRenderer(ModEntities.MAGIC_BOAR.get(), MagicBoarRenderer::new);
         event.registerEntityRenderer(ModEntities.MIDNIGHT_MAGE.get(), MidnightMageRenderer::new);
         event.registerEntityRenderer(ModEntities.YULTIM_SPIDER.get(), YultimSpiderRenderer::new);
+        event.registerEntityRenderer(ModEntities.BROOM.get(), BroomRenderer::new);
+        event.registerEntityRenderer(ModEntities.DEMON.get(), DemonRenderer::new);
+        event.registerEntityRenderer(ModEntities.DEVIL.get(), DevilRenderer::new);
     }
 
     public static final net.minecraft.client.model.geom.ModelLayerLocation DEVIL_UNION_LAYER =
             new net.minecraft.client.model.geom.ModelLayerLocation(
                     ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "devil_union"), "main");
 
+    public static final net.minecraft.client.model.geom.ModelLayerLocation BROOM_LAYER =
+            new net.minecraft.client.model.geom.ModelLayerLocation(
+                    ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "broom"), "main");
+
     private static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
+        event.registerLayerDefinition(BROOM_LAYER, BroomModel::createLayer);
+        event.registerLayerDefinition(MagicBoarModel.LAYER, MagicBoarModel::createLayer);
         event.registerLayerDefinition(DEVIL_UNION_LAYER, DevilUnionModel::createLayer);
     }
 

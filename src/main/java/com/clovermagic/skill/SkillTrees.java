@@ -104,22 +104,22 @@ public final class SkillTrees {
                 "The blast of your fireballs is 1.5 blocks wider.", "Gameplay: original.", 335, 90));
         n.add(node("exploding_buckshot", "Exploding Buckshot", NodeType.SPELL, "explosive", 3, 5, List.of("exploding_fireball"), "EXPLODING_BUCKSHOT", true,
                 "Fires a fan of five small exploding fireballs.", "Anime: Magna's Exploding Buckshot.", 420, 90));
-        n.add(node("timed_scattershot", "Timed Explosion Scattershot", NodeType.SPELL, "explosive", 4, 8, List.of("exploding_buckshot"), null, false,
-                "Shots that detonate on a timer, even without a hit.", "Anime: Magna's timed explosive shot.", 505, 90));
-        n.add(node("vanishing_fireball", "Vanishing Fireball", NodeType.KEYSTONE, "explosive", 5, 12, List.of("timed_scattershot"), null, false,
-                "Keystone of the Explosive branch.", "Anime: the name exists, its details still need research.", 590, 90));
+        n.add(node("timed_scattershot", "Timed Explosion Scattershot", NodeType.SPELL, "explosive", 4, 8, List.of("exploding_buckshot"), "TIMED_SCATTERSHOT", true,
+                "Six fire bolts fly at the six nearest enemies.", "Anime: Magna's timed explosive shot.", 505, 90));
+        n.add(node("vanishing_fireball", "Vanishing Fireball", NodeType.KEYSTONE, "explosive", 5, 12, List.of("timed_scattershot"), "VANISHING_FIREBALL", true,
+                "A fireball explodes where you stand while you vanish and appear ten blocks ahead.", "Anime: the name exists, its details still need research.", 590, 90));
 
         // spiral (Leopold)
         n.add(node("spiral_flame", "Spiral Flame", NodeType.SPELL, "spiral", 2, 3, List.of(), "SPIRAL_FLAME", true,
                 "Sends a spiral of flame forward at mid range, burning everything in it.", "Anime: Leopold's Spiral Flame.", 250, 190));
         n.add(node("spiral_range", "Spiral Range", NodeType.UPGRADE, "spiral", 1, 4, List.of("spiral_flame"), null, true,
                 "Spiral Flame reaches 4 blocks further.", "Gameplay: original.", 335, 190));
-        n.add(node("profound_spiral", "Profound Spiral Flames", NodeType.SPELL, "spiral", 4, 8, List.of("spiral_range"), null, false,
-                "A larger, longer spiral that hits several targets.", "Anime: Leopold's Profound Spiral Flames.", 420, 190));
-        n.add(node("multi_circle", "Multi-circle", NodeType.UPGRADE, "spiral", 2, 10, List.of("profound_spiral"), null, false,
-                "More circles at once.", "Gameplay: original.", 505, 190));
-        n.add(node("crimson_eruption", "Crimson Eruption", NodeType.KEYSTONE, "spiral", 6, 15, List.of("multi_circle"), null, false,
-                "A huge rune circle that burns everything inside it.", "Anime: True Fire Magic.", 590, 190));
+        n.add(node("profound_spiral", "Profound Spiral Flames", NodeType.SPELL, "spiral", 4, 8, List.of("spiral_range"), "PROFOUND_SPIRAL", true,
+                "A wide, powerful spiral of flame.", "Anime: Leopold's Profound Spiral Flames.", 420, 190));
+        n.add(node("multi_circle", "Multi-circle", NodeType.UPGRADE, "spiral", 2, 10, List.of("profound_spiral"), null, true,
+                "Your Spiral Flame spells deal 25% more damage.", "Gameplay: original.", 505, 190));
+        n.add(node("crimson_eruption", "Crimson Eruption", NodeType.KEYSTONE, "spiral", 6, 15, List.of("multi_circle"), "CRIMSON_ERUPTION", true,
+                "The ground erupts in flames around you and throws everything into the air.", "Anime: True Fire Magic.", 590, 190));
 
         // lion (Fuegoleon)
         n.add(node("sol_linea", "Sol Linea", NodeType.SPELL, "lion", 2, 3, List.of(), "SOL_LINEA", true,
@@ -130,30 +130,30 @@ public final class SkillTrees {
                 "Flame paws grab a target and hold it in place for 3 seconds.", "Anime: Leo Palma binds opponents.", 420, 290));
         n.add(node("ignis_columna", "Ignis Columna", NodeType.SPELL, "lion", 4, 9, List.of("leo_palma"), "IGNIS_COLUMNA", true,
                 "A pillar of flame surrounds you: stronger defense, and enemies close to you are burned.", "Anime: a defensive fire spell.", 505, 290));
-        n.add(node("lion_mastery", "Lion Mastery", NodeType.KEYSTONE, "lion", 5, 14, List.of("ignis_columna"), null, false,
-                "Lion spells cool down faster and hit harder.", "Gameplay: original.", 590, 290));
+        n.add(node("lion_mastery", "Lion Mastery", NodeType.KEYSTONE, "lion", 5, 14, List.of("ignis_columna"), null, true,
+                "Your Lion spells deal 20% more damage.", "Gameplay: original.", 590, 290));
 
         // lioness (Mereoleona)
         n.add(node("calidus_brachium", "Calidus Brachium", NodeType.SPELL, "lioness", 2, 4, List.of(), "CALIDUS_BRACHIUM", true,
                 "A huge fist of flame punches everything right in front of you.", "Anime: Mereoleona's Calidus Brachium.", 250, 390));
         n.add(node("calidus_barrage", "Calidus Brachium Barrage", NodeType.SPELL, "lioness", 4, 9, List.of("calidus_brachium"), "CALIDUS_BRACHIUM_BARRAGE", true,
                 "Fists of flame strike every enemy around you from all sides.", "Anime: Mereoleona's Calidus Brachium Barrage.", 335, 390));
-        n.add(node("two_step_reinforcement", "Two-step Reinforcement", NodeType.UPGRADE, "lioness", 3, 11, List.of("calidus_barrage"), null, false,
-                "Reinforces both arms: your fists hit much harder.", "Anime: Mereoleona's reinforcement (from the games).", 420, 390));
-        n.add(node("mana_zone", "Mana Zone", NodeType.KEYSTONE, "lioness", 6, 15, List.of("two_step_reinforcement"), null, false,
-                "Mereoleona's mana zone: you sense and strike everything around you.", "Anime: Mereoleona's Mana Zone.", 505, 390));
+        n.add(node("two_step_reinforcement", "Two-step Reinforcement", NodeType.UPGRADE, "lioness", 3, 11, List.of("calidus_barrage"), null, true,
+                "Reinforces both arms: your Lioness spells deal 25% more damage.", "Anime: Mereoleona's reinforcement (from the games).", 420, 390));
+        n.add(node("mana_zone", "Mana Zone", NodeType.KEYSTONE, "lioness", 6, 15, List.of("two_step_reinforcement"), "MANA_ZONE", true,
+                "You sense and strike everything around you, and move faster and hit harder for 30 seconds.", "Anime: Mereoleona's Mana Zone.", 505, 390));
 
         // spirit (opens when Salamander bonds with the player)
         n.add(node("spirit_contract", "Spirit Contract", NodeType.PASSIVE, "spirit", 3, 11, List.of(), null, true,
                 "A contract with the fire spirit Salamander: all your spells deal 15% more damage.", "Anime: Salamander is fire's spirit.", 250, 490));
         n.add(node("spirit_dive", "Spirit Dive", NodeType.SPELL, "spirit", 4, 12, List.of("spirit_contract"), "SPIRIT_DIVE_FIRE", true,
                 "Fuse with Salamander for 2 minutes: strong buffs, fire immunity and flight.", "Anime: Spirit Dive fuses a mage with their spirit.", 335, 490));
-        n.add(node("salamander_breath", "Salamander Breath", NodeType.SPELL, "spirit", 4, 15, List.of("spirit_dive"), null, false,
-                "Spirit magic.", "Anime: Salamander's Breath.", 420, 490));
-        n.add(node("spirit_power", "Spirit Power", NodeType.UPGRADE, "spirit", 2, 18, List.of("salamander_breath"), null, false,
-                "Spirit magic.", "Gameplay: original.", 505, 490));
-        n.add(node("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, "spirit", 6, 20, List.of("spirit_power"), null, false,
-                "Spirit magic.", "Gameplay: original.", 590, 490));
+        n.add(node("salamander_breath", "Salamander Breath", NodeType.SPELL, "spirit", 4, 15, List.of("spirit_dive"), "SALAMANDER_BREATH", true,
+                "The fire spirit breathes a long cone of fire.", "Anime: Salamander's Breath.", 420, 490));
+        n.add(node("spirit_power", "Spirit Power", NodeType.UPGRADE, "spirit", 2, 18, List.of("salamander_breath"), null, true,
+                "Spirit magic: all your spells deal 15% more damage.", "Gameplay: original.", 505, 490));
+        n.add(node("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, "spirit", 6, 20, List.of("spirit_power"), null, true,
+                "You absorb the spirit's power: all your spells cost 25% less mana.", "Gameplay: original.", 590, 490));
         return new SkillTree("fire", "FIRE MAGIC", ROOT, branches, n);
     }
 
@@ -212,9 +212,9 @@ public final class SkillTrees {
                         "A contract with the spirit " + spiritName + ": all your spells deal 15% more damage.", a),
                 sp("spirit_dive", "Spirit Dive", 4, 12, "SPIRIT_DIVE_" + el.toUpperCase(),
                         "Fuse with " + spiritName + " for 2 minutes: strong buffs and flight.", "Anime: Spirit Dive fuses a mage with their spirit."),
-                soon("spirit_art", "Spirit Art", NodeType.SPELL, 4, 15, "Spirit magic.", a),
-                soon("spirit_power", "Spirit Power", NodeType.UPGRADE, 2, 18, "Spirit magic.", "Gameplay: original."),
-                soon("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, 6, 20, "Spirit magic.", "Gameplay: original."));
+                sp("spirit_art", "Spirit Art", 4, 15, "SPIRIT_ART_" + el.toUpperCase(), "A spirit art: the power of " + spiritName + ".", a),
+                new Def("spirit_power", "Spirit Power", NodeType.UPGRADE, 2, 18, null, true, "Spirit magic: all your spells deal 15% more damage.", "Gameplay: original."),
+                new Def("spirit_absorption", "Spirit Absorption", NodeType.KEYSTONE, 6, 20, null, true, "You absorb the spirit's power: all your spells cost 25% less mana.", "Gameplay: original."));
     }
 
     private static SkillTree build(String el, String title, String rootName, String rootSpell, String rootDesc, String rootCanon,
@@ -259,10 +259,8 @@ public final class SkillTrees {
                         up("dragon_force", "Dragon Force", 3),
                         sp("sea_dragon_roar", "Sea Dragon's Roar", 3, 5, "SEA_DRAGON_ROAR",
                                 "A roaring dragon of water crashes through a long line.", "Anime: Noelle's Sea Dragon's Roar."),
-                        soon("point_blank_roar", "Point-Blank Sea Dragon's Roar", NodeType.SPELL, 4, 8,
-                                "A close-range roar that hits much harder.", "Anime: Noelle's Point-Blank Sea Dragon's Roar."),
-                        soon("sea_gods_hammer", "Sea God's Hammer", NodeType.KEYSTONE, 5, 12,
-                                "Keystone of the Sea Dragon branch.", "Anime: the name exists, its details still need research.")},
+                        sp("point_blank_roar", "Point-Blank Sea Dragon's Roar", 4, 8, "POINT_BLANK_ROAR", "The Sea Dragon roars right in front of you: short range, huge damage.", "Anime: Noelle's Point-Blank Sea Dragon's Roar."),
+                        ks("sea_gods_hammer", "Sea God's Hammer", 5, 12, "SEA_GODS_HAMMER", "A huge hammer of water crushes the first enemy in front of you and splashes around it.", "Anime: the name exists, its details still need research.")},
                 new Def[] {
                         sp("water_veil", "Water Veil", 2, 2, "WATER_VEIL",
                                 "Wraps you in water: resistance, water breathing, no more burning.", "Gameplay: original."),
@@ -271,18 +269,14 @@ public final class SkillTrees {
                                 "A dome of whirlpools protects you and your friends.", "Anime: Noelle's Sea Dragon's Nest."),
                         ks("valkyrie_dress", "Valkyrie Dress", 4, 8, "VALKYRIE_DRESS",
                                 "Armor made of water for one minute.", "Anime: Noelle's Valkyrie Dress."),
-                        soon("sea_gods_shield", "Sea God's Shield", NodeType.KEYSTONE, 6, 14,
-                                "A stronger water shield.", "Anime: a Water Magic defensive spell.")},
+                        ks("sea_gods_shield", "Sea God's Shield", 6, 14, "SEA_GODS_SHIELD", "A shield of the sea for you and the players around you: strong resistance and many extra hearts.", "Anime: a Water Magic defensive spell.")},
                 new Def[] {
                         sp("climbing_coelacanth", "Climbing Coelacanth", 2, 3, "CLIMBING_COELACANTH",
                                 "A rising stream of water lifts enemies into the air.", "Anime: a Water Magic spell."),
                         up("tide_rising", "Rising Tide", 4),
-                        soon("surging_waves", "Surging Waves", NodeType.SPELL, 3, 7,
-                                "Waves that roll over a wide area.", "Anime: a Water Magic spell."),
-                        soon("aqua_javelin", "Aqua Javelin", NodeType.SPELL, 4, 10,
-                                "A lance of water.", "Anime: a Water Magic spell."),
-                        soon("sea_serpents_bellow", "Sea Serpent's Bellow", NodeType.KEYSTONE, 5, 15,
-                                "Keystone of the Tide branch.", "Anime: the name exists, its details still need research.")},
+                        sp("surging_waves", "Surging Waves", 3, 7, "SURGING_WAVES", "Waves roll over a wide area in front of you and sweep everything away.", "Anime: a Water Magic spell."),
+                        sp("aqua_javelin", "Aqua Javelin", 4, 10, "AQUA_JAVELIN", "A fast lance of water that pierces everything in a long line.", "Anime: a Water Magic spell."),
+                        ks("sea_serpents_bellow", "Sea Serpent's Bellow", 5, 15, "SEA_SERPENTS_BELLOW", "A giant bellow shakes everything around you and slows it down.", "Anime: the name exists, its details still need research.")},
                 "Undine");
     }
 
@@ -301,30 +295,23 @@ public final class SkillTrees {
                         up("storm_force", "Storm Force", 3),
                         sp("gale_white_bow", "Gale White Bow", 3, 5, "GALE_WHITE_BOW",
                                 "A bow of wind fires a volley along a very long line.", "Anime: Yuno's Gale White Bow."),
-                        soon("tornado_fang", "Tornado Fang", NodeType.SPELL, 4, 8,
-                                "A tornado that bites through enemies.", "Anime: Yuno's Tornado Fang."),
-                        soon("spirit_storm", "Spirit Storm", NodeType.KEYSTONE, 6, 14,
-                                "Keystone of the Storm branch.", "Anime: Yuno's Spirit Storm.")},
+                        sp("tornado_fang", "Tornado Fang", 4, 8, "TORNADO_FANG", "A tornado bites through enemies and sucks them up into the air.", "Anime: Yuno's Tornado Fang."),
+                        ks("spirit_storm", "Spirit Storm", 6, 14, "SPIRIT_STORM", "A storm around you lifts and hurts everything in reach.", "Anime: Yuno's Spirit Storm.")},
                 new Def[] {
                         sp("wind_dash", "Wind Dash", 2, 2, "WIND_DASH",
                                 "Rides the wind forward. No fall damage from the dash.", "Gameplay: original."),
                         up("flight_force", "Quick Wings", 3),
                         sp("thief_wind_cloud", "Thief's Wind Cloud", 3, 5, "THIEF_WIND_CLOUD",
                                 "A wind cloud lifts you high and lets you drift down fast and light.", "Anime: Thief's Wind Cloud."),
-                        soon("heavenly_wind_ark", "Heavenly Wind Ark", NodeType.SPELL, 4, 8,
-                                "A ship of wind that carries you.", "Anime: Yuno's Heavenly Wind Ark."),
-                        soon("slicing_wind_emperor", "Slicing Wind Emperor", NodeType.KEYSTONE, 5, 12,
-                                "Keystone of the Flight branch.", "Anime: Yuno's Slicing Wind Emperor.")},
+                        sp("heavenly_wind_ark", "Heavenly Wind Ark", 4, 8, "HEAVENLY_WIND_ARK", "A ship of wind carries you: speed, soft landings and flight for 20 seconds.", "Anime: Yuno's Heavenly Wind Ark."),
+                        ks("slicing_wind_emperor", "Slicing Wind Emperor", 5, 12, "SLICING_WIND_EMPEROR", "A gigantic wind blade cuts through everything in a very long line.", "Anime: Yuno's Slicing Wind Emperor.")},
                 new Def[] {
                         sp("swift_white_hawk", "Swift White Hawk", 2, 3, "SWIFT_WHITE_HAWK",
                                 "A hawk of wind: dash forward and cut everything on the way.", "Anime: Yuno's Swift White Hawk."),
                         up("hawk_talons", "Keen Talons", 4),
-                        soon("piercing_tornado_needle", "Piercing Tornado Needle", NodeType.SPELL, 3, 7,
-                                "A needle of wind that pierces armor.", "Anime: Yuno's Piercing Tornado Needle."),
-                        soon("wind_blades_shower", "Wind Blades Shower", NodeType.SPELL, 4, 10,
-                                "Many wind blades at once.", "Anime: Yuno's Wind Blades Shower."),
-                        soon("killing_kakara_blade", "Killing Kakara Blade", NodeType.KEYSTONE, 5, 15,
-                                "Keystone of the Hawk branch.", "Anime: Killing Kakara Blade.")},
+                        sp("piercing_tornado_needle", "Piercing Tornado Needle", 3, 7, "PIERCING_TORNADO_NEEDLE", "A thin needle of wind that pierces far and hard.", "Anime: Yuno's Piercing Tornado Needle."),
+                        sp("wind_blades_shower", "Wind Blades Shower", 4, 10, "WIND_BLADES_SHOWER", "A shower of wind blades hits the six nearest enemies.", "Anime: Yuno's Wind Blades Shower."),
+                        ks("killing_kakara_blade", "Killing Kakara Blade", 5, 15, "KILLING_KAKARA_BLADE", "You become a blade of wind and cut straight through your enemies.", "Anime: Killing Kakara Blade.")},
                 "Sylph");
     }
 
@@ -343,23 +330,23 @@ public final class SkillTrees {
                         up("crush_heavy", "Heavy Hands", 3),
                         sp("boulder_toss", "Boulder Toss", 3, 5, "BOULDER_TOSS",
                                 "Hurls a heavy boulder along a line.", "Gameplay: original."),
-                        soon("avalanche", "Avalanche", NodeType.SPELL, 4, 8, "A wall of rocks rolls over a wide area.", "Gameplay: original."),
-                        soon("mountain_breaker", "Mountain Breaker", NodeType.KEYSTONE, 6, 14, "Keystone of the Crush branch.", "Gameplay: original.")},
+                        sp("avalanche", "Avalanche", 4, 8, "AVALANCHE", "A wall of rocks rolls over a wide area in front of you.", "Gameplay: original."),
+                        ks("mountain_breaker", "Mountain Breaker", 6, 14, "MOUNTAIN_BREAKER", "You break the ground itself: a huge slam around you.", "Gameplay: original.")},
                 new Def[] {
                         sp("stone_bind", "Stone Bind", 2, 3, "STONE_BIND",
                                 "Rock grips a target and almost stops it.", "Gameplay: original."),
                         up("bind_grip", "Tight Grip", 4),
-                        soon("sinking_ground", "Sinking Ground", NodeType.SPELL, 3, 7, "The ground softens under enemies.", "Gameplay: original."),
-                        soon("rock_cage", "Rock Cage", NodeType.SPELL, 4, 10, "Traps a target in a cage of stone.", "Gameplay: original."),
-                        soon("earth_prison", "Earth Prison", NodeType.KEYSTONE, 5, 15, "Keystone of the Bind branch.", "Gameplay: original.")},
+                        sp("sinking_ground", "Sinking Ground", 3, 7, "SINKING_GROUND", "The ground turns soft: everything around you sinks and can hardly move.", "Gameplay: original."),
+                        sp("rock_cage", "Rock Cage", 4, 10, "ROCK_CAGE", "Traps the first enemy in front of you in a cage of stone for 7 seconds.", "Gameplay: original."),
+                        ks("earth_prison", "Earth Prison", 5, 15, "EARTH_PRISON", "The earth grips every enemy around you: they cannot move and are weakened.", "Gameplay: original.")},
                 new Def[] {
                         sp("stone_armor", "Stone Armor", 2, 2, "STONE_ARMOR",
                                 "Strong resistance and extra hearts, but you move slower.", "Gameplay: original."),
                         up("fortress_thick", "Thick Stone", 3),
                         sp("earthen_shield", "Earthen Shield", 3, 5, "EARTHEN_SHIELD",
                                 "A shell of earth: many extra hearts for you and some for friends.", "Gameplay: original."),
-                        soon("stone_wall", "Stone Wall", NodeType.SPELL, 4, 8, "Raises a wall of stone.", "Gameplay: original."),
-                        soon("living_fortress", "Living Fortress", NodeType.KEYSTONE, 6, 14, "Keystone of the Fortress branch.", "Gameplay: original.")},
+                        sp("stone_wall", "Stone Wall", 4, 8, "STONE_WALL", "Raises a wall of stone in front of you for 20 seconds.", "Gameplay: original."),
+                        ks("living_fortress", "Living Fortress", 6, 14, "LIVING_FORTRESS", "You become a fortress for 30 seconds: huge resistance and hearts, but you are slower.", "Gameplay: original.")},
                 "Gnome");
     }
 
@@ -378,23 +365,23 @@ public final class SkillTrees {
                         up("frost_bite", "Biting Cold", 3),
                         sp("hailstorm", "Hailstorm", 3, 5, "HAILSTORM",
                                 "A wide storm of hail freezes everything in front of you.", "Gameplay: original."),
-                        soon("ice_spears", "Ice Spears", NodeType.SPELL, 4, 8, "A volley of ice spears.", "Gameplay: original."),
-                        soon("absolute_zero", "Absolute Zero", NodeType.KEYSTONE, 6, 14, "Keystone of the Frost branch.", "Gameplay: original.")},
+                        sp("ice_spears", "Ice Spears", 4, 8, "ICE_SPEARS", "Five spears of ice fly at the five nearest enemies.", "Gameplay: original."),
+                        ks("absolute_zero", "Absolute Zero", 6, 14, "ABSOLUTE_ZERO", "Everything around you freezes almost solid.", "Gameplay: original.")},
                 new Def[] {
                         sp("ice_prison", "Ice Prison", 2, 3, "ICE_PRISON",
                                 "Locks a target in ice.", "Gameplay: original."),
                         up("prison_deep", "Deep Freeze", 4),
-                        soon("frozen_chains", "Frozen Chains", NodeType.SPELL, 3, 7, "Chains of ice bind several enemies.", "Gameplay: original."),
-                        soon("glacier_wall", "Glacier Wall", NodeType.SPELL, 4, 10, "Raises a wall of ice.", "Gameplay: original."),
-                        soon("frozen_world", "Frozen World", NodeType.KEYSTONE, 5, 15, "Keystone of the Prison branch.", "Gameplay: original.")},
+                        sp("frozen_chains", "Frozen Chains", 3, 7, "FROZEN_CHAINS", "Chains of ice bind the four nearest enemies.", "Gameplay: original."),
+                        sp("glacier_wall", "Glacier Wall", 4, 10, "GLACIER_WALL", "Raises a wall of ice in front of you for 20 seconds.", "Gameplay: original."),
+                        ks("frozen_world", "Frozen World", 5, 15, "FROZEN_WORLD", "A huge area around you freezes over.", "Gameplay: original.")},
                 new Def[] {
                         sp("ice_shell", "Ice Shell", 2, 2, "ICE_SHELL",
                                 "Resistance, extra hearts and fire immunity for a while.", "Gameplay: original."),
                         up("bulwark_thick", "Thick Ice", 3),
                         sp("frost_barrier", "Frost Barrier", 3, 5, "FROST_BARRIER",
                                 "Extra hearts for you; nearby enemies are frozen and pushed away.", "Gameplay: original."),
-                        soon("crystal_mirror", "Crystal Mirror", NodeType.SPELL, 4, 8, "Ice that turns attacks aside.", "Gameplay: original."),
-                        soon("eternal_winter", "Eternal Winter", NodeType.KEYSTONE, 6, 14, "Keystone of the Bulwark branch.", "Gameplay: original.")},
+                        sp("crystal_mirror", "Crystal Mirror", 4, 8, "CRYSTAL_MIRROR", "For 10 seconds a mirror of ice halves the damage you take and throws half of it back at the attacker.", "Gameplay: original."),
+                        ks("eternal_winter", "Eternal Winter", 6, 14, "ETERNAL_WINTER", "Winter that never ends: a very large area freezes for a long time.", "Gameplay: original.")},
                 null);
     }
 
@@ -413,15 +400,15 @@ public final class SkillTrees {
                         up("storm_surge", "Storm Surge", 3),
                         sp("spark_barrage", "Spark Barrage", 3, 5, "SPARK_BARRAGE",
                                 "Sparks leap to the five nearest enemies.", "Gameplay: original."),
-                        soon("thunder_rain", "Thunder Rain", NodeType.SPELL, 4, 8, "Bolts rain down over an area.", "Gameplay: original."),
-                        soon("judgement_bolt", "Judgement Bolt", NodeType.KEYSTONE, 6, 14, "Keystone of the Storm branch.", "Gameplay: original.")},
+                        sp("thunder_rain", "Thunder Rain", 4, 8, "THUNDER_RAIN", "Lightning strikes the six nearest enemies.", "Gameplay: original."),
+                        ks("judgement_bolt", "Judgement Bolt", 6, 14, "JUDGEMENT_BOLT", "One huge bolt of lightning strikes the first enemy in front of you.", "Gameplay: original.")},
                 new Def[] {
                         sp("static_shock", "Static Shock", 2, 3, "STATIC_SHOCK",
                                 "A quick shock that stuns a target.", "Gameplay: original."),
                         up("shock_voltage", "High Voltage", 4),
-                        soon("paralyzing_field", "Paralyzing Field", NodeType.SPELL, 3, 7, "A field that stuns everything inside.", "Gameplay: original."),
-                        soon("arc_cage", "Arc Cage", NodeType.SPELL, 4, 10, "A cage of electric arcs.", "Gameplay: original."),
-                        soon("thunder_prison", "Thunder Prison", NodeType.KEYSTONE, 5, 15, "Keystone of the Shock branch.", "Gameplay: original.")},
+                        sp("paralyzing_field", "Paralyzing Field", 3, 7, "PARALYZING_FIELD", "A field of electricity stuns everything around you for 3 seconds.", "Gameplay: original."),
+                        sp("arc_cage", "Arc Cage", 4, 10, "ARC_CAGE", "A cage of iron and electric arcs traps the first enemy in front of you for 5 seconds.", "Gameplay: original."),
+                        ks("thunder_prison", "Thunder Prison", 5, 15, "THUNDER_PRISON", "A thunder prison: iron bars and lightning hold and hurt the first enemy in front of you.", "Gameplay: original.")},
                 new Def[] {
                         sp("lightning_speed", "Lightning Speed", 2, 2, "LIGHTNING_SPEED",
                                 "Great speed and jump for a while.", "Gameplay: original."),
@@ -451,23 +438,23 @@ public final class SkillTrees {
                         up("radiance_bright", "Brighter Light", 3),
                         sp("light_speed_dash", "Light Speed Dash", 3, 5, "LIGHT_SPEED_DASH",
                                 "Move at the speed of light and strike everything on the way.", "Anime: Light Magic users move and attack at light speed."),
-                        soon("light_spear", "Light Spear", NodeType.SPELL, 4, 8, "A spear of light.", "Gameplay: original."),
-                        soon("sunburst", "Sunburst", NodeType.KEYSTONE, 6, 14, "Keystone of the Radiance branch.", "Gameplay: original.")},
+                        sp("light_spear", "Light Spear", 4, 8, "LIGHT_SPEAR", "A spear of light pierces everything in a long line.", "Gameplay: original."),
+                        ks("sunburst", "Sunburst", 6, 14, "SUNBURST", "A burst of sunlight hurts and blinds enemies around you and heals your friends.", "Gameplay: original.")},
                 new Def[] {
                         sp("healing", "Healing Light", 2, 2, "HEALING",
                                 "A warm light heals you and players close to you.", "Gameplay: original."),
                         up("sanctuary_warm", "Warm Glow", 3),
                         sp("purify", "Purify", 3, 5, "PURIFY",
                                 "Washes away harmful effects and gives night vision.", "Gameplay: original."),
-                        soon("blessing", "Blessing", NodeType.SPELL, 4, 8, "A lasting blessing for you and your friends.", "Gameplay: original."),
-                        soon("revival_light", "Revival Light", NodeType.KEYSTONE, 6, 14, "Keystone of the Sanctuary branch.", "Gameplay: original.")},
+                        sp("blessing", "Blessing", 4, 8, "BLESSING", "A blessing for you and the players around you: regeneration, speed and strength for 20 seconds.", "Gameplay: original."),
+                        ks("revival_light", "Revival Light", 6, 14, "REVIVAL_LIGHT", "A light that brings back to life: it fully heals you, cleanses you and heals the players near you.", "Gameplay: original.")},
                 new Def[] {
                         sp("radiant_aegis", "Radiant Aegis", 2, 3, "RADIANT_AEGIS",
                                 "A shield of light for you and your friends.", "Gameplay: original."),
                         up("aegis_strong", "Strong Light", 4),
-                        soon("light_barrier", "Light Barrier", NodeType.SPELL, 3, 7, "A wall of light.", "Gameplay: original."),
-                        soon("halo", "Halo", NodeType.SPELL, 4, 10, "A halo that guards you.", "Gameplay: original."),
-                        soon("divine_shield", "Divine Shield", NodeType.KEYSTONE, 5, 15, "Keystone of the Aegis branch.", "Gameplay: original.")},
+                        sp("light_barrier", "Light Barrier", 3, 7, "LIGHT_BARRIER", "A wall of light in front of you for 15 seconds.", "Gameplay: original."),
+                        sp("halo", "Halo", 4, 10, "HALO", "A halo guards you for a minute: extra hearts and resistance.", "Gameplay: original."),
+                        ks("divine_shield", "Divine Shield", 5, 15, "DIVINE_SHIELD", "For 8 seconds you and your friends nearby are almost invulnerable.", "Gameplay: original.")},
                 null);
     }
 
@@ -488,24 +475,23 @@ public final class SkillTrees {
                                 "A cone of darkness hits everything in front of you.", "Gameplay: original."),
                         sp("black_hole", "Black Hole", 4, 8, "BLACK_HOLE",
                                 "A small black hole pulls enemies in and hurts them.", "Anime: Yami's Black Hole."),
-                        soon("black_moon", "Black Moon", NodeType.KEYSTONE, 6, 14,
-                                "A black moon that erases magic around it.", "Anime: Yami's Black Moon.")},
+                        ks("black_moon", "Black Moon", 6, 14, "BLACK_MOON", "A black moon rises: it rips away good effects and blinds everything around you.", "Anime: Yami's Black Moon.")},
                 new Def[] {
                         sp("dark_shroud", "Dark Shroud", 2, 2, "DARK_SHROUD",
                                 "Hides you in darkness: invisible and faster.", "Gameplay: original."),
                         up("shadow_deep", "Deep Shadow", 3),
                         sp("shadow_bind", "Shadow Bind", 3, 5, "SHADOW_BIND",
                                 "Shadows hold a target in place and blind it.", "Anime: inspired by Yami's Dark Binding."),
-                        soon("shadow_step", "Shadow Step", NodeType.SPELL, 4, 8, "Step from shadow to shadow.", "Gameplay: original."),
-                        soon("night_veil", "Night Veil", NodeType.KEYSTONE, 5, 12, "Keystone of the Shadow branch.", "Gameplay: original.")},
+                        sp("shadow_step", "Shadow Step", 4, 8, "SHADOW_STEP", "You step through the shadows to right behind the nearest enemy.", "Gameplay: original."),
+                        ks("night_veil", "Night Veil", 5, 12, "NIGHT_VEIL", "A veil of night for 45 seconds: invisible, very fast and able to see in the dark.", "Gameplay: original.")},
                 new Def[] {
                         sp("avidya_slash", "Dark Cloaked Avidya Slash", 2, 3, "AVIDYA_SLASH",
                                 "Dark magic flies from your blade in a long line.", "Anime: Yami's Dark Cloaked Avidya Slash."),
                         up("blade_keen", "Keen Edge", 4),
                         sp("dimension_slash", "Dark Cloaked Dimension Slash", 4, 7, "DIMENSION_SLASH",
                                 "A huge slash through everything in a very long line.", "Anime: Yami's Dark Cloaked Dimension Slash."),
-                        soon("iai_slash", "Dark Cloaked Iai Slash", NodeType.SPELL, 4, 10, "A lightning-fast draw slash.", "Anime: Yami's Dark Cloaked Iai Slash."),
-                        soon("death_thrust", "Death Thrust", NodeType.KEYSTONE, 6, 15, "A thrust that destroys what it hits.", "Anime: Yami's Death Thrust.")},
+                        sp("iai_slash", "Dark Cloaked Iai Slash", 4, 10, "IAI_SLASH", "A lightning-fast draw slash: you rush forward and cut everything on the way.", "Anime: Yami's Dark Cloaked Iai Slash."),
+                        ks("death_thrust", "Death Thrust", 6, 15, "DEATH_THRUST", "A deadly thrust: very high damage and heavy withering.", "Anime: Yami's Death Thrust.")},
                 null);
     }
 
@@ -524,18 +510,18 @@ public final class SkillTrees {
                         up("sword_edge", "Sharp Edge", 3),
                         sp("demon_destroyer_sword", "Demon-Destroyer Sword", 3, 5, "SUMMON_DEMON_DESTROYER",
                                 "Summons the huge Demon-Destroyer Sword.", "Anime: Asta's Demon-Destroyer Sword."),
-                        soon("black_divider", "Black Divider", NodeType.SPELL, 4, 9, "A slash of pure anti-magic.", "Anime: Asta's Black Divider."),
-                        soon("black_meteorite", "Black Meteorite", NodeType.KEYSTONE, 6, 14, "Keystone of the Swords branch.", "Anime: Asta's Black Meteorite.")},
+                        sp("black_divider", "Black Divider", 4, 9, "BLACK_DIVIDER", "A slash of pure anti-magic cuts a long line and rips away good effects.", "Anime: Asta's Black Divider."),
+                        ks("black_meteorite", "Black Meteorite", 6, 14, "BLACK_METEORITE", "A black meteorite crashes down where you look.", "Anime: Asta's Black Meteorite.")},
                 new Def[] {
                         sp("devil_union", "Devil Union", 5, 7, "DEVIL_UNION",
                                 "Fuse with the devil Liebe for 5 minutes: huge power and flight.", "Anime: Asta and Liebe's Devil Union."),
                         up("devil_bond", "Liebe's Bond", 9),
-                        soon("black_form", "Black Form", NodeType.SPELL, 4, 10, "Asta's black form.", "Anime: Asta's Black Form."),
-                        soon("black_asta", "Black Asta", NodeType.KEYSTONE, 6, 15, "Keystone of the Devil branch.", "Anime: Black Asta.")},
+                        sp("black_form", "Black Form", 4, 10, "BLACK_FORM", "Asta takes his black form for a minute: strength, speed and resistance.", "Anime: Asta's Black Form."),
+                        ks("black_asta", "Black Asta", 6, 15, "BLACK_ASTA", "Black Asta, for 2 minutes: huge strength, speed, resistance and regeneration, and magic cannot hurt you.", "Anime: Black Asta.")},
                 new Def[] {
-                        soon("nullify", "Magic Nullify", NodeType.SPELL, 3, 5, "Cancels the magic around you.", "Anime: anti-magic cancels spells."),
-                        soon("deflect", "Deflect", NodeType.SPELL, 4, 8, "Turns a spell aside.", "Gameplay: original."),
-                        soon("magic_zero", "Magic Zero", NodeType.KEYSTONE, 6, 14, "Keystone of the Zero branch.", "Gameplay: original.")},
+                        sp("nullify", "Magic Nullify", 3, 5, "NULLIFY", "Cancels the magic around you: enemies lose their good effects and magic cannot hurt you for 5 seconds.", "Anime: anti-magic cancels spells."),
+                        sp("deflect", "Deflect", 4, 8, "DEFLECT", "For 8 seconds half of all damage is turned aside and sent back to the attacker.", "Gameplay: original."),
+                        ks("magic_zero", "Magic Zero", 6, 14, "MAGIC_ZERO", "Zero magic: everything around you loses good effects and is slowed, and magic cannot hurt you for 30 seconds.", "Gameplay: original.")},
                 null);
     }
 }

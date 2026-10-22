@@ -13,6 +13,8 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.RenderLayerParent;
 import net.minecraft.client.renderer.entity.LivingEntityRenderer;
 import net.minecraft.client.renderer.entity.layers.RenderLayer;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.PlayerSkin;
 import net.minecraft.resources.ResourceLocation;
 
 /** Draws the Devil Union horns, crown and wings on every player that has the Devil Union effect. */
@@ -21,6 +23,13 @@ public class DevilUnionLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
             ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union.png");
     private static final ResourceLocation SUIT =
             ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union_suit.png");
+    private static final ResourceLocation SUIT_SLIM =
+            ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union_suit_slim.png");
+    /** Red markings only (rest transparent), drawn again at full brightness so they glow. */
+    private static final ResourceLocation SUIT_GLOW =
+            ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union_suit_glow.png");
+    private static final ResourceLocation SUIT_SLIM_GLOW =
+            ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "textures/entity/devil_union_suit_slim_glow.png");
     private final DevilUnionModel model;
 
     public DevilUnionLayer(RenderLayerParent<AbstractClientPlayer, PlayerModel<AbstractClientPlayer>> parent, DevilUnionModel model) {
@@ -39,7 +48,11 @@ public class DevilUnionLayer extends RenderLayer<AbstractClientPlayer, PlayerMod
 
         // the black armored suit with red markings: the player's own model drawn again with the suit texture
         // (head is transparent in the texture, so the face stays visible)
-        this.getParentModel().renderToBuffer(ps, buffers.getBuffer(RenderType.armorCutoutNoCull(SUIT)), light, overlay, -1);
+        boolean slim = player.getSkin().model() == PlayerSkin.Model.SLIM;   // slim arms need their own texture layout
+        this.getParentModel().renderToBuffer(ps, buffers.getBuffer(RenderType.armorCutoutNoCull(slim ? SUIT_SLIM : SUIT)), light, overlay, -1);
+        // the red markings glow
+        this.getParentModel().renderToBuffer(ps, buffers.getBuffer(RenderType.eyes(slim ? SUIT_SLIM_GLOW : SUIT_GLOW)),
+                LightTexture.FULL_BRIGHT, OverlayTexture.NO_OVERLAY, -1);
 
         ps.pushPose();
         this.getParentModel().body.translateAndRotate(ps);

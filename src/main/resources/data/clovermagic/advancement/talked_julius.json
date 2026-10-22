@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_15",
+  "display": {
+    "icon": {
+      "id": "minecraft:golden_helmet"
+    },
+    "title": "The Wizard King",
+    "description": "Find the Royal Pavilion and meet Julius Novachrono.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 40,
+    "loot": [
+      "clovermagic:quest/talked_julius"
+    ]
   }
 }

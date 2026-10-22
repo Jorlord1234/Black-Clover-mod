@@ -821,7 +821,67 @@ public enum Spell {
         SpellUtil.sound(p, SoundEvents.ENDER_DRAGON_GROWL, 0.7f, 0.6f);
         SpellUtil.sound(p, SoundEvents.WITHER_SPAWN, 0.5f, 1.4f);
         return true;
-    });
+    }),
+    TIMED_SCATTERSHOT("Timed Scattershot", MagicAttribute.FIRE, 40, 120, (p, pw) -> SpellKit.multi(p, pw, 6, 16, 7, false, ParticleTypes.FLAME, SoundEvents.FIRECHARGE_USE, SpellKit.burn(p, 80))),
+    VANISHING_FIREBALL("Vanishing Fireball", MagicAttribute.FIRE, 35, 100, (p, pw) -> (SpellKit.area(p, pw, 4, 10, false, 0.8, 0.3, ParticleTypes.FLAME, SoundEvents.WARDEN_SONIC_BOOM, SpellKit.burn(p, 80)) && SpellKit.blink(p, 10))),
+    PROFOUND_SPIRAL("Profound Spiral", MagicAttribute.FIRE, 45, 100, (p, pw) -> SpellKit.beam(p, pw, 14, 2.5, 16, false, ParticleTypes.FLAME, 6, SoundEvents.BLAZE_SHOOT, SpellKit.burn(p, 120))),
+    CRIMSON_ERUPTION("Crimson Eruption", MagicAttribute.FIRE, 60, 400, (p, pw) -> SpellKit.area(p, pw, 8, 20, false, 0.6, 1.2, ParticleTypes.LAVA, SoundEvents.WARDEN_SONIC_BOOM, SpellKit.burn(p, 160))),
+    MANA_ZONE("Mana Zone", MagicAttribute.FIRE, 50, 600, (p, pw) -> (SpellKit.area(p, pw, 12, 8, true, 0.2, 0.1, ParticleTypes.FLAME, SoundEvents.BEACON_ACTIVATE, SpellKit.eff(MobEffects.GLOWING, 200, 0)) && SpellKit.buff(p, ParticleTypes.FLAME, 0, SpellKit.fx(MobEffects.MOVEMENT_SPEED, 600, 1), SpellKit.fx(MobEffects.DAMAGE_BOOST, 600, 0)))),
+    SALAMANDER_BREATH("Salamander's Breath", MagicAttribute.FIRE, 50, 160, (p, pw) -> SpellKit.beam(p, pw, 12, 2.2, 14, false, ParticleTypes.FLAME, 8, SoundEvents.BLAZE_SHOOT, SpellKit.burn(p, 200))),
+    POINT_BLANK_ROAR("Point-Blank Sea Dragon's Roar", MagicAttribute.WATER, 40, 120, (p, pw) -> SpellKit.beam(p, pw, 6, 2.6, 24, false, ParticleTypes.SPLASH, 10, SoundEvents.GENERIC_SPLASH, SpellKit.knock(p, 1.6, 0.4))),
+    SEA_GODS_HAMMER("Sea God's Hammer", MagicAttribute.WATER, 55, 300, (p, pw) -> SpellKit.strike(p, pw, 18, 26, 4, false, ParticleTypes.SPLASH, SoundEvents.GENERIC_SPLASH, SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 60, 2))),
+    SEA_GODS_SHIELD("Sea God's Shield", MagicAttribute.WATER, 50, 600, (p, pw) -> SpellKit.buff(p, ParticleTypes.SPLASH, 5, SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 400, 2), SpellKit.fx(MobEffects.ABSORPTION, 400, 4))),
+    SURGING_WAVES("Surging Waves", MagicAttribute.WATER, 35, 100, (p, pw) -> SpellKit.beam(p, pw, 14, 3.0, 9, false, ParticleTypes.SPLASH, 10, SoundEvents.GENERIC_SPLASH, SpellKit.knock(p, 1.4, 0.2))),
+    AQUA_JAVELIN("Aqua Javelin", MagicAttribute.WATER, 25, 40, (p, pw) -> SpellKit.beam(p, pw, 24, 0.9, 14, false, ParticleTypes.BUBBLE_POP, 4, SoundEvents.ARROW_SHOOT, null)),
+    SEA_SERPENTS_BELLOW("Sea Serpent's Bellow", MagicAttribute.WATER, 60, 400, (p, pw) -> SpellKit.area(p, pw, 10, 14, false, 1.2, 0.3, ParticleTypes.SPLASH, SoundEvents.WITHER_AMBIENT, SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 60, 3))),
+    SPIRIT_ART_WATER("Undine's Tide", MagicAttribute.WATER, 55, 600, (p, pw) -> (SpellKit.area(p, pw, 8, 10, false, 1.0, 0.3, ParticleTypes.SPLASH, SoundEvents.GENERIC_SPLASH, null) && heal(p, 8, 6.0f))),
+    TORNADO_FANG("Tornado Fang", MagicAttribute.WIND, 35, 80, (p, pw) -> SpellKit.beam(p, pw, 16, 1.7, 12, false, ParticleTypes.CLOUD, 6, SoundEvents.PLAYER_ATTACK_SWEEP, SpellKit.knock(p, -0.4, 0.9))),
+    SPIRIT_STORM("Spirit Storm", MagicAttribute.WIND, 60, 400, (p, pw) -> (SpellKit.area(p, pw, 10, 15, false, 0.5, 1.3, ParticleTypes.CLOUD, SoundEvents.ENDER_DRAGON_FLAP, null) && SpellKit.buff(p, ParticleTypes.CLOUD, 0, SpellKit.fx(MobEffects.SLOW_FALLING, 200, 0)))),
+    HEAVENLY_WIND_ARK("Heavenly Wind Ark", MagicAttribute.WIND, 50, 600, (p, pw) -> (SpellKit.buff(p, ParticleTypes.CLOUD, 0, SpellKit.fx(MobEffects.MOVEMENT_SPEED, 400, 2), SpellKit.fx(MobEffects.SLOW_FALLING, 400, 0)) && fly(p, 400))),
+    SLICING_WIND_EMPEROR("Slicing Wind Emperor", MagicAttribute.WIND, 55, 200, (p, pw) -> SpellKit.beam(p, pw, 28, 3.0, 20, false, ParticleTypes.SWEEP_ATTACK, 2, SoundEvents.PLAYER_ATTACK_SWEEP, null)),
+    PIERCING_TORNADO_NEEDLE("Piercing Tornado Needle", MagicAttribute.WIND, 30, 60, (p, pw) -> SpellKit.beam(p, pw, 26, 0.6, 16, false, ParticleTypes.CLOUD, 4, SoundEvents.ARROW_SHOOT, null)),
+    WIND_BLADES_SHOWER("Wind Blades Shower", MagicAttribute.WIND, 40, 100, (p, pw) -> SpellKit.multi(p, pw, 6, 14, 6, false, ParticleTypes.SWEEP_ATTACK, SoundEvents.PLAYER_ATTACK_SWEEP, null)),
+    KILLING_KAKARA_BLADE("Killing Kakara Blade", MagicAttribute.WIND, 55, 200, (p, pw) -> SpellKit.dash(p, pw, 2.2, 14, 22, false, ParticleTypes.CLOUD, null)),
+    SPIRIT_ART_WIND("Sylph's Tempest", MagicAttribute.WIND, 55, 600, (p, pw) -> (SpellKit.area(p, pw, 12, 12, false, 0.4, 1.0, ParticleTypes.CLOUD, SoundEvents.ENDER_DRAGON_FLAP, null) && SpellKit.buff(p, ParticleTypes.CLOUD, 0, SpellKit.fx(MobEffects.MOVEMENT_SPEED, 300, 1)))),
+    AVALANCHE("Avalanche", MagicAttribute.EARTH, 40, 120, (p, pw) -> SpellKit.beam(p, pw, 12, 3.5, 11, true, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), 8, SoundEvents.STONE_BREAK, SpellKit.knock(p, -1.2, 0.3))),
+    MOUNTAIN_BREAKER("Mountain Breaker", MagicAttribute.EARTH, 60, 400, (p, pw) -> SpellKit.area(p, pw, 7, 24, true, 0.9, 1.2, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), SoundEvents.WARDEN_SONIC_BOOM, null)),
+    SINKING_GROUND("Sinking Ground", MagicAttribute.EARTH, 30, 100, (p, pw) -> SpellKit.area(p, pw, 6, 4, true, 0, 0, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), SoundEvents.GRAVEL_BREAK, SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 100, 5))),
+    ROCK_CAGE("Rock Cage", MagicAttribute.EARTH, 45, 200, (p, pw) -> SpellKit.cage(p, pw, 14, Blocks.STONE_BRICKS.defaultBlockState(), 140, 6, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()))),
+    EARTH_PRISON("Earth Prison", MagicAttribute.EARTH, 60, 500, (p, pw) -> SpellKit.area(p, pw, 8, 6, true, 0, 0, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), SoundEvents.STONE_PLACE, SpellKit.all(SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 140, 7), SpellKit.eff(MobEffects.WEAKNESS, 140, 1)))),
+    STONE_WALL("Stone Wall", MagicAttribute.EARTH, 35, 200, (p, pw) -> SpellKit.wall(p, Blocks.STONE.defaultBlockState(), 3, 3, 400, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()))),
+    LIVING_FORTRESS("Living Fortress", MagicAttribute.EARTH, 60, 900, (p, pw) -> SpellKit.buff(p, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), 5, SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 600, 2), SpellKit.fx(MobEffects.ABSORPTION, 600, 5), SpellKit.fx(MobEffects.MOVEMENT_SLOWDOWN, 600, 0))),
+    SPIRIT_ART_EARTH("Gnome's Quake", MagicAttribute.EARTH, 55, 600, (p, pw) -> SpellKit.area(p, pw, 12, 18, true, 0.8, 1.0, new BlockParticleOption(ParticleTypes.BLOCK, Blocks.STONE.defaultBlockState()), SoundEvents.WARDEN_SONIC_BOOM, null)),
+    ICE_SPEARS("Ice Spears", MagicAttribute.ICE, 40, 100, (p, pw) -> SpellKit.multi(p, pw, 5, 16, 8, false, ParticleTypes.SNOWFLAKE, SoundEvents.GLASS_BREAK, SpellKit.freeze(80))),
+    ABSOLUTE_ZERO("Absolute Zero", MagicAttribute.ICE, 65, 500, (p, pw) -> SpellKit.area(p, pw, 9, 14, false, 0, 0, ParticleTypes.SNOWFLAKE, SoundEvents.GLASS_BREAK, SpellKit.all(SpellKit.freeze(200), SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 100, 4)))),
+    FROZEN_CHAINS("Frozen Chains", MagicAttribute.ICE, 35, 120, (p, pw) -> SpellKit.multi(p, pw, 4, 10, 3, false, ParticleTypes.SNOWFLAKE, SoundEvents.GLASS_PLACE, SpellKit.all(SpellKit.freeze(160), SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 100, 5)))),
+    GLACIER_WALL("Glacier Wall", MagicAttribute.ICE, 35, 200, (p, pw) -> SpellKit.wall(p, Blocks.PACKED_ICE.defaultBlockState(), 3, 3, 400, ParticleTypes.SNOWFLAKE)),
+    FROZEN_WORLD("Frozen World", MagicAttribute.ICE, 70, 700, (p, pw) -> SpellKit.area(p, pw, 12, 8, false, 0, 0, ParticleTypes.SNOWFLAKE, SoundEvents.GLASS_BREAK, SpellKit.all(SpellKit.freeze(240), SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 160, 4)))),
+    CRYSTAL_MIRROR("Crystal Mirror", MagicAttribute.ICE, 40, 400, (p, pw) -> (mirror(p, 200) && SpellKit.buff(p, ParticleTypes.SNOWFLAKE, 0, SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 200, 0)))),
+    ETERNAL_WINTER("Eternal Winter", MagicAttribute.ICE, 75, 900, (p, pw) -> SpellKit.area(p, pw, 14, 12, false, 0.3, 0, ParticleTypes.SNOWFLAKE, SoundEvents.GLASS_BREAK, SpellKit.all(SpellKit.freeze(400), SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 240, 3)))),
+    THUNDER_RAIN("Thunder Rain", MagicAttribute.LIGHTNING, 50, 160, (p, pw) -> SpellKit.bolts(p, pw, 6, 14, 9)),
+    JUDGEMENT_BOLT("Judgement Bolt", MagicAttribute.LIGHTNING, 70, 400, (p, pw) -> SpellKit.strike(p, pw, 30, 30, 3, true, ParticleTypes.ELECTRIC_SPARK, SoundEvents.LIGHTNING_BOLT_THUNDER, null)),
+    PARALYZING_FIELD("Paralyzing Field", MagicAttribute.LIGHTNING, 40, 200, (p, pw) -> SpellKit.area(p, pw, 7, 4, false, 0, 0, ParticleTypes.ELECTRIC_SPARK, SoundEvents.LIGHTNING_BOLT_IMPACT, SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 60, 7))),
+    ARC_CAGE("Arc Cage", MagicAttribute.LIGHTNING, 45, 200, (p, pw) -> SpellKit.cage(p, pw, 14, Blocks.IRON_BARS.defaultBlockState(), 100, 8, ParticleTypes.ELECTRIC_SPARK)),
+    THUNDER_PRISON("Thunder Prison", MagicAttribute.LIGHTNING, 65, 500, (p, pw) -> SpellKit.cage(p, pw, 16, Blocks.IRON_BARS.defaultBlockState(), 140, 14, ParticleTypes.ELECTRIC_SPARK)),
+    LIGHT_SPEAR("Light Spear", MagicAttribute.LIGHT, 30, 50, (p, pw) -> SpellKit.beam(p, pw, 24, 0.8, 14, false, ParticleTypes.END_ROD, 3, SoundEvents.BEACON_POWER_SELECT, null)),
+    SUNBURST("Sunburst", MagicAttribute.LIGHT, 70, 500, (p, pw) -> (SpellKit.area(p, pw, 12, 16, false, 0.5, 0.3, ParticleTypes.END_ROD, SoundEvents.BEACON_ACTIVATE, SpellKit.all(SpellKit.eff(MobEffects.BLINDNESS, 80, 0), SpellKit.eff(MobEffects.GLOWING, 200, 0))) && heal(p, 8, 6.0f))),
+    BLESSING("Blessing", MagicAttribute.LIGHT, 45, 500, (p, pw) -> SpellKit.buff(p, ParticleTypes.END_ROD, 8, SpellKit.fx(MobEffects.REGENERATION, 400, 1), SpellKit.fx(MobEffects.MOVEMENT_SPEED, 400, 0), SpellKit.fx(MobEffects.DAMAGE_BOOST, 400, 0))),
+    REVIVAL_LIGHT("Revival Light", MagicAttribute.LIGHT, 80, 1200, (p, pw) -> revival(p)),
+    LIGHT_BARRIER("Light Barrier", MagicAttribute.LIGHT, 35, 200, (p, pw) -> SpellKit.wall(p, Blocks.WHITE_STAINED_GLASS.defaultBlockState(), 3, 3, 300, ParticleTypes.END_ROD)),
+    HALO("Halo", MagicAttribute.LIGHT, 40, 600, (p, pw) -> SpellKit.buff(p, ParticleTypes.END_ROD, 0, SpellKit.fx(MobEffects.ABSORPTION, 1200, 3), SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 1200, 0))),
+    DIVINE_SHIELD("Divine Shield", MagicAttribute.LIGHT, 70, 900, (p, pw) -> SpellKit.buff(p, ParticleTypes.END_ROD, 4, SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 160, 4), SpellKit.fx(MobEffects.ABSORPTION, 160, 1))),
+    BLACK_MOON("Black Moon", MagicAttribute.DARKNESS, 70, 700, (p, pw) -> SpellKit.area(p, pw, 12, 10, false, 0.2, 0.1, ParticleTypes.SQUID_INK, SoundEvents.WARDEN_SONIC_BOOM, SpellKit.all(SpellKit.strip(), SpellKit.eff(MobEffects.DARKNESS, 120, 0), SpellKit.eff(MobEffects.BLINDNESS, 80, 0)))),
+    SHADOW_STEP("Shadow Step", MagicAttribute.DARKNESS, 30, 100, (p, pw) -> (SpellKit.stepBehindNearest(p, 14) && SpellKit.buff(p, ParticleTypes.SQUID_INK, 0, SpellKit.fx(MobEffects.INVISIBILITY, 60, 0)))),
+    NIGHT_VEIL("Night Veil", MagicAttribute.DARKNESS, 50, 700, (p, pw) -> SpellKit.buff(p, ParticleTypes.SQUID_INK, 0, SpellKit.fx(MobEffects.INVISIBILITY, 900, 0), SpellKit.fx(MobEffects.MOVEMENT_SPEED, 900, 2), SpellKit.fx(MobEffects.NIGHT_VISION, 900, 0))),
+    IAI_SLASH("Dark Cloaked Iai Slash", MagicAttribute.DARKNESS, 45, 120, (p, pw) -> SpellKit.dash(p, pw, 2.6, 12, 20, false, ParticleTypes.SQUID_INK, SpellKit.strip())),
+    DEATH_THRUST("Death Thrust", MagicAttribute.DARKNESS, 55, 200, (p, pw) -> SpellKit.beam(p, pw, 20, 1.0, 26, false, ParticleTypes.SQUID_INK, 6, SoundEvents.WITHER_SHOOT, SpellKit.eff(MobEffects.WITHER, 100, 3))),
+    BLACK_DIVIDER("Black Divider", MagicAttribute.ANTI_MAGIC, 40, 150, (p, pw) -> SpellKit.beam(p, pw, 20, 1.6, 18, false, ParticleTypes.SMOKE, 8, SoundEvents.PLAYER_ATTACK_SWEEP, SpellKit.strip())),
+    BLACK_METEORITE("Black Meteorite", MagicAttribute.ANTI_MAGIC, 70, 500, (p, pw) -> SpellKit.strike(p, pw, 24, 26, 6, false, ParticleTypes.SQUID_INK, SoundEvents.WARDEN_SONIC_BOOM, SpellKit.strip())),
+    BLACK_FORM("Black Form", MagicAttribute.ANTI_MAGIC, 40, 1200, (p, pw) -> SpellKit.buff(p, ParticleTypes.SQUID_INK, 0, SpellKit.fx(MobEffects.DAMAGE_BOOST, 1200, 2), SpellKit.fx(MobEffects.MOVEMENT_SPEED, 1200, 1), SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 1200, 0), SpellKit.fx(MobEffects.JUMP, 1200, 1))),
+    BLACK_ASTA("Black Asta", MagicAttribute.ANTI_MAGIC, 70, 3600, (p, pw) -> (nullify(p, 2400) && SpellKit.buff(p, ParticleTypes.SQUID_INK, 0, SpellKit.fx(MobEffects.DAMAGE_BOOST, 2400, 3), SpellKit.fx(MobEffects.MOVEMENT_SPEED, 2400, 1), SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 2400, 1), SpellKit.fx(MobEffects.REGENERATION, 2400, 1)))),
+    NULLIFY("Magic Nullify", MagicAttribute.ANTI_MAGIC, 30, 200, (p, pw) -> (nullify(p, 100) && SpellKit.area(p, pw, 10, 0, false, 0, 0, ParticleTypes.SMOKE, SoundEvents.BEACON_DEACTIVATE, SpellKit.strip()))),
+    DEFLECT("Deflect", MagicAttribute.ANTI_MAGIC, 35, 300, (p, pw) -> (mirror(p, 160) && SpellKit.buff(p, ParticleTypes.SMOKE, 0, SpellKit.fx(MobEffects.DAMAGE_RESISTANCE, 160, 0)))),
+    MAGIC_ZERO("Magic Zero", MagicAttribute.ANTI_MAGIC, 60, 900, (p, pw) -> (nullify(p, 600) && SpellKit.area(p, pw, 14, 0, false, 0, 0, ParticleTypes.SMOKE, SoundEvents.BEACON_DEACTIVATE, SpellKit.all(SpellKit.strip(), SpellKit.eff(MobEffects.MOVEMENT_SLOWDOWN, 100, 1)))));
 
     @FunctionalInterface
     public interface Cast {
@@ -866,5 +926,42 @@ public enum Spell {
             if (s.attribute == attribute) out.add(s);
         }
         return out;
+    }
+
+    // ---- small helpers used by the spell bodies above
+    private static boolean heal(ServerPlayer p, double radius, float amount) {
+        SpellKit.healAllies(p, radius, amount);
+        return true;
+    }
+
+    private static boolean fly(ServerPlayer p, int ticks) {
+        MagicData md = p.getData(ModAttachments.MAGIC.get());
+        md.flightUntil = Math.max(md.flightUntil, p.level().getGameTime() + ticks);
+        return true;
+    }
+
+    private static boolean mirror(ServerPlayer p, int ticks) {
+        p.getData(ModAttachments.MAGIC.get()).mirrorUntil = p.level().getGameTime() + ticks;
+        return true;
+    }
+
+    private static boolean nullify(ServerPlayer p, int ticks) {
+        MagicData md = p.getData(ModAttachments.MAGIC.get());
+        md.nullifyUntil = Math.max(md.nullifyUntil, p.level().getGameTime() + ticks);
+        for (net.minecraft.world.effect.MobEffectInstance i : new java.util.ArrayList<>(p.getActiveEffects())) {
+            if (i.getEffect().value().getCategory() == net.minecraft.world.effect.MobEffectCategory.HARMFUL) p.removeEffect(i.getEffect());
+        }
+        return true;
+    }
+
+    private static boolean revival(ServerPlayer p) {
+        p.setHealth(p.getMaxHealth());
+        for (net.minecraft.world.effect.MobEffectInstance i : new java.util.ArrayList<>(p.getActiveEffects())) {
+            if (i.getEffect().value().getCategory() == net.minecraft.world.effect.MobEffectCategory.HARMFUL) p.removeEffect(i.getEffect());
+        }
+        SpellKit.healAllies(p, 8, 10.0f);
+        SpellUtil.ring(p.serverLevel(), p.position().add(0, 0.5, 0), 3.0, ParticleTypes.END_ROD, 30);
+        SpellUtil.sound(p, SoundEvents.AMETHYST_BLOCK_RESONATE, 0.8f, 1.2f);
+        return true;
     }
 }

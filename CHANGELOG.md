@@ -1,5 +1,59 @@
 # Changelog
 
+## v0.9.1 (NOT yet built or tested in Minecraft)
+- Merged the artist's art pass (v0.8.1: skins, 3D swords, the new Magic Boar model, the Devil Union suit with glow and slim arms, cloth shading on armor, new spell effect models)
+  into v0.9.0. Hobgoblin stays removed. The 60 spells added in v0.9.0 still have no 3D model entry, so they use particles.
+
+## v0.9.0 (NOT yet built or tested in Minecraft)
+
+### Everything that said "coming later" now exists
+- All 71 locked skill nodes are real now: **60 new spells** and 11 passives, in every tree (up to 17 spells per element).
+  Fire: Timed Scattershot, Vanishing Fireball, Profound Spiral, Crimson Eruption, Mana Zone, Salamander's Breath (+ Multi-circle, Lion Mastery, Two-step Reinforcement).
+  Water: Point-Blank Sea Dragon's Roar, Sea God's Hammer, Sea God's Shield, Surging Waves, Aqua Javelin, Sea Serpent's Bellow, Undine's Tide.
+  Wind: Tornado Fang, Spirit Storm, Heavenly Wind Ark (flight), Slicing Wind Emperor, Piercing Tornado Needle, Wind Blades Shower, Killing Kakara Blade, Sylph's Tempest.
+  Earth: Avalanche, Mountain Breaker, Sinking Ground, Rock Cage, Earth Prison, Stone Wall, Living Fortress, Gnome's Quake.
+  Ice: Ice Spears, Absolute Zero, Frozen Chains, Glacier Wall, Frozen World, Crystal Mirror, Eternal Winter.
+  Lightning: Thunder Rain, Judgement Bolt, Paralyzing Field, Arc Cage, Thunder Prison.
+  Light: Light Spear, Sunburst, Blessing, Revival Light, Light Barrier, Halo, Divine Shield.
+  Darkness: Black Moon, Shadow Step, Night Veil, Dark Cloaked Iai Slash, Death Thrust.
+  Anti-Magic: Black Divider, Black Meteorite, Black Form, Black Asta, Magic Nullify, Deflect, Magic Zero.
+  Spirit branches: Spirit Art per spirit, Spirit Power (+15% damage) and Spirit Absorption (-25% mana cost).
+- Walls and cages are made of temporary blocks that vanish after a while (and are all removed when the server stops).
+- Up to 24 spells per element can be cast now (was 12).
+- New icons for all 60 spells. They have no 3D model yet: the model artist can add them to `vfx/Fx.java`; without an entry a spell just uses particles.
+
+### Removed
+- **Hobgoblin** (it was not from the series). Its camp is now the **Midnight Sun Camp** (two mages and a boar).
+
+### Added
+- **Magic Broom** (3 sticks + 3 wheat + 1 Mana Crystal): right-click to sit on it and fly. Mouse to steer, W forward (up and down with your view), A/D slide, S slow, sneak to get off. Hit it or sneak + right-click to pick it up.
+- **Demon** (Majin): a huge, slow, very strong monster that slams the ground when you are close. Spawns rarely in dark forests and swamps. Drops Magic Beast Cores, Mana Crystals and sometimes a Devil's Contract.
+- **Devils**: Megicula (curses you from a distance), Lucifugus (throws wither skulls) and Zagred (the devil lord: both, calls Midnight Sun Mages, boss bar). Spawn with `/summon clovermagic:devil ~ ~ ~ {DevilType:"zagred"}`.
+- **Structures**: Devil's Gate (portal ruin with Megicula and Lucifugus) and Devil's Throne (Zagred and two demons, 2 chests; very rare).
+- **Quest book without any extra mod**: the advancement screen (key L) has a "Clover Magic" tab with 21 quests that give items and experience and show a toast. The FTB Quests chapter now uses the same advancements and only gives experience (so nothing is given twice).
+
+## v0.8.1 (NOT yet built or tested in Minecraft)
+
+### Art pass: everything that is not a spell
+- **Story characters** (Asta, Julius, Father Orsi) and the **Midnight Sun Mage**: new full 64x64 skins painted on the real player-skin layout
+  (all faces, shaded, with overlay layers): Asta with spiky black hair, red eyes, white vest, Black Bull robe and a white bull emblem on the cape;
+  Julius with silver hair, a gold-trimmed cream robe, hat band, teal sash and a white cape; Orsi with grey hair and beard, a black cassock, white collar and a gold cross;
+  the mage with a dark hood, glowing red eyes, a black mask and an orange sun emblem.
+- **Devil Union suit**: the whole body is painted now (it only had a few patches before): armoured black plates, spiked red chest star, red spine, arm slashes,
+  silver wristband, long red shin strips, raised plates on the overlay layer. New `devil_union_suit_slim.png` for slim arms (the layer picks it from the player's skin type),
+  and `devil_union_suit(_slim)_glow.png`: the red markings are drawn again at full brightness so they glow.
+- **Devil Union gear texture** (horns, hair, shoulder plates, tail, wings): black horn bone with ridge rings, glowing red crown, red star on the shoulder plates,
+  bones with red joints and a torn crimson wing membrane (transparent ragged edge).
+- **Magic Boar**: its own model now (`MagicBoarModel`) instead of the vanilla pig: shoulder hump, mane spikes, curved tusks, pointed ears, tail.
+  It walks, sniffs when idle, lowers its head and bristles when it charges. New fur texture with glowing red eyes, ivory tusks and orange scar marks.
+- **Yultim Spider**: new texture on the vanilla spider layout (dark purple chitin, plates, red hourglass on the back, banded legs).
+- **Anti-Magic swords**: real 3D held models (about 100 small boxes each) with 64x64 textures, following the reference chart:
+  Demon-Slayer (wide pointed blade, long crossguard with ball ends), Demon-Dweller (long double-edged blade with an ornate white centre),
+  Demon-Destroyer (cleaver with a cross guard and scribbled pattern). They use the normal sword hand pose and show as 3D in the inventory.
+  The old 16x16 icons were replaced (same file names).
+- **Robes, hoods, bandana** (all squads): cloth shading added on every face (folds, top light, hem shadow, edge darkening, weave). Colours and emblems are unchanged.
+- Not touched: the Hobgoblin (being removed), grimoire and other item icons, block textures, GUI.
+
 ## v0.8.0 (NOT yet built or tested in Minecraft)
 
 ### Added: more content from the anime and manga

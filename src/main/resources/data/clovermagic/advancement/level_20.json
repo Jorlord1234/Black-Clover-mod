@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_15",
+  "display": {
+    "icon": {
+      "id": "minecraft:nether_star"
+    },
+    "title": "Magic Level 20",
+    "description": "The highest level of magic. Your skill tree is nearly complete.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 300,
+    "loot": [
+      "clovermagic:quest/level_20"
+    ]
   }
 }

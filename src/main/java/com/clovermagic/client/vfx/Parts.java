@@ -100,6 +100,28 @@ final class Parts {
         }
     }
 
+    /** Four-point sparkle (two crossed diamonds) in the XY plane and the ZY plane. */
+    static void star4(Gfx g, double size, int core, int tip) {
+        for (int k = 0; k < 2; k++) {
+            g.push();
+            g.rotY(k * PI / 2);
+            g.tri(-size, 0, 0, 0, size * 0.12, 0, 0, size * 0.9, 0, tip, core, tip);
+            g.tri(size, 0, 0, 0, size * 0.12, 0, 0, size * 0.9, 0, tip, core, tip);
+            g.tri(-size, 0, 0, 0, -size * 0.12, 0, 0, -size * 0.9, 0, tip, core, tip);
+            g.tri(size, 0, 0, 0, -size * 0.12, 0, 0, -size * 0.9, 0, tip, core, tip);
+            g.pop();
+        }
+    }
+
+    /** Tube along a polyline (rods), width tapering from w0 to w1. */
+    static void tube(Gfx g, double[][] pts, double w0, double w1, int c0, int c1) {
+        for (int i = 0; i + 1 < pts.length; i++) {
+            float f0 = (float) i / (pts.length - 1), f1 = (float) (i + 1) / (pts.length - 1);
+            g.rod(pts[i][0], pts[i][1], pts[i][2], pts[i + 1][0], pts[i + 1][1], pts[i + 1][2],
+                    w0 + (w1 - w0) * f0, w0 + (w1 - w0) * f1, Col.lerp(c0, c1, f0), Col.lerp(c0, c1, f1));
+        }
+    }
+
     static void useMat(Gfx g, Mat m) {
         g.mat(m);
     }

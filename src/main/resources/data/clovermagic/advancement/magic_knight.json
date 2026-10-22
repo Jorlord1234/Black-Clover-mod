@@ -1,7 +1,25 @@
 {
+  "parent": "clovermagic:level_15",
+  "display": {
+    "icon": {
+      "id": "minecraft:shield"
+    },
+    "title": "Magic Knight",
+    "description": "Talk to Julius Novachrono at level 15 and become a Magic Knight of the Clover Kingdom.",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
   "criteria": {
     "done": {
       "trigger": "minecraft:impossible"
     }
+  },
+  "rewards": {
+    "experience": 200,
+    "loot": [
+      "clovermagic:quest/magic_knight"
+    ]
   }
 }

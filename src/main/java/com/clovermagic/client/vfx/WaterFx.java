@@ -128,58 +128,71 @@ final class WaterFx {
         g.ring(0.5, r, 26, mid(0.4f), deep(0.05f));
     }
 
+    /** Sea dragon head after the anime: long upturned snout, wide-open jaws with rows of fangs, glowing cyan eye, big serrated frill. Faces +Z. */
     private static void dragonHead(Gfx g, float t, float open) {
-        // skull and snout
-        g.boxG(-0.38, -0.25, -0.5, 0.38, 0.3, 0.55, deep(0.9f), mid(0.9f));
-        g.boxG(-0.24, -0.1, 0.55, 0.24, 0.24, 1.45, deep(0.9f), mid(0.9f));
-        g.box(-0.12, 0.24, 1.1, 0.12, 0.3, 1.45, light(0.9f));
-        // lower jaw hinged under the skull
+        int navy = Col.rgba(0x0A2A66, 0.95f);
+        g.boxG(-0.42, -0.25, -0.5, 0.42, 0.38, 0.4, deep(0.92f), mid(0.92f));
+        // upper jaw: slanted up, nose lump at the tip
         g.push();
-        g.translate(0, -0.22, 0.2);
-        g.rotX(open);
-        g.boxG(-0.2, -0.16, 0.0, 0.2, 0.0, 1.2, deep(0.9f), mid(0.9f));
-        for (int i = 0; i < 4; i++) {
-            for (int s = -1; s <= 1; s += 2) {
-                g.push();
-                g.translate(s * 0.17, 0, 0.3 + i * 0.27);
-                g.coneY(0.14, 0.04, 4, FOAM, FOAM);
-                g.pop();
-            }
-        }
+        g.translate(0, 0.02, 0.4);
+        g.rotX(-0.22);
+        g.boxG(-0.3, -0.05, 0, 0.3, 0.3, 1.5, deep(0.92f), mid(0.92f));
+        g.push();
+        g.translate(0, 0.3, 1.45);
+        g.scale(0.9, 0.7, 1.1);
+        g.sphere(0.3, 5, 8, mid(0.95f), light(0.95f));
         g.pop();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 8; i++) {
             for (int s = -1; s <= 1; s += 2) {
                 g.push();
-                g.translate(s * 0.21, -0.1, 0.6 + i * 0.25);
+                g.translate(s * 0.27, -0.05, 0.15 + i * 0.17);
                 g.rotX(PI);
-                g.coneY(0.17, 0.04, 4, FOAM, FOAM);
+                g.coneY(0.2 + 0.05 * (i % 2), 0.045, 4, FOAM, light(0.9f));
                 g.pop();
             }
         }
-        // mouth glow
-        g.push();
-        g.translate(0, -0.1, 0.9);
-        g.sphere(0.16, 4, 6, FOAM, light(1f));
         g.pop();
-        for (int s = -1; s <= 1; s += 2) {
-            g.cube(s * 0.4, 0.14, 0.2, 0.14, FOAM);          // eyes
-            g.push();                                      // horns sweeping back
-            g.translate(s * 0.25, 0.28, -0.3);
-            g.rotX(-1.2);
-            g.rotZ(-s * 0.35);
-            g.coneY(0.9, 0.11, 5, MID, light(0.8f));
-            g.pop();
-            g.push();                                      // side fins
-            g.translate(s * 0.38, 0.0, -0.1);
-            g.rotZ(-s * 1.1);
-            g.box(0, -0.02, -0.3, 0.5, 0.02, 0.1, mid(0.75f));
-            g.pop();
+        // lower jaw, dropped open
+        g.push();
+        g.translate(0, -0.2, 0.15);
+        g.rotX(open);
+        g.boxG(-0.28, -0.22, 0, 0.28, 0.0, 1.35, deep(0.92f), mid(0.92f));
+        for (int i = 0; i < 8; i++) {
+            for (int s = -1; s <= 1; s += 2) {
+                g.push();
+                g.translate(s * 0.25, 0.0, 0.12 + i * 0.16);
+                g.coneY(0.19 + 0.05 * (i % 2), 0.045, 4, FOAM, light(0.9f));
+                g.pop();
+            }
         }
-        for (int i = 0; i < 4; i++) {
+        g.pop();
+        // dark throat
+        g.boxG(-0.24, -0.22, 0.05, 0.24, 0.05, 0.85, navy, navy);
+        for (int s = -1; s <= 1; s += 2) {
             g.push();
-            g.translate(0, 0.3, -0.4 + i * 0.28);
-            g.coneY(0.28 - i * 0.04, 0.07, 4, mid(0.9f), light(0.9f));
+            g.translate(s * 0.4, 0.2, 0.2);                 // glowing cyan eye
+            g.scale(0.5, 1.0, 1.4);
+            g.sphere(0.14, 5, 8, Col.rgb(0x9FFAFF), Col.rgb(0xFFFFFF));
             g.pop();
+            // serrated frill fanning back from the jaw hinge
+            double[] len = {1.1, 0.7, 1.25, 0.8, 1.3, 0.85, 1.1, 0.7};
+            double base = 0.0;
+            double px = s * 0.42, py = 0.0, pz = -0.15;
+            double prevX = 0, prevY = 0, prevZ = 0;
+            for (int i = 0; i < len.length; i++) {
+                double phi = Math.toRadians(10 + i * 18);
+                double tx = s * 0.55, ty = Math.sin(phi) * len[i] * 0.9 - 0.15, tz = -0.15 - Math.cos(phi) * len[i] * 1.1;
+                if (i > 0) g.tri(px, py, pz, prevX, prevY, prevZ, tx, ty, tz, mid(0.9f), light(0.8f), light(0.8f));
+                prevX = tx;
+                prevY = ty;
+                prevZ = tz;
+            }
+            for (int i = 0; i < 3; i++) {
+                g.push();
+                g.translate(s * 0.32, 0.38, -0.3 + i * 0.28);
+                g.coneY(0.3 - i * 0.05, 0.07, 4, mid(0.9f), light(0.9f));
+                g.pop();
+            }
         }
     }
 
@@ -187,31 +200,42 @@ final class WaterFx {
         g.alpha = c.fade(1, 6);
         g.aim(c);
         double f = Parts.ease(c.t / 9.0);
-        double z = 1.0 + (c.len - 2.0) * f;
-        float open = (float) (0.25 + 0.5 * Math.abs(Math.sin(c.t * 0.5)));
-        // water jet behind the head
-        g.frustumZ(z, 0.4, 0.9, 12, deep(0.05f), mid(0.45f), 0);
-        g.frustumZ(z, 0.25, 0.55, 10, light(0.05f), light(0.7f), 0);
-        for (int i = 0; i < 6; i++) {
-            double zz = (c.t * 1.8 + i * z / 6) % z;
+        double z = 1.5 + (c.len - 3.0) * f;
+        // thick coiling jet of striped water, spiralling from the caster to the head
+        int n = 22;
+        double px = 0, py = 0, pz = 0;
+        for (int k = 0; k < n; k++) {
+            double fk = (double) k / n;
+            double zz = z * fk;
+            double rho = 0.15 + 0.55 * fk;
+            double a = k * 0.75 - c.t * 0.35;
+            double cx = Math.cos(a) * rho, cy = Math.sin(a) * rho;
+            double rad = 0.3 + 0.55 * fk;
+            int col = (k % 2 == 0) ? Col.rgba(0xEAF8FF, 0.85f) : Col.rgba(0x2A6FD0, 0.78f);
             g.push();
-            g.translate(0, 0, zz);
-            g.rotX(PI / 2);
-            g.torus(0.4 + 0.5 * zz / z, 0.06, 16, 4, light(0.8f));
+            g.translate(cx, cy, zz);
+            g.frustumZ(z / n * 1.15, rad, rad * 1.1, 10, col, col, 0);
             g.pop();
+            g.push();
+            g.translate(cx * 0.9, cy * 0.9, zz);
+            g.frustumZ(z / n * 1.1, rad * 1.5, rad * 1.6, 10, Col.rgba(0xEAF8FF, 0.16f), Col.rgba(0xEAF8FF, 0.16f), 0);
+            g.pop();
+        }
+        for (int i = 0; i < 7; i++) {
+            double a = c.t * 0.3 + PI * 2 * i / 7;
+            g.rod(Math.cos(a) * 1.3, Math.sin(a) * 1.3, z * 0.2, Math.cos(a + 0.8) * 1.5, Math.sin(a + 0.8) * 1.5, z * 0.75, 0.04, 0.01, mid(0.8f), deep(0f));
         }
         g.push();
         g.translate(0, 0, z);
-        g.scale(1.25);
-        dragonHead(g, c.t, open);
+        g.scale(1.4);
+        dragonHead(g, c.t, (float) (0.5 + 0.2 * Math.sin(c.t * 0.5)));
         g.pop();
-        // spray in front
         for (int i = 0; i < 10; i++) {
             double a = PI * 2 * i / 10;
             double d = ((c.t * 0.5 + i * 0.37) % 1.0);
             g.push();
-            g.translate(Math.cos(a) * 0.5 * d, Math.sin(a) * 0.5 * d, z + 2.0 + d * 2.5);
-            g.sphere(0.09, 4, 6, light(0.8f * (1 - (float) d)), FOAM);
+            g.translate(Math.cos(a) * 0.7 * d, Math.sin(a) * 0.7 * d, z + 1.8 + d * 2.8);
+            g.sphere(0.1, 4, 6, light(0.8f * (1 - (float) d)), FOAM);
             g.pop();
         }
     }
@@ -259,98 +283,212 @@ final class WaterFx {
         g.pop();
     }
 
-    private static void seaDragonNest(Gfx g, Ctx c) {
-        g.alpha = c.fade(10, 12);
-        double spin = c.t * 0.05;
-        g.push();
-        g.translate(0, 1.2, 0);
-        g.scale(1, 0.7, 1);
-        g.sphere(3.1, 8, 16, deep(0.13f * c.shell()), light(0.08f * c.shell()));
-        g.pop();
-        int n = 28;
-        double R = 2.3;
-        for (int k = 0; k < n; k++) {
-            double a = spin + k * 0.26;
-            double y = 0.35 + k * 0.065 + 0.08 * Math.sin(c.t * 0.12 + k * 0.5);
-            double size = k == 0 ? 0.0 : 0.34 - k * 0.0075;
-            double x = Math.cos(a) * R, z = Math.sin(a) * R;
-            if (k == 0) {
-                // head, faces along the travel direction (tangent)
-                g.push();
-                g.translate(x, y, z);
-                g.rotY(PI / 2 - a - PI / 2 + PI);
-                g.scale(0.55);
-                dragonHead(g, c.t, 0.3f);
-                g.pop();
-                continue;
+    /** Translucent dome (upper half of a sphere). */
+    private static void dome(Gfx g, double r, int lat, int lon, int cLow, int cHigh) {
+        for (int i = 0; i < lat; i++) {
+            double p0 = PI / 2 * i / lat, p1 = PI / 2 * (i + 1) / lat;
+            int k0 = Col.lerp(cLow, cHigh, (float) i / lat), k1 = Col.lerp(cLow, cHigh, (float) (i + 1) / lat);
+            for (int j = 0; j < lon; j++) {
+                double a0 = PI * 2 * j / lon, a1 = PI * 2 * (j + 1) / lon;
+                g.quad(r * Math.cos(p0) * Math.cos(a0), r * Math.sin(p0), r * Math.cos(p0) * Math.sin(a0),
+                        r * Math.cos(p0) * Math.cos(a1), r * Math.sin(p0), r * Math.cos(p0) * Math.sin(a1),
+                        r * Math.cos(p1) * Math.cos(a1), r * Math.sin(p1), r * Math.cos(p1) * Math.sin(a1),
+                        r * Math.cos(p1) * Math.cos(a0), r * Math.sin(p1), r * Math.cos(p1) * Math.sin(a0), k0, k0, k1, k1);
             }
-            g.push();
-            g.translate(x, y, z);
-            g.sphere(size, 5, 7, deep(0.9f), mid(0.9f));
-            g.push();
-            g.rotY(-a);
-            g.translate(0, size * 0.8, 0);
-            g.coneY(size * 1.0, size * 0.4, 4, mid(0.9f), light(0.9f));
-            g.pop();
-            g.pop();
         }
-        // ground ripple
-        g.translate(0, 0.03, 0);
-        g.ring(1.2, 3.8, 28, mid(0.35f), deep(0f));
     }
 
-    /** Armour of water: chest and back plates, pauldrons, gauntlets, skirt, greaves, feathered water wings and a winged circlet. */
-    private static void valkyrieDress(Gfx g, Ctx c) {
-        g.alpha = c.fade(10, 14) * (c.firstPerson ? 0.45f : 1f);
-        g.rotY(-Math.toRadians(c.bodyYaw));
+    /** Sea Dragon's Nest after the anime: a big blue water dome with three spiral swirls on its surface and a spiky white foam ring at the base. */
+    private static void seaDragonNest(Gfx g, Ctx c) {
+        g.alpha = c.fade(10, 14);
+        double R = Math.max(3.0, c.len * 0.9);
         double grow = Parts.ease(c.t / 10.0);
-        int d = deep(0.62f), m = mid(0.68f), l = light(0.8f);
-        g.boxG(-0.34, 0.95, 0.19, 0.34, 1.5, 0.34, d, l);
-        g.boxG(-0.34, 0.95, -0.34, 0.34, 1.5, -0.19, d, m);
-        g.boxG(-0.28, 0.72, 0.19, 0.28, 0.95, 0.3, m, d);
-        g.frustumY(0.5, 0.3, 0.66 * grow + 0.1, 16, d, light(0.45f), 0);
-        for (int s = -1; s <= 1; s += 2) {
+        double r = R * grow;
+        float sh = c.shell();
+        dome(g, r, 8, 24, deep(0.36f * sh), mid(0.28f * sh));
+        double[][] centers = {{200, 48}, {335, 42}, {95, 52}};
+        float vis = c.firstPerson ? 0.45f : 1f;
+        for (int sp = 0; sp < centers.length; sp++) {
+            double az = Math.toRadians(centers[sp][0]), el = Math.toRadians(centers[sp][1]);
+            double nx = Math.cos(el) * Math.cos(az), ny = Math.sin(el), nz = Math.cos(el) * Math.sin(az);
+            double e1x = -Math.sin(az), e1y = 0, e1z = Math.cos(az);
+            double e2x = ny * e1z - nz * e1y, e2y = nz * e1x - nx * e1z, e2z = nx * e1y - ny * e1x;
+            for (int arm = 0; arm < 2; arm++) {
+                double[] prev = null;
+                for (int i = 0; i <= 56; i++) {
+                    double a = i * 0.28;
+                    double rho = 0.025 + a * 0.0225;
+                    double ang = a + arm * PI + c.t * 0.04 * (sp % 2 == 0 ? 1 : -1);
+                    double x = nx + (Math.cos(ang) * e1x + Math.sin(ang) * e2x) * rho;
+                    double y = ny + (Math.cos(ang) * e1y + Math.sin(ang) * e2y) * rho;
+                    double z = nz + (Math.cos(ang) * e1z + Math.sin(ang) * e2z) * rho;
+                    double l = Math.sqrt(x * x + y * y + z * z);
+                    double[] pt = {x / l * r * 0.99, y / l * r * 0.99, z / l * r * 0.99};
+                    if (prev != null && pt[1] > 0.05) {
+                        int col = arm == 0 ? Col.rgba(0xEAF8FF, 0.8f * vis) : Col.rgba(0x4FA8F0, 0.7f * vis);
+                        g.rod(prev[0], prev[1], prev[2], pt[0], pt[1], pt[2], 0.085, 0.085, col, col);
+                    }
+                    prev = pt;
+                }
+            }
+        }
+        for (int i = 0; i < 40; i++) {
+            double a = PI * 2 * i / 40;
             g.push();
-            g.translate(s * 0.44, 1.5, 0);
-            g.scale(1.1, 0.7, 1.1);
-            g.sphere(0.22, 5, 8, m, l);
+            g.translate(Math.cos(a) * r * 0.99, -0.05, Math.sin(a) * r * 0.99);
+            g.rotY(-a);
+            g.rotZ(0.15 * Math.sin(i * 1.7));
+            g.coneY((0.55 + 0.4 * Rnd.h(c.seed, i)) * grow, 0.22, 4, Col.rgba(0xFFFFFF, 0.95f), Col.rgba(0xBDEBFF, 0.5f));
             g.pop();
-            g.box(Math.min(s * 0.36, s * 0.52), 0.75, -0.13, Math.max(s * 0.36, s * 0.52), 1.15, 0.13, m);
-            g.box(Math.min(s * 0.02, s * 0.28), 0.05, 0.08, Math.max(s * 0.02, s * 0.28), 0.5, 0.28, d);
+        }
+        g.translate(0, 0.03, 0);
+        g.ring(r - 0.5, r + 0.55, 36, FOAM, Col.rgba(0xFFFFFF, 0.1f));
+    }
+
+    /**
+     * Noelle's Valkyrie Dress, all of water: ornate scale-patterned armour (tiara, ear guards, scaled pauldrons, bell skirt, tall
+     * heeled boots) with foam tufts, two huge pointed water-blade wings, swirling wind streaks and drifting spray.
+     */
+    private static void valkyrieDress(Gfx g, Ctx c) {
+        g.alpha = c.fade(10, 14) * (c.firstPerson ? 0.5f : 1f);
+        double grow = Parts.ease(c.t / 10.0);
+        int body = Col.rgba(0x7FC4F0, 0.62f), bodyD = Col.rgba(0x3F86D8, 0.66f), pale = Col.rgba(0xEAF8FF, 0.9f), foam = Col.rgba(0xFFFFFF, 0.95f);
+        g.push();
+        g.rotY(-Math.toRadians(c.bodyYaw));
+        // tiara of rounded spikes, ear guards
+        for (int i = 0; i < 7; i++) {
+            double a = PI * 2 * i / 7;
             g.push();
-            g.translate(s * 0.3, 1.8, 0.0);
-            g.rotZ(-s * 0.8);
-            g.arcBlade(0.35, 0.12, 1.4, 6, 0.02, white(0.95f), mid(0.2f));
+            g.translate(Math.cos(a) * 0.28, 2.02, Math.sin(a) * 0.28);
+            g.coneY(0.22 + 0.08 * (i % 2), 0.05, 5, bodyD, pale);
+            g.translate(0, 0.24 + 0.08 * (i % 2), 0);
+            g.sphere(0.045, 4, 6, pale, foam);
             g.pop();
-            // wing of feathers (swept back)
+        }
+        for (int sd = -1; sd <= 1; sd += 2) {
             g.push();
-            g.translate(s * 0.14, 1.35, -0.28);
-            g.rotY(s * 0.55);
-            double flap = Math.sin(c.t * 0.1) * 0.1;
-            for (int i = 0; i < 6; i++) {
+            g.translate(sd * 0.32, 1.72, 0);
+            g.sphere(0.14 * (c.firstPerson ? 0.3 : 1.0), 5, 8, body, pale);
+            g.pop();
+        }
+        // chest: scaled breastplate with a collar frill
+        g.boxG(-0.34, 0.95, 0.18, 0.34, 1.5, 0.34, bodyD, body);
+        g.boxG(-0.34, 0.95, -0.34, 0.34, 1.5, -0.18, bodyD, body);
+        for (int row = 0; row < 3; row++) {
+            for (int i = 0; i < 4; i++) {
                 g.push();
-                g.rotZ(s * (0.2 + i * 0.27 + flap));
-                double L = (1.5 - i * 0.14) * grow;
-                g.box(Math.min(0, s * L), -0.015, -0.09, Math.max(0, s * L), 0.015, 0.09, i % 2 == 0 ? light(0.75f) : mid(0.7f));
+                g.translate(-0.24 + i * 0.16 + (row % 2) * 0.08, 1.38 - row * 0.15, 0.345);
+                g.scale(1.0, 0.8, 0.35);
+                g.sphere(0.075, 4, 6, pale, foam);
+                g.pop();
+            }
+        }
+        for (int i = 0; i < 8; i++) {
+            double a = PI * 2 * i / 8;
+            g.push();
+            g.translate(Math.cos(a) * 0.26, 1.52, Math.sin(a) * 0.26);
+            g.sphere(0.06, 4, 6, pale, foam);
+            g.pop();
+        }
+        // shoulders and sleeves
+        for (int sd = -1; sd <= 1; sd += 2) {
+            g.push();
+            g.translate(sd * 0.46, 1.52, 0);
+            g.scale(1.0, 0.75, 1.1);
+            g.sphere(0.26, 5, 8, body, pale);
+            g.pop();
+            for (int i = 0; i < 3; i++) {
+                g.push();
+                g.translate(sd * (0.55 + i * 0.05), 1.6 - i * 0.1, 0);
+                g.rotZ(-sd * (0.9 + 0.2 * i));
+                g.coneY(0.28, 0.07, 4, pale, foam);
+                g.pop();
+            }
+            g.box(Math.min(sd * 0.36, sd * 0.53), 0.74, -0.13, Math.max(sd * 0.36, sd * 0.53), 1.3, 0.13, body);
+            for (int i = 0; i < 4; i++) {
+                g.push();
+                g.translate(sd * 0.5, 0.78, -0.1 + i * 0.07);
+                g.rotZ(-sd * 1.2);
+                g.coneY(0.2, 0.045, 4, foam, pale);
+                g.pop();
+            }
+            // thigh-high scaled boots with a frill at the knee and a heel
+            double x0 = sd * 0.02, x1 = sd * 0.3;
+            g.boxG(Math.min(x0, x1), 0.0, 0.06, Math.max(x0, x1), 0.85, 0.3, bodyD, body);
+            g.box(Math.min(x0, x1), 0.0, -0.1, Math.max(x0, x1), 0.85, 0.06, body);
+            for (int i = 0; i < 6; i++) {
+                double a = PI * 2 * i / 6;
+                g.push();
+                g.translate(sd * 0.16 + Math.cos(a) * 0.16, 0.78, 0.18 + Math.sin(a) * 0.13);
+                g.rotZ(-Math.cos(a) * 0.8);
+                g.rotX(Math.sin(a) * 0.8);
+                g.coneY(0.2, 0.06, 4, pale, foam);
+                g.pop();
+            }
+            for (int row = 0; row < 3; row++) {
+                g.push();
+                g.translate(sd * 0.16, 0.2 + row * 0.2, 0.31);
+                g.scale(1.2, 0.8, 0.4);
+                g.sphere(0.085, 4, 6, pale, foam);
+                g.pop();
+            }
+            g.push();
+            g.translate(sd * 0.16, 0.0, -0.1);
+            g.rotX(PI);
+            g.coneY(0.18, 0.05, 4, bodyD, pale);
+            g.pop();
+        }
+        // layered bell skirt with a foam hem
+        g.frustumY(0.42, 0.3, 0.62, 18, bodyD, body, 0);
+        g.push();
+        g.translate(0, 0.52, 0);
+        g.frustumY(0.4, 0.28, 0.5, 16, body, pale, 0);
+        g.pop();
+        for (int i = 0; i < 16; i++) {
+            double a = PI * 2 * i / 16;
+            g.push();
+            g.translate(Math.cos(a) * 0.63, 0.5, Math.sin(a) * 0.63);
+            g.sphere(0.065, 4, 6, pale, foam);
+            g.pop();
+        }
+        g.pop();
+        // two huge pointed water-blade wings sweeping out and down, with foam at the roots
+        for (int sd = -1; sd <= 1; sd += 2) {
+            g.push();
+            g.rotY(-Math.toRadians(c.bodyYaw));
+            g.translate(sd * 0.2, 1.4, -0.3);
+            double flap = Math.sin(c.t * 0.07 + sd) * 0.05;
+            g.lookFromTo(0, 0, 0, sd * 2.6, -1.2 + flap * 3, -1.7);
+            double L = 3.6 * grow;
+            g.tri(-0.45, 0, 0, 0.45, 0, 0, 0, 0, L, Col.rgba(0xBDEBFF, 0.7f), Col.rgba(0x3F86D8, 0.55f), Col.rgba(0xFFFFFF, 0.95f));
+            g.tri(-0.45, 0, 0, -0.62, 0, L * 0.35, 0, 0, L, Col.rgba(0x7FC4F0, 0.6f), Col.rgba(0x3F86D8, 0.5f), Col.rgba(0xFFFFFF, 0.9f));
+            g.tri(0.45, 0, 0, 0.62, 0, L * 0.35, 0, 0, L, Col.rgba(0x7FC4F0, 0.6f), Col.rgba(0x3F86D8, 0.5f), Col.rgba(0xFFFFFF, 0.9f));
+            g.rod(0, 0, 0.2, 0, 0, L, 0.035, 0.012, foam, foam);
+            for (int i = 0; i < 7; i++) {
+                g.push();
+                g.translate((i % 2 == 0 ? -1 : 1) * 0.3, 0, 0.2 + i * 0.12);
+                g.coneZ(0.7 + 0.1 * i, 0.13, 4, foam, Col.rgba(0xBDEBFF, 0.1f));
                 g.pop();
             }
             g.pop();
         }
-        g.push();
-        g.translate(0, 0.95, 0);
-        g.rotY(c.t * 0.07);
-        g.rotZ(0.25);
-        g.torus(0.78, 0.035, 22, 4, white(0.9f * (c.firstPerson ? 0.3f : 1f)));
-        g.pop();
-        for (int i = 0; i < 6; i++) {
-            double a = c.t * 0.08 + PI * 2 * i / 6;
-            double y = ((c.t * 0.02 + i * 0.17) % 1.0) * 1.9;
+        // swirling wind streaks and spray
+        for (int i = 0; i < 3; i++) {
             g.push();
-            g.translate(Math.cos(a) * 0.7, y, Math.sin(a) * 0.7);
-            g.sphere(0.06, 4, 6, mid(0.9f), light(0.9f));
+            g.translate(0, 0.5 + i * 0.6, 0);
+            g.rotY(c.t * 0.1 + i * 2.1);
+            g.arcBlade(1.5 + 0.35 * i, 0.22, 1.9, 12, 0.02, Col.rgba(0xEAF8FF, 0.75f), Col.rgba(0x7FC4F0, 0f));
+            g.pop();
+        }
+        for (int i = 0; i < 16; i++) {
+            double a = PI * 2 * Rnd.h(c.seed, i), r = 0.9 + 2.2 * Rnd.h(c.seed, i + 30);
+            double ph = (c.t * 0.012 + Rnd.h(c.seed, i + 60)) % 1.0;
+            g.push();
+            g.translate(Math.cos(a) * r, 3.4 - ph * 3.6, Math.sin(a) * r);
+            g.sphere(0.045, 3, 5, foam, foam);
             g.pop();
         }
         g.translate(0, 0.03, 0);
-        g.ring(0.4, 1.4, 22, mid(0.5f), deep(0f));
+        g.ring(0.4, 1.5, 22, Col.rgba(0x7FC4F0, 0.5f), Col.rgba(0x3F86D8, 0f));
     }
 }

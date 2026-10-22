@@ -202,107 +202,114 @@ final class DarkFx {
         }
     }
 
-    /** Yami's wide flat slash: one huge horizontal crescent with a trailing cloak of shadow. */
+    /** Dark Cloaked Avidya Slash after the anime: a rough net of crisscrossing black slash lines cutting through the whole area ahead. */
     private static void avidyaSlash(Gfx g, Ctx c) {
-        double f = Parts.ease(c.t / 5.0);
-        double z = 0.8 + (c.len - 0.8) * f;
-        g.alpha = c.fade(0, 6);
+        g.alpha = c.fade(0, 7);
         g.aim(c);
-        g.frustumZ(z, 0.05, 1.0, 10, black(0f), black(0.45f), 0);
-        for (int i = 0; i < 4; i++) {
+        double L = c.len;
+        for (int i = 0; i < 28; i++) {
+            double appear = Math.min(1.0, Math.max(0.0, (c.t - i * 0.13) / 2.5));
+            if (appear <= 0) continue;
+            double mz = 1.5 + (L - 1.5) * Rnd.h(c.seed, i), mr = 3.2 * Math.sqrt(Rnd.h(c.seed, i + 40)), ma = PI * 2 * Rnd.h(c.seed, i + 80);
+            double mx = Math.cos(ma) * mr, my = Math.sin(ma) * mr * 0.8;
+            double th = PI * Rnd.h(c.seed, i + 120), tz = 0.35 * Rnd.s(c.seed, i + 160);
+            double dx = Math.cos(th), dy = Math.sin(th), dz = tz;
+            double len = (3.0 + 4.0 * Rnd.h(c.seed, i + 200)) * appear;
+            double ax = mx - dx * len, ay = my - dy * len, az = mz - dz * len;
+            double bx = mx + dx * len, by = my + dy * len, bz = mz + dz * len;
+            g.rod(ax, ay, az, bx, by, bz, 0.15, 0.15, Col.rgba(0x2A1448, 0.2f), Col.rgba(0x2A1448, 0.2f));
+            g.rod(ax, ay, az, bx, by, bz, 0.05, 0.05, black(0.96f), black(0.96f));
             g.push();
-            g.translate(0, 0, z - i * 0.5);
-            g.rotZ(0.12);
-            g.arcBlade(2.6 - i * 0.15, 0.85 - i * 0.16, 2.3, 18, 0.07, violet(0.95f - i * 0.22f), black(0.9f - i * 0.1f));
+            g.translate(bx, by, bz);
+            g.cube(0, 0, 0, 0.12, black(0.9f));
+            g.pop();
+        }
+        for (int i = 0; i < 14; i++) {
+            double z = 1.5 + (L - 1.5) * Rnd.h(c.seed, i + 300), a = PI * 2 * Rnd.h(c.seed, i + 340), r = 3.0 * Rnd.h(c.seed, i + 380);
+            g.push();
+            g.translate(Math.cos(a) * r, Math.sin(a) * r, z);
+            g.cube(0, 0, 0, 0.08, black(0.8f));
             g.pop();
         }
         g.push();
-        g.translate(0, 0, z + 0.2);
-        g.rotZ(0.12);
-        g.arcBlade(2.65, 0.08, 2.3, 18, 0.02, Col.rgba(0xFFFFFF, 0.95f), violet(0.2f));
+        g.translate(-0.3, -0.1, 0.5);
+        g.box(-0.28, -0.2, 0, 0.28, 0.2, 0.03, Col.rgba(0xC040FF, 0.7f * c.fade(0, 4)));
         g.pop();
-        for (int i = 0; i < 6; i++) {
-            double a = Rnd.s(c.seed, i) * 1.0;
-            g.rod(Math.sin(a) * 2.2, 0.0, z - 0.3, Math.sin(a) * 2.2, 0.0, z - 2.2, 0.04, 0.005, violet(0.8f), black(0f));
-        }
     }
 
-    /** Dimension Slash: a crescent flies out and tears a long rift in space along its whole path. */
+    /**
+     * Dimension Slash: the view itself splits in two. A straight vertical cut opens forward from the caster; the two halves of space
+     * slide apart and shear, with a black void between them and a thin white-violet seam. No flying blade, just the cut.
+     */
     private static void dimensionSlash(Gfx g, Ctx c) {
-        float p = c.p();
-        g.alpha = c.fade(0, 8);
         g.aim(c);
-        double travel = Parts.ease(c.t / 5.0);
-        double L = c.len * travel;
-        double open = Math.sin(Math.PI * Math.min(1.0, p * 1.15));
-        g.push();
-        g.translate(0, 0, 1.0 + L);
-        g.rotZ(PI / 2);
-        for (int i = 0; i < 3; i++) {
-            g.push();
-            g.translate(0, 0, -i * 0.5);
-            g.arcBlade(3.0 - i * 0.2, 0.9 - i * 0.2, 2.0, 18, 0.07, violet(0.95f - i * 0.25f), black(0.9f));
-            g.pop();
+        double travel = Parts.ease(c.t / 3.0);
+        double z0 = 1.5, z1 = z0 + (c.len - z0) * travel;
+        double H = 5.5;
+        double open = Parts.ease(c.t / 6.0) * Parts.clamp01((c.life - c.t) / 6.0);
+        double gap = 0.55 * open;
+        double shear = 0.65 * open;
+        g.alpha = c.fade(0, 5);
+        // void between the halves
+        g.quad(-gap, -H, z0, gap, -H, z0, gap, H, z0, -gap, H, z0, black(0.96f), black(0.96f), black(0.96f), black(0.96f));
+        g.quad(-gap, -H, z0, -gap, H, z0, -gap, H, z1, -gap, -H, z1, black(0.96f), black(0.96f), black(0.96f), black(0.96f));
+        g.quad(gap, -H, z0, gap, H, z0, gap, H, z1, gap, -H, z1, black(0.96f), black(0.96f), black(0.96f), black(0.96f));
+        // the two displaced halves of space: dark sheets fading out to the sides, one sliding up and the other down
+        for (int sd = -1; sd <= 1; sd += 2) {
+            double sy = sd * shear;
+            double x0 = sd * gap, x1 = sd * (gap + 3.2);
+            g.quad(x0, -H + sy, z0, x1, -H + sy, z0, x1, H + sy, z0, x0, H + sy, z0, violet(0.55f), violet(0f), violet(0f), violet(0.55f));
+            g.quad(x0, -H + sy, z0, x1, -H + sy, z0, x1, -H + sy, z1, x0, -H + sy, z1, violet(0.3f), violet(0f), violet(0f), violet(0.3f));
+            g.quad(x0, -H + sy, z0, x0, H + sy, z0, x0, H + sy, z1, x0, -H + sy, z1, black(0.8f), black(0.8f), black(0.8f), black(0.8f));
+            g.quad(x0, -H + sy, z1, x1, -H + sy, z1, x1, H + sy, z1, x0, H + sy, z1, purple(0.35f), purple(0f), purple(0f), purple(0.35f));
+            // slice edge glow
+            g.rod(x0, -H + sy, z0, x0, H + sy, z0, 0.04, 0.04, Col.rgba(0xFFFFFF, 0.95f), Col.rgba(0xFFFFFF, 0.95f));
+            g.rod(x0, -H + sy, z1, x0, H + sy, z1, 0.04, 0.04, Col.rgba(0xFFFFFF, 0.95f), Col.rgba(0xFFFFFF, 0.95f));
+            g.rod(x0, H + sy, z0, x0, H + sy, z1, 0.03, 0.03, Col.rgba(0xFFFFFF, 0.8f), Col.rgba(0xFFFFFF, 0.8f));
+            g.rod(x0, -H + sy, z0, x0, -H + sy, z1, 0.03, 0.03, Col.rgba(0xFFFFFF, 0.8f), Col.rgba(0xFFFFFF, 0.8f));
         }
-        g.pop();
-        int steps = (int) Math.max(4, L / 1.2);
-        for (int plane = 0; plane < 3; plane++) {
+        // shards of space tumbling out of the cut
+        for (int i = 0; i < 14; i++) {
+            double z = z0 + (z1 - z0) * Rnd.h(c.seed, i), y = H * 1.1 * Rnd.s(c.seed, i + 20);
+            double side = (i % 2 == 0 ? 1 : -1) * (gap + 0.2 + 1.4 * Rnd.h(c.seed, i + 40) * open);
             g.push();
-            g.rotZ(plane * PI / 3);
-            for (int i = 0; i < steps; i++) {
-                double f0 = (double) i / steps, f1 = (double) (i + 1) / steps;
-                double z0 = 1.0 + L * f0, z1 = 1.0 + L * f1;
-                double h0 = 3.2 * open * Math.pow(Math.sin(Math.PI * (0.05 + 0.9 * f0)), 0.6), h1 = 3.2 * open * Math.pow(Math.sin(Math.PI * (0.05 + 0.9 * f1)), 0.6);
-                g.quad(0, -h0, z0, 0, h0, z0, 0, h1, z1, 0, -h1, z1, black(0.9f), black(0.9f), black(0.9f), black(0.9f));
-                g.rod(0, h0, z0, 0, h1, z1, 0.05, 0.05, violet(1f), violet(1f));
-                g.rod(0, -h0, z0, 0, -h1, z1, 0.05, 0.05, violet(1f), violet(1f));
-            }
-            g.pop();
-        }
-        for (int i = 0; i < 12; i++) {
-            double z = 1.0 + L * Rnd.h(c.seed, i);
-            g.push();
-            g.translate(Rnd.s(c.seed, i + 20) * 0.5, Rnd.s(c.seed, i + 40) * 2.4 * open, z);
-            g.sphere(0.07, 4, 6, violet(0.9f), Col.rgba(0xFFFFFF, 0.9f));
+            g.translate(side, y, z);
+            g.rotY(c.t * 0.1 + i);
+            g.rotX(c.t * 0.08 + i);
+            g.tri(0, 0, 0, 0.28, 0.1, 0, 0.05, 0.3, 0.08, black(0.9f), purple(0.8f), black(0.9f));
             g.pop();
         }
     }
 
-    /** A black hole floating where the spell pulls: void sphere, spinning accretion disc, lensing ring, inward streaks. */
+    /** Black Hole after the manga: a perfectly black sphere with thin white rings around it, black jagged streaks pulled toward it. */
     private static void blackHole(Gfx g, Ctx c) {
         float in = (float) Parts.ease(c.t / 6.0);
         g.alpha = c.fade(0, 10);
         g.aim(c);
         g.translate(0, 0, c.len);
         g.scale(Math.max(0.01, in));
-        g.sphere(0.75, 8, 14, black(1f), black(1f));
-        g.sphere(1.05, 7, 12, purple(0.18f), purple(0.22f));
+        g.sphere(0.95, 8, 14, black(1f), black(1f));
+        g.sphere(1.3, 7, 12, Col.rgba(0x000000, 0.28f), Col.rgba(0x000000, 0.28f));
+        int ring = Col.rgba(0xFFFFFF, 0.95f);
         g.push();
-        g.rotX(0.35);
-        g.rotZ(0.25);
-        g.rotY(c.t * 0.35);
-        g.ring(0.95, 2.4, 28, Col.rgba(0xFFFFFF, 0.9f), purple(0.05f));
-        for (int i = 0; i < 3; i++) {
-            g.push();
-            g.rotY(PI * 2 * i / 3);
-            g.arcBlade(1.8, 0.4, 2.0, 10, 0.03, violet(0.9f), black(0.7f));
-            g.pop();
-        }
+        g.rotX(PI / 2);
+        g.torus(1.4, 0.03, 36, 4, ring);
+        g.torus(2.2, 0.018, 36, 4, Col.rgba(0xFFFFFF, 0.5f));
         g.pop();
         g.push();
         g.rotX(1.2);
-        g.rotY(c.t * 0.2);
-        g.torus(1.25, 0.05, 28, 4, violet(0.95f));
+        g.rotY(c.t * 0.1);
+        g.torus(1.7, 0.02, 36, 4, Col.rgba(0xE8E8F8, 0.6f));
         g.pop();
-        for (int i = 0; i < 14; i++) {
+        for (int i = 0; i < 16; i++) {
             double ph = (c.t * 0.05 + Rnd.h(c.seed, i)) % 1.0;
-            double r = 5.0 * (1 - ph) + 0.9;
-            double a = PI * 2 * Rnd.h(c.seed, i + 30) + ph * 4.0;
-            double el = Rnd.s(c.seed, i + 60) * 0.8;
-            double x = Math.cos(a) * Math.cos(el) * r, y = Math.sin(el) * r, z = Math.sin(a) * Math.cos(el) * r;
-            double r2 = r * 0.88, a2 = a + 0.22;
-            g.rod(x, y, z, Math.cos(a2) * Math.cos(el) * r2, Math.sin(el) * r2, Math.sin(a2) * Math.cos(el) * r2, 0.05, 0.02,
-                    violet(0.9f * (float) (1 - ph)), purple(0.3f));
+            double r = 4.2 * (1 - ph) + 1.5;
+            double a = PI * 2 * Rnd.h(c.seed, i + 30), el = Rnd.s(c.seed, i + 60) * 0.9;
+            double x = Math.cos(a) * Math.cos(el), y = Math.sin(el), z = Math.sin(a) * Math.cos(el);
+            g.push();
+            g.lookFromTo(x * r, y * r, z * r, 0, 0, 0);
+            g.coneZ(1.1 + 0.8 * (1 - ph), 0.09 + 0.07 * (1 - ph), 3, black(0.95f), black(0.95f));
+            g.pop();
         }
     }
 }
