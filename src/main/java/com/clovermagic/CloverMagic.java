@@ -32,6 +32,7 @@ public class CloverMagic {
                     .icon(() -> ModItems.GRIMOIRE_ALTAR.get().getDefaultInstance())
                     .displayItems((params, output) -> {
                         output.accept(ModItems.GRIMOIRE_ALTAR.get());
+                        output.accept(ModItems.MISSION_BOARD.get());
                         output.accept(ModItems.MANA_CRYSTAL.get());
                         output.accept(ModItems.GRIMOIRE_SIGIL.get());
                         output.accept(ModItems.MANA_CRYSTAL_ORE.get());
@@ -65,6 +66,7 @@ public class CloverMagic {
         ModComponents.COMPONENTS.register(modEventBus);
         ModAttachments.ATTACHMENTS.register(modEventBus);
         ModEffects.EFFECTS.register(modEventBus);
+        ModSounds.SOUNDS.register(modEventBus);
         TABS.register(modEventBus);
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
@@ -79,6 +81,7 @@ public class CloverMagic {
         NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onLevelTick);
         NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onServerStopping);
         NeoForge.EVENT_BUS.addListener(ModEvents::onDeath);
+        NeoForge.EVENT_BUS.addListener(ModEvents::onKill);
         NeoForge.EVENT_BUS.addListener(ModEvents::onLogin);
         NeoForge.EVENT_BUS.addListener(ModEvents::onIncomingDamage);
         NeoForge.EVENT_BUS.addListener(ModCommands::register);

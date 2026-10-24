@@ -75,3 +75,9 @@ Nothing below has been run by the author. Please report each line as OK / broken
 38. `/summon clovermagic:demon ~ ~ ~`, `/summon clovermagic:devil ~ ~ ~ {DevilType:"megicula"}` (also lucifugus, zagred): check skins, boss bar (Zagred), curse and skulls, Zagred calling mages at half health.
 39. `/locate structure clovermagic:devil_gate`, `clovermagic:devil_throne`, `clovermagic:midnight_camp`.
 40. Press L: the "Clover Magic" tab is the quest book. `/advancement grant @s only clovermagic:level_5` must give a toast, items and experience.
+41. Spell pages: unlock more than 9 spells (`/clover level 20`, unlock a tree). In Grimoire Mode (G) the bar shows 9 spells, the mouse wheel changes the page, keys 1-9 cast the spells of the current page.
+42. Cast any spell: a rune circle under you and a floating grimoire beside you, plus a charge sound and an element sound. Check another player sees the circle too.
+43. Press H: stats screen. `/clover level 10`, spend points; check max mana, damage, cooldowns and max health change.
+44. Craft a Mission Board (or find one in a church), right-click: Mission Scroll. Kill the target monsters (`/summon clovermagic:magic_boar`), watch the action bar, finish: rewards and a toast.
+45. Die once with a Devil's Mark or a second grimoire and with stat points in Vitality: the max health must come back after respawning (within 5 seconds).
+46. Sounds: all 14 play and are not painfully loud (they are mono, so they get quieter with distance).

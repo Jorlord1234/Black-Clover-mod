@@ -1,0 +1,128 @@
+{
+  "cast_start": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_start",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_start"
+  },
+  "cast_fire": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_fire",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_fire"
+  },
+  "cast_water": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_water",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_water"
+  },
+  "cast_wind": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_wind",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_wind"
+  },
+  "cast_earth": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_earth",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_earth"
+  },
+  "cast_ice": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_ice",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_ice"
+  },
+  "cast_lightning": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_lightning",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_lightning"
+  },
+  "cast_light": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_light",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_light"
+  },
+  "cast_darkness": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_darkness",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_darkness"
+  },
+  "cast_anti": {
+    "sounds": [
+      {
+        "name": "clovermagic:cast_anti",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.cast_anti"
+  },
+  "level_up": {
+    "sounds": [
+      {
+        "name": "clovermagic:level_up",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.level_up"
+  },
+  "grimoire_chosen": {
+    "sounds": [
+      {
+        "name": "clovermagic:grimoire_chosen",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.grimoire_chosen"
+  },
+  "devil_growl": {
+    "sounds": [
+      {
+        "name": "clovermagic:devil_growl",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.devil_growl"
+  },
+  "demon_growl": {
+    "sounds": [
+      {
+        "name": "clovermagic:demon_growl",
+        "stream": false
+      }
+    ],
+    "subtitle": "subtitles.clovermagic.demon_growl"
+  }
+}

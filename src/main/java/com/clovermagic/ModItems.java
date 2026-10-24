@@ -77,6 +77,11 @@ public final class ModItems {
     public static final DeferredItem<Item> MAGIC_BROOM = ITEMS.registerItem("magic_broom",
             props -> new com.clovermagic.item.MagicBroomItem(props), new Item.Properties().stacksTo(1));
 
+    public static final DeferredItem<Item> MISSION_BOARD = ITEMS.registerItem("mission_board",
+            props -> new BlockItem(ModBlocks.MISSION_BOARD.get(), props), new Item.Properties());
+    public static final DeferredItem<Item> MISSION_SCROLL = ITEMS.registerItem("mission_scroll",
+            props -> new com.clovermagic.item.MissionScrollItem(props), new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON));
+
     /** Restores half of your maximum mana. */
     public static final DeferredItem<Item> MANA_POTION = ITEMS.registerItem("mana_potion",
             props -> new com.clovermagic.item.ManaPotionItem(props), new Item.Properties().stacksTo(16));

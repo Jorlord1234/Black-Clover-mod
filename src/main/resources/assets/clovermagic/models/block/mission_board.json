@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_bottom_top",
+  "textures": {
+    "top": "clovermagic:block/mission_board_top",
+    "bottom": "clovermagic:block/mission_board_bottom",
+    "side": "clovermagic:block/mission_board_side"
+  }
+}

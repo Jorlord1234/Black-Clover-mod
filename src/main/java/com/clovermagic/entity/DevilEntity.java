@@ -185,6 +185,16 @@ public class DevilEntity extends Monster implements RangedAttackMob {
     }
 
     @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return com.clovermagic.ModSounds.DEVIL_GROWL.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 240;
+    }
+
+    @Override
     public boolean removeWhenFarAway(double distance) {
         return false;
     }

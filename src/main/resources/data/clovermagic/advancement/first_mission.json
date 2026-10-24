@@ -1,0 +1,25 @@
+{
+  "parent": "clovermagic:got_grimoire",
+  "display": {
+    "icon": {
+      "id": "clovermagic:mission_scroll"
+    },
+    "title": "Mission Board",
+    "description": "Take a mission from a Mission Board (in churches and hideouts) and complete it.",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 40,
+    "loot": [
+      "clovermagic:quest/first_mission"
+    ]
+  }
+}

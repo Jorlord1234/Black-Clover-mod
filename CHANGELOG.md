@@ -1,5 +1,25 @@
 # Changelog
 
+## v0.10.0 (NOT yet built or tested in Minecraft)
+
+### Fixed (important)
+- **Spells 10 and up could not be cast.** Grimoire Mode only had the number keys 1-9, but the trees now have up to 17 spells.
+  The spell bar now has pages: it shows 9 spells per page, **scroll the mouse wheel to change page** ("Page 2/2" is shown next to the bar).
+- **Devil Deal hearts came back after dying** (health changes are lost on death). They are re-applied automatically now, like the stats below.
+
+### Added: the "feel" of casting
+- **Cast circle and floating grimoire** under every caster: a rotating rune circle in the element's colors with rising light motes, and your grimoire opens beside you (3D model, plays for every spell, also seen by other players).
+- **3D models for all 60 spells of v0.9** (spear, wave, rays, burst, pillars, zone, aura, dome, target cage, strike, rain, dash and wall models in each element's colors). All 126 spells have a 3D model now.
+- **14 custom sounds** (synthesized, in `assets/clovermagic/sounds/`): a charge-up sound and one cast sound per element (fire, water, wind, earth, ice, lightning, light, dark, anti-magic),
+  a level-up fanfare, the grimoire-chosen swell at the altar, and devil and demon growls. All have subtitles.
+
+### Added: progression
+- **Mage stats** (key **H**): one stat point per magic level above 1, max 20 per stat. Power +3% spell damage, Mana +5% maximum mana, Control -1.5% mana cost and cooldowns, Vitality +1 heart.
+- **Ranks** by magic level: Apprentice, Junior Mage (5), Magic Knight (10), Senior Magic Knight (15), Captain (20), shown in the stats screen.
+- **Mission Board** (craft from 8 planks and a Mana Crystal, also found in churches and the Black Bull Hideout): right-click for a **Mission Scroll** that fits your level
+  (boars, Midnight Sun Mages, demons, devils, the giant spider). Kills count automatically, the tooltip shows progress, and finishing pays Mana Crystals, Mana Potions and experience. One mission at a time.
+- New quest "Mission Board" in the quest book (22 quests).
+
 ## v0.9.1 (NOT yet built or tested in Minecraft)
 - Merged the artist's art pass (v0.8.1: skins, 3D swords, the new Magic Boar model, the Devil Union suit with glow and slim arms, cloth shading on armor, new spell effect models)
   into v0.9.0. Hobgoblin stays removed. The 60 spells added in v0.9.0 still have no 3D model entry, so they use particles.

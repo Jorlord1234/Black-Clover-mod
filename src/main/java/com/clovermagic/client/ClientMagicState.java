@@ -17,7 +17,16 @@ public final class ClientMagicState {
     public static int points;
     public static final java.util.Set<String> unlocked = new java.util.LinkedHashSet<>();
     public static int xp;
+    /** Power, mana, control, vitality (server sends them next to the main sync). */
+    public static final int[] stats = new int[4];
+
+    public static int statPointsLeft() {
+        return Math.max(0, level() - 1 - stats[0] - stats[1] - stats[2] - stats[3]);
+    }
     public static final long[] cooldownEndMs = new long[SyncPayload.SLOTS];
+
+    /** Grimoire Mode shows 9 spells per page; scroll the mouse wheel to change page. */
+    public static int page;
 
     /** Grimoire Mode on/off (toggled with G). */
     public static boolean mode;

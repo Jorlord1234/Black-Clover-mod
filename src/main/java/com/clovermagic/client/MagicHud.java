@@ -75,14 +75,17 @@ public class MagicHud implements LayeredDraw.Layer {
         int color = 0xFF000000 | rgb(attr);
         List<Spell> spells = ClientMagicState.spells();
         int level = ClientMagicState.level();
-        int n = spells.size();
+        int pages = Math.max(1, (spells.size() + 8) / 9);
+        if (ClientMagicState.page >= pages) ClientMagicState.page = 0;
+        int start = ClientMagicState.page * 9;
+        int n = Math.max(0, Math.min(9, spells.size() - start));
 
-        // ---- spell bar (replaces the hotbar)
+        // ---- spell bar (replaces the hotbar): 9 spells per page, mouse wheel changes the page
         int barW = n * SLOT + (n - 1) * GAP;
         int x0 = (w - barW) / 2;
         int y0 = h - SLOT - 4;
         for (int i = 0; i < n; i++) {
-            Spell spell = spells.get(i);
+            Spell spell = spells.get(start + i);
             int x = x0 + i * (SLOT + GAP);
             boolean locked = false;
             int border = locked ? 0xFF555555 : color;
@@ -91,7 +94,7 @@ public class MagicHud implements LayeredDraw.Layer {
             g.fill(x, y0, x + SLOT, y0 + SLOT, 0xE0101018);
             g.blit(icon(spell), x + 5, y0 + 5, 0f, 0f, 16, 16, 16, 16);
 
-            float cd = locked ? 0f : ClientMagicState.cooldownFraction(i, spell);
+            float cd = locked ? 0f : ClientMagicState.cooldownFraction(start + i, spell);
             if (cd > 0f) {
                 int ch = Math.round(SLOT * cd);
                 g.fill(x, y0 + SLOT - ch, x + SLOT, y0 + SLOT, 0xA0FFFFFF);
@@ -101,6 +104,11 @@ public class MagicHud implements LayeredDraw.Layer {
                 g.drawString(font, "Lv" + spell.levelNeeded(), x + 3, y0 + SLOT / 2 - 4, 0xFFAAAAAA);
             }
             g.drawString(font, String.valueOf(i + 1), x + 3, y0 + 2, locked ? 0xFF777777 : 0xFFFFFFFF);
+        }
+
+        if (pages > 1) {
+            String pg = "Page " + (ClientMagicState.page + 1) + "/" + pages + "  (scroll)";
+            g.drawString(font, pg, x0 + barW + 8, y0 + SLOT / 2 - 4, 0xFFD0C8F0);
         }
 
         // ---- resource bar above the spell bar

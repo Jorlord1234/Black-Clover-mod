@@ -20,5 +20,6 @@ public final class SpellModels {
         if (LightFx.draw(fx, g, c)) return;
         if (AntiFx.draw(fx, g, c)) return;
         if (SpiritFx.draw(fx, g, c)) return;
+        if (ArchetypeFx.draw(fx, g, c)) return;
     }
 }

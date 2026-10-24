@@ -18,6 +18,8 @@ public final class ModNetwork {
         registrar.playToServer(CastPayload.TYPE, CastPayload.STREAM_CODEC, ModNetwork::handleCast);
         registrar.playToServer(UnlockPayload.TYPE, UnlockPayload.STREAM_CODEC, ModNetwork::handleUnlock);
         registrar.playToServer(RespecPayload.TYPE, RespecPayload.STREAM_CODEC, ModNetwork::handleRespec);
+        registrar.playToServer(SpendStatPayload.TYPE, SpendStatPayload.STREAM_CODEC, ModNetwork::handleSpendStat);
+        registrar.playToClient(StatsPayload.TYPE, StatsPayload.STREAM_CODEC, ModNetwork::handleStats);
         registrar.playToClient(SyncPayload.TYPE, SyncPayload.STREAM_CODEC, ModNetwork::handleSync);
         registrar.playToClient(CutscenePayload.TYPE, CutscenePayload.STREAM_CODEC, ModNetwork::handleCutscene);
     }
@@ -53,6 +55,23 @@ public final class ModNetwork {
                 net.minecraft.client.Minecraft.getInstance().setScreen(
                         new com.clovermagic.client.GrimoireCutsceneScreen(attr, payload.leaves()));
             }
+        });
+    }
+
+    private static void handleSpendStat(SpendStatPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            if (context.player() instanceof ServerPlayer sp) {
+                com.clovermagic.magic.StatLogic.spend(sp, payload.index());
+            }
+        });
+    }
+
+    private static void handleStats(StatsPayload payload, IPayloadContext context) {
+        context.enqueueWork(() -> {
+            ClientMagicState.stats[0] = payload.power();
+            ClientMagicState.stats[1] = payload.mana();
+            ClientMagicState.stats[2] = payload.control();
+            ClientMagicState.stats[3] = payload.vitality();
         });
     }
 

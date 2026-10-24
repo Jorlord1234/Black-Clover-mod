@@ -73,6 +73,16 @@ public class DemonEntity extends Monster {
     }
 
     @Override
+    protected net.minecraft.sounds.SoundEvent getAmbientSound() {
+        return com.clovermagic.ModSounds.DEMON_GROWL.get();
+    }
+
+    @Override
+    public int getAmbientSoundInterval() {
+        return 240;
+    }
+
+    @Override
     protected void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean recentlyHit) {
         super.dropCustomDeathLoot(level, source, recentlyHit);
         this.spawnAtLocation(new ItemStack(ModItems.MAGIC_BEAST_CORE.get(), 2));

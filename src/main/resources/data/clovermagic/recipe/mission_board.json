@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "PPP",
+    "PCP",
+    "PPP"
+  ],
+  "key": {
+    "P": {
+      "item": "minecraft:oak_planks"
+    },
+    "C": {
+      "item": "clovermagic:mana_crystal"
+    }
+  },
+  "result": {
+    "id": "clovermagic:mission_board",
+    "count": 1
+  }
+}

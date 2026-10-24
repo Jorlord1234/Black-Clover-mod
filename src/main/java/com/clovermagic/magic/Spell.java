@@ -911,6 +911,8 @@ public enum Spell {
     public boolean cast(ServerPlayer player, double power) {
         boolean ok = cast.cast(player, power);
         if (ok) {
+            SpellUtil.sound(player, com.clovermagic.ModSounds.CAST_START.get(), 0.6f, 1.0f);
+            SpellUtil.sound(player, com.clovermagic.ModSounds.forAttribute(this.attribute), 1.0f, 1.0f);
             try {
                 SpellVfx.play(player, this);   // 3D model; must never be able to break a cast
             } catch (RuntimeException ex) {

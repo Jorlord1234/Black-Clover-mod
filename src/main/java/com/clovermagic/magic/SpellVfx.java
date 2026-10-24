@@ -23,8 +23,25 @@ public final class SpellVfx {
     private SpellVfx() {
     }
 
+    /** The cast circle and floating grimoire under the caster, in the color of the spell's element. */
+    private static void castCircle(ServerPlayer p, Spell spell) {
+        Fx cast = switch (spell.attribute) {
+            case FIRE -> Fx.CAST_FIRE;
+            case WATER -> Fx.CAST_WATER;
+            case WIND -> Fx.CAST_WIND;
+            case EARTH -> Fx.CAST_EARTH;
+            case ICE -> Fx.CAST_ICE;
+            case LIGHTNING -> Fx.CAST_LIGHTNING;
+            case LIGHT -> Fx.CAST_LIGHT;
+            case DARKNESS -> Fx.CAST_DARKNESS;
+            case ANTI_MAGIC -> Fx.CAST_ANTI_MAGIC;
+        };
+        SpellVfxEntity.spawn(p.serverLevel(), cast, p.getX(), p.getY(), p.getZ(), p.getYRot(), p.getXRot(), 1f, p.getId(), 0L);
+    }
+
     public static void play(ServerPlayer p, Spell spell) {
         if (!Config.SPELL_MODELS.get()) return;
+        castCircle(p, spell);
         Fx fx;
         try {
             fx = Fx.valueOf(spell.name());

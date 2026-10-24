@@ -92,6 +92,7 @@ public final class CastHandler {
         if (after > before) {
             sp.sendSystemMessage(Component.literal("Your magic grew stronger! Magic level " + after)
                     .withStyle(ChatFormatting.GOLD));
+            SpellUtil.sound(sp, com.clovermagic.ModSounds.LEVEL_UP.get(), 1.0f, 1.0f);
             rollSpirit(sp, data, attr, before, after);
             QuestHooks.awardLevels(sp, after);
             com.clovermagic.skill.SkillTree tree = SkillLogic.treeFor(data);

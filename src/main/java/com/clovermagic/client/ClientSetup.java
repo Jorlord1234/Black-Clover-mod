@@ -30,6 +30,8 @@ public final class ClientSetup {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY);
     public static final KeyMapping INFO = new KeyMapping("key.clovermagic.info",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY);
+    public static final KeyMapping STATS = new KeyMapping("key.clovermagic.stats",
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, CATEGORY);
 
     private ClientSetup() {
     }
@@ -48,6 +50,7 @@ public final class ClientSetup {
     private static void registerKeys(RegisterKeyMappingsEvent event) {
         event.register(MODE);
         event.register(INFO);
+        event.register(STATS);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -107,6 +110,9 @@ public final class ClientSetup {
                 }
             }
         }
+        while (STATS.consumeClick()) {
+            if (inGame && ClientMagicState.hasGrimoire) mc.setScreen(new StatsScreen());
+        }
         while (INFO.consumeClick()) {
             if (inGame) {
                 com.clovermagic.skill.SkillTree tree = ClientMagicState.tree();
@@ -122,8 +128,9 @@ public final class ClientSetup {
             List<Spell> spells = ClientMagicState.spells();
             for (int i = 0; i < mc.options.keyHotbarSlots.length; i++) {
                 while (mc.options.keyHotbarSlots[i].consumeClick()) {
-                    if (i < spells.size()) {
-                        PacketDistributor.sendToServer(new CastPayload(i));
+                    int idx = ClientMagicState.page * 9 + i;
+                    if (idx < spells.size()) {
+                        PacketDistributor.sendToServer(new CastPayload(idx));
                     }
                 }
             }
@@ -143,6 +150,11 @@ public final class ClientSetup {
         Minecraft mc = Minecraft.getInstance();
         if (ClientMagicState.mode && mc.screen == null) {
             event.setCanceled(true);
+            int pages = Math.max(1, (ClientMagicState.spells().size() + 8) / 9);
+            if (pages > 1 && event.getScrollDeltaY() != 0) {
+                int dir = event.getScrollDeltaY() < 0 ? 1 : -1;
+                ClientMagicState.page = (ClientMagicState.page + dir + pages) % pages;
+            }
         }
     }
 }

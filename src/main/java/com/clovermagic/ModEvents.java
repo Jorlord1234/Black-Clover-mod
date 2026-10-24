@@ -51,6 +51,8 @@ public final class ModEvents {
             }
         }
 
+        if (sp.tickCount % 100 == 7) com.clovermagic.magic.StatLogic.apply(sp, data);
+
         // flight from Devil Union / Spirit Dive, and Luck's Lightning Battle Fiend zapping nearby monsters
         Transform.updateFlight(sp, data);
         if (sp.level().getGameTime() < data.fiendUntil && sp.tickCount % 8 == 0) {
@@ -155,5 +157,12 @@ public final class ModEvents {
                 new net.minecraft.core.particles.DustParticleOptions(new org.joml.Vector3f(0.9f, 0.03f, 0.05f), 1.0f);
         level.sendParticles(red, sp.getX(), sp.getY() + 1.0, sp.getZ(), 2, 0.4, 0.8, 0.4, 0);
         level.sendParticles(net.minecraft.core.particles.ParticleTypes.SQUID_INK, sp.getX(), sp.getY() + 1.0, sp.getZ(), 1, 0.4, 0.8, 0.4, 0.01);
+    }
+
+    /** Counts kills for Mission Scrolls. */
+    public static void onKill(net.neoforged.neoforge.event.entity.living.LivingDeathEvent event) {
+        if (event.getSource().getEntity() instanceof ServerPlayer sp && event.getEntity() != sp) {
+            com.clovermagic.magic.Missions.onKill(sp, event.getEntity());
+        }
     }
 }

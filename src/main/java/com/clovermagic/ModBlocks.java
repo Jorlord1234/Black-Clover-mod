@@ -29,6 +29,10 @@ public final class ModBlocks {
             BlockBehaviour.Properties.of().mapColor(MapColor.COLOR_PURPLE).strength(3.5f, 1200.0f)
                     .requiresCorrectToolForDrops().sound(SoundType.STONE).lightLevel(state -> 8));
 
+    public static final DeferredBlock<Block> MISSION_BOARD = BLOCKS.registerBlock("mission_board",
+            props -> new com.clovermagic.block.MissionBoardBlock(props),
+            BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).strength(2.0f, 3.0f).sound(SoundType.WOOD));
+
     private ModBlocks() {
     }
 }

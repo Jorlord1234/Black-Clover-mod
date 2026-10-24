@@ -24,8 +24,9 @@ public class MagicData {
             Codec.INT.optionalFieldOf("xp2", 0).forGetter(d -> d.xp2),
             Codec.INT.optionalFieldOf("generation2", 0).forGetter(d -> d.generation2),
             Codec.STRING.listOf().optionalFieldOf("unlocked2", List.of()).forGetter(d -> new ArrayList<>(d.unlocked2)),
-            Codec.BOOL.optionalFieldOf("devilMark", false).forGetter(d -> d.devilMark)
-    ).apply(inst, (a, l, m, s, x, g, u, a2, l2, x2, g2, u2, dm) -> {
+            Codec.BOOL.optionalFieldOf("devilMark", false).forGetter(d -> d.devilMark),
+            Codec.INT.listOf().optionalFieldOf("stats", List.of(0, 0, 0, 0)).forGetter(d -> List.of(d.stats[0], d.stats[1], d.stats[2], d.stats[3]))
+    ).apply(inst, (a, l, m, s, x, g, u, a2, l2, x2, g2, u2, dm, st) -> {
         MagicData d = new MagicData(a, l, m, s, x, g, u);
         d.attribute2 = a2;
         d.leaves2 = l2;
@@ -33,6 +34,7 @@ public class MagicData {
         d.generation2 = g2;
         d.unlocked2.addAll(u2);
         d.devilMark = dm;
+        for (int i = 0; i < 4 && i < st.size(); i++) d.stats[i] = Math.max(0, st.get(i));
         return d;
     }));
 
@@ -53,6 +55,13 @@ public class MagicData {
     public int xp2 = 0;
     public int generation2 = 0;
     public final Set<String> unlocked2 = new LinkedHashSet<>();
+    /** Stat points spent: power, mana, control, vitality (one point per magic level above 1). */
+    public final int[] stats = new int[4];
+
+    public int statPointsLeft() {
+        return Math.max(0, level() - 1 - stats[0] - stats[1] - stats[2] - stats[3]);
+    }
+
     /** Devil Deal "Fifth Leaf": more mana and stronger spells. */
     public boolean devilMark = false;
 
@@ -107,6 +116,7 @@ public class MagicData {
     /** Highest mana, including the Devil's Mark bonus. */
     public int maxMana() {
         int m = com.clovermagic.item.GrimoireItem.maxMana(level(), leaves);
+        m = (int) (m * (1.0 + 0.05 * stats[1]));
         return devilMark ? (int) (m * 1.5) : m;
     }
 
