@@ -26,14 +26,14 @@ import net.minecraft.world.level.Level;
  * Its bite slows you like a web. It drops Magic Beast Cores, Mana Crystals and sometimes a Devil's Contract.
  */
 public class YultimSpiderEntity extends Spider {
-    private final ServerBossEvent bossEvent = new ServerBossEvent(Component.literal("Giant Spider of the Yultim Dungeon"),
+    private final ServerBossEvent bossEvent = new ServerBossEvent(Component.translatableWithFallback("msg.clovermagic.giant_spider_of_the_yultim_dungeon_6c75", "Giant Spider of the Yultim Dungeon"),
             BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS);
 
     public YultimSpiderEntity(EntityType<? extends YultimSpiderEntity> type, Level level) {
         super(type, level);
         this.xpReward = 120;
         this.setPersistenceRequired();
-        this.setCustomName(Component.literal("Giant Spider of the Yultim Dungeon"));
+        this.setCustomName(Component.translatableWithFallback("msg.clovermagic.giant_spider_of_the_yultim_dungeon_6c75", "Giant Spider of the Yultim Dungeon"));
     }
 
     public static AttributeSupplier.Builder createAttributes() {

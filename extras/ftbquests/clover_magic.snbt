@@ -1,5 +1,5 @@
 {
-	id: "E927B61A90DCBBC9"
+	id: "AD5DAC90FE4C5599"
 	group: ""
 	order_index: 0
 	filename: "clover_magic"
@@ -15,13 +15,13 @@
 			description: ["Use the altar in a Grimoire Tower. Your grimoire and your attribute are chosen for you."]
 			id: "3E20AC5C5B5892A9"
 			tasks: [{
-				id: "AD5DAC90FE4C5599"
+				id: "44B70963147B31E2"
 				type: "advancement"
 				advancement: "clovermagic:got_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "44B70963147B31E2"
+				id: "14DC97ABFC192BFF"
 				type: "xp"
 				xp: 30
 			}]
@@ -34,13 +34,13 @@
 			dependencies: ["3E20AC5C5B5892A9"]
 			id: "288D75AB7CEC5EBA"
 			tasks: [{
-				id: "14DC97ABFC192BFF"
+				id: "7E9B8C53CAC2D5FC"
 				type: "advancement"
 				advancement: "clovermagic:first_mission"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "7E9B8C53CAC2D5FC"
+				id: "70A022265D521DA2"
 				type: "xp"
 				xp: 40
 			}]
@@ -53,13 +53,13 @@
 			dependencies: ["3E20AC5C5B5892A9"]
 			id: "361AF838DC25822D"
 			tasks: [{
-				id: "70A022265D521DA2"
+				id: "5A32BFFA7B8AE8D0"
 				type: "advancement"
 				advancement: "clovermagic:talked_orsi"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "5A32BFFA7B8AE8D0"
+				id: "96177DA7A4596E16"
 				type: "xp"
 				xp: 20
 			}]
@@ -72,13 +72,13 @@
 			dependencies: ["361AF838DC25822D"]
 			id: "2F761392034AE040"
 			tasks: [{
-				id: "96177DA7A4596E16"
+				id: "34FA77291FC9ACF8"
 				type: "advancement"
 				advancement: "clovermagic:talked_asta"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "34FA77291FC9ACF8"
+				id: "D0FF781320485CAD"
 				type: "xp"
 				xp: 25
 			}]
@@ -91,13 +91,13 @@
 			dependencies: ["3E20AC5C5B5892A9"]
 			id: "0AB9CFE6CE5F870F"
 			tasks: [{
-				id: "D0FF781320485CAD"
+				id: "16A7C28EC2F97D48"
 				type: "advancement"
 				advancement: "clovermagic:boar_hunter"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "16A7C28EC2F97D48"
+				id: "BA5BA8637DB5EC65"
 				type: "xp"
 				xp: 30
 			}]
@@ -110,13 +110,13 @@
 			dependencies: ["0AB9CFE6CE5F870F"]
 			id: "846B7329FD48E48D"
 			tasks: [{
-				id: "BA5BA8637DB5EC65"
+				id: "6CC842C3C67B4137"
 				type: "advancement"
 				advancement: "clovermagic:mage_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "6CC842C3C67B4137"
+				id: "53F0CA9D89EBCB54"
 				type: "xp"
 				xp: 40
 			}]
@@ -129,13 +129,13 @@
 			dependencies: ["846B7329FD48E48D"]
 			id: "8B7D06E4954C968B"
 			tasks: [{
-				id: "53F0CA9D89EBCB54"
+				id: "E859C123D9019888"
 				type: "advancement"
 				advancement: "clovermagic:yultim_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "E859C123D9019888"
+				id: "8EC60760B695EB87"
 				type: "xp"
 				xp: 100
 			}]
@@ -148,13 +148,13 @@
 			dependencies: ["8B7D06E4954C968B"]
 			id: "6C89863378D20E14"
 			tasks: [{
-				id: "8EC60760B695EB87"
+				id: "0A163469E72157D6"
 				type: "advancement"
 				advancement: "clovermagic:demon_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "0A163469E72157D6"
+				id: "F914ABBE80DBDF6C"
 				type: "xp"
 				xp: 120
 			}]
@@ -167,13 +167,13 @@
 			dependencies: ["6C89863378D20E14"]
 			id: "0C698C32D826CA64"
 			tasks: [{
-				id: "F914ABBE80DBDF6C"
+				id: "AE58ECA2AC9C31B8"
 				type: "advancement"
 				advancement: "clovermagic:devil_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "AE58ECA2AC9C31B8"
+				id: "9A979358340E64F4"
 				type: "xp"
 				xp: 200
 			}]
@@ -186,13 +186,13 @@
 			dependencies: ["0C698C32D826CA64"]
 			id: "25ADC4150EA65936"
 			tasks: [{
-				id: "9A979358340E64F4"
+				id: "060CA0BEE5DE9BB1"
 				type: "advancement"
 				advancement: "clovermagic:zagred_slayer"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "060CA0BEE5DE9BB1"
+				id: "90BE601869AD5DED"
 				type: "xp"
 				xp: 500
 			}]
@@ -205,13 +205,13 @@
 			dependencies: ["3E20AC5C5B5892A9"]
 			id: "E672A635F44F2C71"
 			tasks: [{
-				id: "90BE601869AD5DED"
+				id: "3215A18C45AD8B4C"
 				type: "advancement"
 				advancement: "clovermagic:level_5"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "3215A18C45AD8B4C"
+				id: "6C4D6659262CBF70"
 				type: "xp"
 				xp: 30
 			}]
@@ -224,13 +224,13 @@
 			dependencies: ["E672A635F44F2C71"]
 			id: "E45EF6269276E05C"
 			tasks: [{
-				id: "6C4D6659262CBF70"
+				id: "F7707D2AA516CB15"
 				type: "advancement"
 				advancement: "clovermagic:four_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "F7707D2AA516CB15"
+				id: "CAEB90E889FD524B"
 				type: "xp"
 				xp: 60
 			}]
@@ -243,13 +243,13 @@
 			dependencies: ["E45EF6269276E05C"]
 			id: "9E16C568281D488D"
 			tasks: [{
-				id: "CAEB90E889FD524B"
+				id: "516C45E9AA11FA8E"
 				type: "advancement"
 				advancement: "clovermagic:five_leaf"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "516C45E9AA11FA8E"
+				id: "0D7B221B393FBB7D"
 				type: "xp"
 				xp: 120
 			}]
@@ -262,13 +262,13 @@
 			dependencies: ["9E16C568281D488D"]
 			id: "F94540115348F5FB"
 			tasks: [{
-				id: "0D7B221B393FBB7D"
+				id: "F7B87DDD7595AB0C"
 				type: "advancement"
 				advancement: "clovermagic:devil_union"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "F7B87DDD7595AB0C"
+				id: "5D261E15CD748A3A"
 				type: "xp"
 				xp: 300
 			}]
@@ -281,32 +281,51 @@
 			dependencies: ["E672A635F44F2C71"]
 			id: "6A59EB12B8EEE1A5"
 			tasks: [{
-				id: "5D261E15CD748A3A"
+				id: "9A8FD19D70F7DD19"
 				type: "advancement"
 				advancement: "clovermagic:level_10"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "9A8FD19D70F7DD19"
+				id: "9396AC0056979475"
 				type: "xp"
 				xp: 60
 			}]
 		}
 		{
-			title: "A Spirit Likes You"
+			title: "A Squad of Your Own"
 			x: 8.0d
 			y: 4.0d
-			description: ["A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10."]
+			description: ["Hold a squad robe and sneak + right-click Julius Novachrono at magic level 10 to join one of the nine Magic Knight squads."]
 			dependencies: ["6A59EB12B8EEE1A5"]
 			id: "D6EDBFE8BA32123E"
 			tasks: [{
-				id: "9396AC0056979475"
+				id: "350A40A2959F7D44"
+				type: "advancement"
+				advancement: "clovermagic:joined_squad"
+				criterion: ""
+			}]
+			rewards: [{
+				id: "12C163C9A4A98F79"
+				type: "xp"
+				xp: 80
+			}]
+		}
+		{
+			title: "A Spirit Likes You"
+			x: 8.0d
+			y: 6.0d
+			description: ["A Four-Leaf fire, water, wind or earth mage may be chosen by a spirit when levelling up past level 10."]
+			dependencies: ["6A59EB12B8EEE1A5"]
+			id: "E26FF02598C99C2B"
+			tasks: [{
+				id: "54FDBA80BB63CE40"
 				type: "advancement"
 				advancement: "clovermagic:spirit_bond"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "350A40A2959F7D44"
+				id: "20E73B7D9A6AA844"
 				type: "xp"
 				xp: 150
 			}]
@@ -314,18 +333,18 @@
 		{
 			title: "Magic Level 15"
 			x: 8.0d
-			y: 6.0d
+			y: 8.0d
 			description: ["A true Magic Knight candidate. The Wizard King can tell when you are ready."]
 			dependencies: ["6A59EB12B8EEE1A5"]
-			id: "E26FF02598C99C2B"
+			id: "DBCC814FB2B0D403"
 			tasks: [{
-				id: "12C163C9A4A98F79"
+				id: "FC3FD78CC64C3069"
 				type: "advancement"
 				advancement: "clovermagic:level_15"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "54FDBA80BB63CE40"
+				id: "7950CF0CCC514325"
 				type: "xp"
 				xp: 100
 			}]
@@ -335,16 +354,16 @@
 			x: 10.0d
 			y: 4.0d
 			description: ["Find the Royal Pavilion and meet Julius Novachrono."]
-			dependencies: ["E26FF02598C99C2B"]
-			id: "DBCC814FB2B0D403"
+			dependencies: ["DBCC814FB2B0D403"]
+			id: "3457F3F3B0C0F5BE"
 			tasks: [{
-				id: "20E73B7D9A6AA844"
+				id: "AB3C41A0B0CC670C"
 				type: "advancement"
 				advancement: "clovermagic:talked_julius"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "FC3FD78CC64C3069"
+				id: "D23E4F8ABD7CDD60"
 				type: "xp"
 				xp: 40
 			}]
@@ -354,16 +373,16 @@
 			x: 10.0d
 			y: 6.0d
 			description: ["Talk to Julius Novachrono at level 15 and become a Magic Knight of the Clover Kingdom."]
-			dependencies: ["E26FF02598C99C2B"]
-			id: "3457F3F3B0C0F5BE"
+			dependencies: ["DBCC814FB2B0D403"]
+			id: "B4F6F5D30EE6CCCF"
 			tasks: [{
-				id: "7950CF0CCC514325"
+				id: "FFE97D6F698870E0"
 				type: "advancement"
 				advancement: "clovermagic:magic_knight"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "AB3C41A0B0CC670C"
+				id: "E66E3A4C4C5169D3"
 				type: "xp"
 				xp: 200
 			}]
@@ -373,16 +392,16 @@
 			x: 10.0d
 			y: 8.0d
 			description: ["The highest level of magic. Your skill tree is nearly complete."]
-			dependencies: ["E26FF02598C99C2B"]
-			id: "B4F6F5D30EE6CCCF"
+			dependencies: ["DBCC814FB2B0D403"]
+			id: "CAA0155C671CFFFC"
 			tasks: [{
-				id: "D23E4F8ABD7CDD60"
+				id: "D1923E0B11DDD37D"
 				type: "advancement"
 				advancement: "clovermagic:level_20"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "FFE97D6F698870E0"
+				id: "3225B4A1F70710B6"
 				type: "xp"
 				xp: 300
 			}]
@@ -392,16 +411,16 @@
 			x: 12.0d
 			y: 2.0d
 			description: ["Make a Devil's Deal at the altar: a second grimoire, for a price in hearts."]
-			dependencies: ["3457F3F3B0C0F5BE"]
-			id: "CAA0155C671CFFFC"
+			dependencies: ["B4F6F5D30EE6CCCF"]
+			id: "30F600C2394A4847"
 			tasks: [{
-				id: "E66E3A4C4C5169D3"
+				id: "7C833C37540A8A03"
 				type: "advancement"
 				advancement: "clovermagic:second_grimoire"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "D1923E0B11DDD37D"
+				id: "5598F873C3380DD6"
 				type: "xp"
 				xp: 200
 			}]
@@ -411,16 +430,16 @@
 			x: 14.0d
 			y: 2.0d
 			description: ["Make the deal of the fifth leaf: more mana and stronger spells, for another price in hearts."]
-			dependencies: ["CAA0155C671CFFFC"]
-			id: "30F600C2394A4847"
+			dependencies: ["30F600C2394A4847"]
+			id: "E927B61A90DCBBC9"
 			tasks: [{
-				id: "3225B4A1F70710B6"
+				id: "146FF12038DB1982"
 				type: "advancement"
 				advancement: "clovermagic:devil_mark"
 				criterion: ""
 			}]
 			rewards: [{
-				id: "7C833C37540A8A03"
+				id: "239479CFC3F7B3C4"
 				type: "xp"
 				xp: 300
 			}]

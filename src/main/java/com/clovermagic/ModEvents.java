@@ -111,6 +111,13 @@ public final class ModEvents {
      */
     public static void onIncomingDamage(LivingIncomingDamageEvent event) {
         if (!(event.getEntity() instanceof ServerPlayer sp)) return;
+        // config spellsHurtPlayers=false: spells (indirect magic dealt by the caster itself) never hurt other players
+        if (!Config.SPELLS_HURT_PLAYERS.get() && event.getSource().is(DamageTypes.INDIRECT_MAGIC)
+                && event.getSource().getEntity() instanceof ServerPlayer caster && caster != sp
+                && event.getSource().getDirectEntity() == caster) {
+            event.setCanceled(true);
+            return;
+        }
         MagicData data = sp.getData(ModAttachments.MAGIC.get());
         // Ember Skin (fire tree): with at least 20% mana, fire and lava cannot hurt you
         if (data.leaves > 0 && data.leaves != 5 && data.unlocked.contains("ember_skin")

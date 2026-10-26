@@ -19,6 +19,8 @@ public final class ClientMagicState {
     public static int xp;
     /** Power, mana, control, vitality (server sends them next to the main sync). */
     public static final int[] stats = new int[4];
+    public static String squad = "";
+    public static int squadPoints;
 
     public static int statPointsLeft() {
         return Math.max(0, level() - 1 - stats[0] - stats[1] - stats[2] - stats[3]);

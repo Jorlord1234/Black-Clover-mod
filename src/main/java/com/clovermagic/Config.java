@@ -14,6 +14,14 @@ public final class Config {
     public static final ModConfigSpec.IntValue MANA_REGEN_PER_SECOND;
     public static final ModConfigSpec.DoubleValue XP_MULTIPLIER;
     public static final ModConfigSpec.DoubleValue POWER_PER_LEVEL;
+    public static final ModConfigSpec.DoubleValue SPELL_DAMAGE_MULTIPLIER;
+    public static final ModConfigSpec.IntValue STAT_CAP;
+    public static final ModConfigSpec.BooleanValue ALLOW_DEVIL_DEALS;
+    public static final ModConfigSpec.BooleanValue ENABLE_SQUADS;
+    public static final ModConfigSpec.BooleanValue SPELLS_HURT_PLAYERS;
+    public static final ModConfigSpec.BooleanValue SPELLS_PLACE_BLOCKS;
+    public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> DISABLED_DIMENSIONS;
+    public static final ModConfigSpec.IntValue MAX_SPELL_ENTITIES_NEAR;
     public static final ModConfigSpec.IntValue NULLIFY_WINDOW_TICKS;
     public static final ModConfigSpec.IntValue MAX_LEVEL;
     public static final ModConfigSpec.IntValue SPIRIT_BOND_ONE_IN;
@@ -44,6 +52,25 @@ public final class Config {
                 .defineInRange("maxMagicLevel", 20, 5, 50);
         POWER_PER_LEVEL = B.comment("Spell power gained per magic level (0.04 = +4% per level).")
                 .defineInRange("powerPerLevel", 0.04, 0.0, 10.0);
+        B.pop();
+
+        B.push("modpack");
+        SPELL_DAMAGE_MULTIPLIER = B.comment("Multiplies the damage of every spell. Handy to balance the mod against other mods.")
+                .defineInRange("spellDamageMultiplier", 1.0, 0.1, 10.0);
+        STAT_CAP = B.comment("Maximum points per stat (Power, Mana, Control, Vitality).")
+                .defineInRange("statCap", 20, 1, 100);
+        ALLOW_DEVIL_DEALS = B.comment("Set to false to switch off the Devil Deals (second grimoire and fifth leaf).")
+                .define("allowDevilDeals", true);
+        ENABLE_SQUADS = B.comment("Set to false to switch off squads and their bonuses.")
+                .define("enableSquads", true);
+        SPELLS_HURT_PLAYERS = B.comment("If false, a player's spells cannot damage other players (vanilla PvP rules still apply on top of this).")
+                .define("spellsHurtPlayers", true);
+        SPELLS_PLACE_BLOCKS = B.comment("If false, walls, cages and other temporary-block spells do nothing to the world.")
+                .define("spellsPlaceBlocks", true);
+        DISABLED_DIMENSIONS = B.comment("Dimension ids where spells cannot be cast, e.g. [\"minecraft:the_end\", \"mypack:spawn\"].")
+                .defineListAllowEmpty("disabledDimensions", java.util.List.of(), () -> "minecraft:the_end", o -> o instanceof String);
+        MAX_SPELL_ENTITIES_NEAR = B.comment("Performance: spell model entities are not spawned if this many already exist within 32 blocks of the caster. 0 = no limit.")
+                .defineInRange("maxSpellModelsNearby", 40, 0, 10_000);
         B.pop();
 
         B.push("spirits");

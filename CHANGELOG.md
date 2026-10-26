@@ -1,5 +1,72 @@
 # Changelog
 
+## v0.15.1 (NOT yet built or tested in Minecraft)
+
+### Changed
+- **Hage Church (Clover Church) rebuilt** to match the series art (33 x 34 x 37): a small reddish-brown brick church with pale stone corner trim and a gray slate roof, the gable end facing the front with an arched double door in a stone surround, a round window and a stone cross; a slim steeple at the back right (cream belfry with a bell, orange copper spire); a picket-fenced yard with grave crosses, a well, a path to the gate and Hage's potato field with a water channel; the orphanage wing (six beds, kitchen corner, the chest, brick chimney) on the west side. Inside: red aisle carpet, pews, candles, a gold cross over the altar and, above it, the bone-block skull of the "legendary demon" that the church shows off in the final chapters. Dusty (cobwebs, cracked brick). Orsi, the chest contents and the Mission Board are carried over.
+- **Grimoire Tower rebuilt** to match the series art (69 x 64 x 70): a huge smooth tan brick cylinder with a flat roof and a ringed stone rim (no cone, no windows on the shaft), standing on a grassy mound in a forest, with a wide stair up to a huge dark arched entrance between two small round turrets with red conical roofs. Inside: the grimoire altar on a gold block on a dais with four quartz pillars, a red carpet from the entrance, and six levels of bookshelf galleries up the wall (ladder up the north wall, rails, lanterns, a chandelier). Still uses the `grimoire_tower_aging` processor.
+- Both now sit 4 blocks deeper (`start_height` -4) so they have a foundation on slopes.
+- Not changed yet: Royal Pavilion, Devil's Gate, Devil's Throne, Midnight Camp, Yultim Dungeon.
+
+
+## v0.14.0 (NOT yet built or tested in Minecraft)
+
+### Changed
+- **Black Bull Hideout rebuilt from scratch** (33 x 47 x 25 blocks, was an 11 x 9 x 11 box), after the series art (manga and anime): a tall pile of nine different houses stacked and offset on top of each other, with brick, stone and half-timbered walls, maroon / green copper / dark slate roofs, a stepped brick gable with arched windows and an arched gate at the front, wooden stilts under the overhangs, a tall round tower with a maroon cone, brick chimneys with campfire smoke, and trees and leaves growing on the ledges. Inside: a great hall (Asta, banner, tables, Mission Board), a kitchen house (furnace, barrel, crafting table, chest), a training house (targets), bookshelves and lanterns upstairs, passages between houses and a ladder core up through the stack. The structure sits 4 blocks deeper (`start_height` -4) so it has a foundation on slopes.
+- Not changed yet: Clover Church, Grimoire Tower, Royal Pavilion, Devil's Gate, Devil's Throne, Midnight Camp, Yultim Dungeon.
+
+## v0.13.2 (NOT yet built or tested in Minecraft)
+
+Sword art, second review: Demon-Slayer is slimmer (narrow at the hilt, angular shoulders, straight slab, chiselled tip), Demon-Destroyer is a slender straight blade that flares suddenly into two wing points and a large rounded end, Demon-Slasher has a clear sweeping arc, a ridge line (shinogi), a line where the planes meet the tip (yokote) and a fan-shaped tip (kissaki).
+
+## v0.13.1 (NOT yet built or tested in Minecraft)
+
+Sword art fixes after review: Demon-Dweller is longer (pointed top kept), Demon-Destroyer has a rounded end and a longer blade, Demon-Slayer has a pointed tip and a visible centre line, Demon-Slasher curves and cuts the other way when held.
+
+## v0.13.0 (NOT yet built or tested in Minecraft)
+
+### Added
+- **Demon-Slasher Sword** (a katana): new item, spell (`SUMMON_DEMON_SLASHER`, anti-magic cost 9), skill node (level 7, after the Demon-Destroyer in the SWORDS branch, so Black Divider now needs it), summon effect and name. The only anti-magic sword with a real edge: damage 7, fast.
+
+### Changed
+- **All four sword sprites redrawn** at 64x64 as diagonal pixel-art swords and the item models now use the vanilla handheld model (the old 95-piece models with the serrated leaf blades are gone). Each follows the series description: Slayer = massive blunt cleaver with an oversized crossguard, Dweller = standard broadsword with ornate gold hilt, stepped base and a groove, Destroyer = stubby spatha with a wide shovel-like tip and a blocky guard, Slasher = curved single-edged katana with a tsuba and a wrapped handle. In hand they are scaled 1.4x to 2.2x.
+- The Demon-Slayer summon effect now has a blunt tip and a bigger crossguard. The Dweller and Destroyer summon effects (`AntiFx.sword`) still have the old shapes.
+- README: 127 spells, the four swords.
+
+
+## v0.12.0 (NOT yet built or tested in Minecraft)
+
+### Fixed
+- **Cooldown exploits.** Unlocking a skill node, respeccing or swapping grimoires reset all spell cooldowns. Cooldowns are now stored per spell (not per slot), so none of these touch them, and they are **saved**, so logging out no longer clears them.
+- **Temporary blocks (walls, cages) could stay forever** after a crash. They are saved with the world now and removed on the next start. They also no longer force unloaded chunks to load: they wait until the chunk loads.
+- The spell menu could be spammed faster than intended by a modified client: there is now a minimum of 4 ticks between any two casts.
+
+### Added
+- **Protection mods work with spell blocks**: temporary-block spells fire `BlockEvent.EntityPlaceEvent` before placing, so claim mods can refuse them.
+- **Config**: `spellsHurtPlayers`, `spellsPlaceBlocks`, `disabledDimensions`, `maxSpellModelsNearby` (limits spell model entities near the caster).
+- **API**: `SpellCastEvent.Pre` (cancelable) and `SpellCastEvent.Post` on the NeoForge event bus.
+- 39 chat and screen messages are translatable now (with the English text as fallback); the rest still contains values in the text and stays English for now.
+
+### Changed
+- README rewritten for the current version. The competitor analysis no longer claims "no other mod needed" (GeckoLib is required).
+- `TESTING.md` numbering fixed and a "v0.12 changes" checklist added.
+- Save format: squad, squad points and cooldowns moved into a nested `extra` field (the main codec was at the 16-field limit). Worlds saved by v0.11 lose squad data; v0.11 was never released.
+
+
+## v0.11.0 (NOT yet built or tested in Minecraft)
+
+### Added
+- **Squads**: Black Bull, Golden Dawn, Silver Eagle, Crimson Lion, Blue Rose, Coral Peacock, Green Mantis, Purple Orca and Aqua Deer. Join one by holding its robe and sneak + right-clicking Julius at magic level 10.
+  Each gives a bonus (damage, mana, cooldowns, mana cost, hearts or mission experience) that grows with your squad rank (rank 1-5, one rank per 6 squad points).
+  Missions give 1 squad point, **squad missions** (sneak + click the Mission Board as a member: bigger, double rewards) give 2. New quest "A Squad of Your Own". `/clover squad <id>|leave`.
+- **Spell wheel** (key **Z**): all your spells in a circle, point and click to cast. No limit of nine.
+- **Casting pose**: while you cast, both arms go out in front.
+- **Config switches for modpacks**: `spellDamageMultiplier`, `statCap`, `allowDevilDeals`, `enableSquads` (plus the existing `xpMultiplier` and others). `/clover stats reset` gives all stat points back.
+- **Docs**: `docs/ART_BIBLE.md` (design first, then Minecraft; how to use community skins) and `docs/COMPETITOR_ANALYSIS.md`.
+
+### Changed
+- **Asta, Julius and Orsi skins redone from their designs in the series** (Asta now has ash-blond hair, green eyes, the headband, the blue jacket and the Black Bull mantle; Julius silver hair and the white and gold robe with cloak). Orsi's exact looks are not confirmed yet.
+
 ## v0.10.0 (NOT yet built or tested in Minecraft)
 
 ### Fixed (important)

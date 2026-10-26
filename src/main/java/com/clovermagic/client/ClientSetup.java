@@ -30,6 +30,8 @@ public final class ClientSetup {
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY);
     public static final KeyMapping INFO = new KeyMapping("key.clovermagic.info",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_K, CATEGORY);
+    public static final KeyMapping WHEEL = new KeyMapping("key.clovermagic.wheel",
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_Z, CATEGORY);
     public static final KeyMapping STATS = new KeyMapping("key.clovermagic.stats",
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_H, CATEGORY);
 
@@ -41,6 +43,7 @@ public final class ClientSetup {
         modBus.addListener(ClientSetup::registerLayers);
         modBus.addListener(ClientSetup::registerRenderers);
         modBus.addListener(ClientSetup::registerModelLayers);
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.addListener(ClientSetup::onRenderLivingPre);
         modBus.addListener(ClientSetup::addPlayerLayers);
         NeoForge.EVENT_BUS.addListener(ClientSetup::onClientTickPre);
         NeoForge.EVENT_BUS.addListener(ClientSetup::onRenderLayer);
@@ -51,6 +54,7 @@ public final class ClientSetup {
         event.register(MODE);
         event.register(INFO);
         event.register(STATS);
+        event.register(WHEEL);
     }
 
     private static void registerRenderers(EntityRenderersEvent.RegisterRenderers event) {
@@ -72,6 +76,16 @@ public final class ClientSetup {
     public static final net.minecraft.client.model.geom.ModelLayerLocation BROOM_LAYER =
             new net.minecraft.client.model.geom.ModelLayerLocation(
                     ResourceLocation.fromNamespaceAndPath(CloverMagic.MODID, "broom"), "main");
+
+    /** Casting pose: both arms out in front (the vanilla bow-aiming pose) while the casting marker effect lasts. */
+    public static void onRenderLivingPre(net.neoforged.neoforge.client.event.RenderLivingEvent.Pre<?, ?> event) {
+        if (event.getEntity() instanceof net.minecraft.client.player.AbstractClientPlayer player
+                && player.hasEffect(com.clovermagic.ModEffects.CASTING)
+                && event.getRenderer().getModel() instanceof net.minecraft.client.model.PlayerModel<?> model) {
+            model.rightArmPose = net.minecraft.client.model.HumanoidModel.ArmPose.BOW_AND_ARROW;
+            model.leftArmPose = net.minecraft.client.model.HumanoidModel.ArmPose.BOW_AND_ARROW;
+        }
+    }
 
     private static void registerModelLayers(EntityRenderersEvent.RegisterLayerDefinitions event) {
         event.registerLayerDefinition(BROOM_LAYER, BroomModel::createLayer);
@@ -104,11 +118,14 @@ public final class ClientSetup {
             if (inGame) {
                 if (!ClientMagicState.hasGrimoire) {
                     mc.player.displayClientMessage(
-                            net.minecraft.network.chat.Component.literal("You have no grimoire yet. Visit a Grimoire Tower."), true);
+                            net.minecraft.network.chat.Component.translatableWithFallback("msg.clovermagic.you_have_no_grimoire_yet_visit_a_grimoir_48c6", "You have no grimoire yet. Visit a Grimoire Tower."), true);
                 } else {
                     ClientMagicState.mode = !ClientMagicState.mode;
                 }
             }
+        }
+        while (WHEEL.consumeClick()) {
+            if (inGame && ClientMagicState.hasGrimoire && !ClientMagicState.spells().isEmpty()) mc.setScreen(new SpellWheelScreen());
         }
         while (STATS.consumeClick()) {
             if (inGame && ClientMagicState.hasGrimoire) mc.setScreen(new StatsScreen());

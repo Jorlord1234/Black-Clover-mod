@@ -47,7 +47,8 @@ authors="Joriam"
 # The description text for the mod (multi line!) (#mandatory)
 description='''
 Grimoires, mana and magic attributes inspired by Black Clover.
-Awaken a grimoire, learn spells, and wield anti-magic.
+Awaken a grimoire at a Grimoire Tower, grow through skill trees, join a squad and wield anti-magic.
+Requires GeckoLib for the squad robe and hood models.
 '''
 
 # The [[mixins]] block allows you to declare your mixin config to FML so that it gets loaded.
@@ -90,7 +91,7 @@ Awaken a grimoire, learn spells, and wield anti-magic.
 [[dependencies.${mod_id}]]
     modId="geckolib"
     type="required"
-    reason="3D Magic Knight armor models"
+    reason="3D squad robe and hood models"
     versionRange="[4.8,)"
     ordering="AFTER"
     side="BOTH"

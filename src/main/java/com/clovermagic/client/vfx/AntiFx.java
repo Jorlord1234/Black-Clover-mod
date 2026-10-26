@@ -26,6 +26,7 @@ final class AntiFx {
             case SUMMON_DEMON_SLAYER -> swordSummon(g, c, 1);
             case SUMMON_DEMON_DWELLER -> swordSummon(g, c, 2);
             case SUMMON_DEMON_DESTROYER -> swordSummon(g, c, 3);
+            case SUMMON_DEMON_SLASHER -> swordSummon(g, c, 4);
             case DEVIL_UNION -> devilUnion(g, c);
             default -> {
                 return false;
@@ -51,20 +52,20 @@ final class AntiFx {
         int blade = Col.rgb(0x101016), edge = Col.rgb(0x8A8A9C), white = Col.rgb(0xE8E8F0), dark = Col.rgb(0x2A2A36);
         if (tier == 1) {
             // wide blade, narrow at the guard, widest near the top, pointed tip; thin long crossguard with ball ends
-            bladeStrip(g, new double[][] {{0.5, 0.10}, {1.2, 0.26}, {2.2, 0.40}, {3.0, 0.43}}, 3.65, blade, edge);
+            bladeStrip(g, new double[][] {{0.5, 0.14}, {1.0, 0.40}, {2.2, 0.46}, {3.1, 0.46}}, 3.2, blade, edge);
             g.box(-0.03, 0.002, 0.6, 0.03, 0.02, 3.3, edge);
             for (int i = 0; i < 9; i++) {
                 double z = 1.0 + 0.27 * i, x = (i % 2 == 0 ? -1 : 1) * (0.08 + 0.2 * Rnd.h(5, i)) * (0.4 + z * 0.15);
                 g.tri(x, 0.003, z, x + 0.09, 0.003, z + 0.12, x - 0.02, 0.003, z + 0.2, white, white, white);
             }
-            g.box(-0.6, -0.03, 0.38, 0.6, 0.03, 0.47, dark);
+            g.box(-0.9, -0.04, 0.38, 0.9, 0.04, 0.50, dark);
             g.sphere(0.07, 4, 6, edge, edge);
             g.push();
-            g.translate(-0.62, 0, 0.42);
+            g.translate(-0.92, 0, 0.44);
             g.sphere(0.07, 4, 6, edge, edge);
             g.pop();
             g.push();
-            g.translate(0.62, 0, 0.42);
+            g.translate(0.92, 0, 0.44);
             g.sphere(0.07, 4, 6, edge, edge);
             g.pop();
             g.box(-0.04, -0.04, -0.4, 0.04, 0.04, 0.4, dark);
@@ -95,6 +96,19 @@ final class AntiFx {
             g.push();
             g.translate(0, 0, -0.38);
             g.sphere(0.1, 5, 8, edge, edge);
+            g.pop();
+        } else if (tier == 4) {
+            // katana: slim single-edged blade, round tsuba, wrapped handle
+            bladeStrip(g, new double[][] {{0.6, 0.07}, {1.0, 0.08}, {3.4, 0.08}, {3.9, 0.06}}, 4.2, blade, edge);
+            g.box(0.07, 0.002, 0.6, 0.085, 0.02, 3.9, white);
+            g.push();
+            g.translate(0, 0, 0.5);
+            g.disc(0.2, 12, edge, dark);
+            g.pop();
+            g.box(-0.035, -0.035, -0.5, 0.035, 0.035, 0.5, dark);
+            g.push();
+            g.translate(0, 0, -0.55);
+            g.sphere(0.06, 4, 6, edge, edge);
             g.pop();
         } else {
             // huge cleaver: straight spine, curved cutting edge, slanted tip, white scribble pattern and a clover mark; cross guard with big paddles

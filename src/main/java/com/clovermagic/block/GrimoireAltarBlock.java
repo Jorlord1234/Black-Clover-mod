@@ -69,14 +69,18 @@ public class GrimoireAltarBlock extends Block {
             data.unlocked.clear();
             data.generation++;
             if (!creative) stack.shrink(1);
-            sp.sendSystemMessage(Component.literal("Your old grimoire turns to dust. The altar chooses again...").withStyle(ChatFormatting.LIGHT_PURPLE));
+            sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.your_old_grimoire_turns_to_dust_the_alta_e1b8", "Your old grimoire turns to dust. The altar chooses again...").withStyle(ChatFormatting.LIGHT_PURPLE));
             ceremony(sp, data, sl, pos);
             return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
 
+        if (!Config.ALLOW_DEVIL_DEALS.get() && (stack.is(ModItems.DEVIL_CONTRACT_BOOK.get()) || stack.is(ModItems.DEVIL_CONTRACT_LEAF.get()))) {
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.the_devils_are_not_listening_on_this_ser_03f7", "The devils are not listening on this server.").withStyle(ChatFormatting.RED), true);
+            return net.minecraft.world.ItemInteractionResult.SUCCESS;
+        }
         if (stack.is(ModItems.DEVIL_CONTRACT_BOOK.get()) && data.leaves > 0) {
             if (data.leaves2 > 0) {
-                sp.displayClientMessage(Component.literal("You already made this deal.").withStyle(ChatFormatting.RED), true);
+                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_already_made_this_deal_d0c3", "You already made this deal.").withStyle(ChatFormatting.RED), true);
                 return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
             RandomSource r = sp.getRandom();
@@ -105,7 +109,7 @@ public class GrimoireAltarBlock extends Block {
         }
         if (stack.is(ModItems.DEVIL_CONTRACT_LEAF.get()) && data.leaves > 0) {
             if (data.devilMark) {
-                sp.displayClientMessage(Component.literal("You already made this deal.").withStyle(ChatFormatting.RED), true);
+                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_already_made_this_deal_d0c3", "You already made this deal.").withStyle(ChatFormatting.RED), true);
                 return net.minecraft.world.ItemInteractionResult.SUCCESS;
             }
             data.devilMark = true;
@@ -114,7 +118,7 @@ public class GrimoireAltarBlock extends Block {
             devilPrice(sp, "devil_mark");
             com.clovermagic.magic.QuestHooks.award(sp, "devil_mark");
             MagicSync.send(sp);
-            sp.sendSystemMessage(Component.literal("A fifth leaf grows on your grimoire, black as the devil's contract: 50% more mana and 25% stronger spells. It costs you 2 hearts, for ever.")
+            sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.a_fifth_leaf_grows_on_your_grimoire_blac_5097", "A fifth leaf grows on your grimoire, black as the devil's contract: 50% more mana and 25% stronger spells. It costs you 2 hearts, for ever.")
                     .withStyle(ChatFormatting.DARK_RED));
             devilFx(sl, pos);
             return net.minecraft.world.ItemInteractionResult.SUCCESS;
@@ -137,7 +141,7 @@ public class GrimoireAltarBlock extends Block {
                 net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
                         new com.clovermagic.net.CutscenePayload(data.attribute, 4));
                 com.clovermagic.magic.QuestHooks.award(sp, "four_leaf");
-                sp.sendSystemMessage(Component.literal("Within the four-leaf lies good luck. Your grimoire has grown a fourth leaf!")
+                sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.within_the_four_leaf_lies_good_luck_your_398e", "Within the four-leaf lies good luck. Your grimoire has grown a fourth leaf!")
                         .withStyle(ChatFormatting.GREEN));
                 sl.sendParticles(ParticleTypes.HAPPY_VILLAGER, pos.getX() + 0.5, pos.getY() + 1.4, pos.getZ() + 0.5, 60, 0.8, 0.8, 0.8, 0.1);
                 sl.playSound(null, pos, SoundEvents.PLAYER_LEVELUP, SoundSource.BLOCKS, 1.0f, 1.4f);
@@ -161,7 +165,7 @@ public class GrimoireAltarBlock extends Block {
         }
 
         if (!GrimoireManager.find(sp, data).isEmpty()) {
-            sp.displayClientMessage(Component.literal("Your grimoire is already with you.")
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.your_grimoire_is_already_with_you_1e3a", "Your grimoire is already with you.")
                     .withStyle(ChatFormatting.GRAY), true);
             return InteractionResult.SUCCESS;
         }
@@ -177,7 +181,7 @@ public class GrimoireAltarBlock extends Block {
             }
         }
         if (slot < 0) {
-            sp.displayClientMessage(Component.literal("Your grimoire is lost. Bring a Grimoire Sigil to reclaim it.")
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.your_grimoire_is_lost_bring_a_grimoire_s_0978", "Your grimoire is lost. Bring a Grimoire Sigil to reclaim it.")
                     .withStyle(ChatFormatting.RED), true);
             return InteractionResult.SUCCESS;
         }
@@ -185,7 +189,7 @@ public class GrimoireAltarBlock extends Block {
         GrimoireManager.issue(sp, data);
         sl.sendParticles(ParticleTypes.ENCHANT, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5, 60, 0.8, 0.8, 0.8, 0.8);
         sl.playSound(null, pos, SoundEvents.ENCHANTMENT_TABLE_USE, SoundSource.BLOCKS, 1.0f, 1.0f);
-        sp.sendSystemMessage(Component.literal("Your grimoire returns to you.").withStyle(ChatFormatting.GREEN));
+        sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.your_grimoire_returns_to_you_da7a", "Your grimoire returns to you.").withStyle(ChatFormatting.GREEN));
         MagicSync.send(sp);
         return InteractionResult.SUCCESS;
     }
@@ -216,7 +220,7 @@ public class GrimoireAltarBlock extends Block {
         // the cutscene on the player's screen shows the name and attribute (it replaces the old title text)
         net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
                 new com.clovermagic.net.CutscenePayload(attr.id, leaves));
-        sp.sendSystemMessage(Component.literal("The grimoires fly out of the altar... one has chosen you."));
+        sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.the_grimoires_fly_out_of_the_altar_one_h_1f2b", "The grimoires fly out of the altar... one has chosen you."));
 
         double x = pos.getX() + 0.5, y = pos.getY() + 1.4, z = pos.getZ() + 0.5;
         level.sendParticles(ParticleTypes.ENCHANT, x, y, z, 120, 1.2, 1.0, 1.2, 1.2);

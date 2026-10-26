@@ -1,6 +1,8 @@
 package com.clovermagic.magic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -11,6 +13,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 
 /** Per-player magic state, saved on the player (survives death). */
 public class MagicData {
+    /** Squad data and spell cooldowns, nested so the main codec stays within the 16-field limit. */
+    private record Extra(String squad, int squadPoints, Map<String, Long> cooldowns) {
+        static final Codec<Extra> CODEC = RecordCodecBuilder.create(i -> i.group(
+                Codec.STRING.optionalFieldOf("squad", "").forGetter(Extra::squad),
+                Codec.INT.optionalFieldOf("squadPoints", 0).forGetter(Extra::squadPoints),
+                Codec.unboundedMap(Codec.STRING, Codec.LONG).optionalFieldOf("cooldowns", Map.of()).forGetter(Extra::cooldowns)
+        ).apply(i, Extra::new));
+    }
+
     public static final Codec<MagicData> CODEC = RecordCodecBuilder.create(inst -> inst.group(
             Codec.STRING.optionalFieldOf("attribute", "none").forGetter(d -> d.attribute),
             Codec.INT.optionalFieldOf("leaves", 0).forGetter(d -> d.leaves),
@@ -25,8 +36,9 @@ public class MagicData {
             Codec.INT.optionalFieldOf("generation2", 0).forGetter(d -> d.generation2),
             Codec.STRING.listOf().optionalFieldOf("unlocked2", List.of()).forGetter(d -> new ArrayList<>(d.unlocked2)),
             Codec.BOOL.optionalFieldOf("devilMark", false).forGetter(d -> d.devilMark),
-            Codec.INT.listOf().optionalFieldOf("stats", List.of(0, 0, 0, 0)).forGetter(d -> List.of(d.stats[0], d.stats[1], d.stats[2], d.stats[3]))
-    ).apply(inst, (a, l, m, s, x, g, u, a2, l2, x2, g2, u2, dm, st) -> {
+            Codec.INT.listOf().optionalFieldOf("stats", List.of(0, 0, 0, 0)).forGetter(d -> List.of(d.stats[0], d.stats[1], d.stats[2], d.stats[3])),
+            Extra.CODEC.optionalFieldOf("extra", new Extra("", 0, Map.of())).forGetter(d -> new Extra(d.squad, d.squadPoints, new HashMap<>(d.cooldowns)))
+    ).apply(inst, (a, l, m, s, x, g, u, a2, l2, x2, g2, u2, dm, st, ex) -> {
         MagicData d = new MagicData(a, l, m, s, x, g, u);
         d.attribute2 = a2;
         d.leaves2 = l2;
@@ -35,6 +47,9 @@ public class MagicData {
         d.unlocked2.addAll(u2);
         d.devilMark = dm;
         for (int i = 0; i < 4 && i < st.size(); i++) d.stats[i] = Math.max(0, st.get(i));
+        d.squad = ex.squad();
+        d.squadPoints = Math.max(0, ex.squadPoints());
+        d.cooldowns.putAll(ex.cooldowns());
         return d;
     }));
 
@@ -55,6 +70,10 @@ public class MagicData {
     public int xp2 = 0;
     public int generation2 = 0;
     public final Set<String> unlocked2 = new LinkedHashSet<>();
+    /** The Magic Knight squad (see SquadLogic) and the squad points earned with missions. */
+    public String squad = "";
+    public int squadPoints = 0;
+
     /** Stat points spent: power, mana, control, vitality (one point per magic level above 1). */
     public final int[] stats = new int[4];
 
@@ -89,7 +108,27 @@ public class MagicData {
     /** Not saved: Crystal Mirror / Deflect: half of the damage is reflected to the attacker until this game time. */
     public transient long mirrorUntil = 0;
 
-    public final transient long[] cooldownEnd = new long[24];
+    /**
+     * Saved: spell name -> game time at which it is ready again. Keyed by spell (not by slot) so unlocking nodes,
+     * respeccing and swapping grimoires cannot reset or shift cooldowns, and relogging does not clear them.
+     */
+    public final Map<String, Long> cooldowns = new HashMap<>();
+
+    public long cooldownEnd(Spell spell) {
+        return cooldowns.getOrDefault(spell.name(), 0L);
+    }
+
+    public void setCooldown(Spell spell, long endTick) {
+        cooldowns.put(spell.name(), endTick);
+    }
+
+    /** Drops finished cooldowns so the saved map stays small. */
+    public void pruneCooldowns(long now) {
+        cooldowns.values().removeIf(end -> end <= now);
+    }
+
+    /** Not saved: game time of the last cast attempt (global anti-spam). */
+    public transient long lastCastAttempt = 0;
 
     public MagicData() {
     }
@@ -116,7 +155,7 @@ public class MagicData {
     /** Highest mana, including the Devil's Mark bonus. */
     public int maxMana() {
         int m = com.clovermagic.item.GrimoireItem.maxMana(level(), leaves);
-        m = (int) (m * (1.0 + 0.05 * stats[1]));
+        m = (int) (m * (1.0 + 0.05 * stats[1] + SquadLogic.bonus(this, SquadLogic.Kind.MANA)));
         return devilMark ? (int) (m * 1.5) : m;
     }
 
@@ -130,7 +169,6 @@ public class MagicData {
         unlocked.clear(); unlocked.addAll(unlocked2);
         unlocked2.clear(); unlocked2.addAll(u);
         selected = 0;
-        for (int i = 0; i < cooldownEnd.length; i++) cooldownEnd[i] = 0;
         mana = Math.min(Math.max(mana, 0), maxMana());
     }
 }

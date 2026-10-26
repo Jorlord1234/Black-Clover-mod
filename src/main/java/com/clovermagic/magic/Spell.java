@@ -793,6 +793,8 @@ public enum Spell {
             (p, pw) -> SwordSummon.toggle(p, com.clovermagic.ModItems.DEMON_DWELLER_SWORD.get(), 6000)),
     SUMMON_DEMON_DESTROYER("Demon-Destroyer Sword", MagicAttribute.ANTI_MAGIC, 12, 20,
             (p, pw) -> SwordSummon.toggle(p, com.clovermagic.ModItems.DEMON_DESTROYER_SWORD.get(), 6000)),
+    SUMMON_DEMON_SLASHER("Demon-Slasher Sword", MagicAttribute.ANTI_MAGIC, 9, 20,
+            (p, pw) -> SwordSummon.toggle(p, com.clovermagic.ModItems.DEMON_SLASHER_SWORD.get(), 6000)),
     DEVIL_UNION("Devil Union", MagicAttribute.ANTI_MAGIC, 60, 12000, (p, pw) -> {
         int ticks = 6000; // 5 minutes, like in the anime
         QuestHooks.award(p, "devil_union");
@@ -911,6 +913,7 @@ public enum Spell {
     public boolean cast(ServerPlayer player, double power) {
         boolean ok = cast.cast(player, power);
         if (ok) {
+            player.addEffect(new MobEffectInstance(com.clovermagic.ModEffects.CASTING, 14, 0, false, false, false));
             SpellUtil.sound(player, com.clovermagic.ModSounds.CAST_START.get(), 0.6f, 1.0f);
             SpellUtil.sound(player, com.clovermagic.ModSounds.forAttribute(this.attribute), 1.0f, 1.0f);
             try {

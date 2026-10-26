@@ -14,7 +14,9 @@ import net.minecraft.world.entity.ai.attributes.Attributes;
  * Also keeps the permanent health changes (Vitality, Devil Deals) in sync: they are re-applied after death and relogs.
  */
 public final class StatLogic {
-    public static final int MAX_PER_STAT = 20;
+    public static int maxPerStat() {
+        return com.clovermagic.Config.STAT_CAP.get();
+    }
     public static final String[] NAMES = {"Power", "Mana", "Control", "Vitality"};
     public static final String[] EFFECTS = {"+3% spell damage per point", "+5% maximum mana per point",
             "-1.5% mana cost and cooldowns per point", "+1 heart of maximum health per point"};
@@ -23,17 +25,21 @@ public final class StatLogic {
     }
 
     public static double powerMult(MagicData d) {
-        return 1.0 + 0.03 * d.stats[0];
+        return 1.0 + 0.03 * d.stats[0] + SquadLogic.bonus(d, SquadLogic.Kind.POWER);
     }
 
-    public static double controlMult(MagicData d) {
-        return Math.max(0.6, 1.0 - 0.015 * d.stats[2]);
+    public static double costMult(MagicData d) {
+        return Math.max(0.5, 1.0 - 0.015 * d.stats[2] - SquadLogic.bonus(d, SquadLogic.Kind.COST));
+    }
+
+    public static double cooldownMult(MagicData d) {
+        return Math.max(0.5, 1.0 - 0.015 * d.stats[2] - SquadLogic.bonus(d, SquadLogic.Kind.COOLDOWN));
     }
 
     public static void spend(ServerPlayer sp, int index) {
         if (index < 0 || index > 3) return;
         MagicData d = sp.getData(ModAttachments.MAGIC.get());
-        if (d.leaves == 0 || d.statPointsLeft() <= 0 || d.stats[index] >= MAX_PER_STAT) return;
+        if (d.leaves == 0 || d.statPointsLeft() <= 0 || d.stats[index] >= maxPerStat()) return;
         d.stats[index]++;
         apply(sp, d);
         MagicSync.send(sp);
@@ -53,6 +59,7 @@ public final class StatLogic {
         set(health, "stat_vitality", 2.0 * d.stats[3]);
         set(health, "devil_price_second_grimoire", d.leaves2 > 0 ? -4.0 : 0.0);
         set(health, "devil_price_devil_mark", d.devilMark ? -4.0 : 0.0);
+        set(health, "squad_health", SquadLogic.bonus(d, SquadLogic.Kind.HEALTH));
         if (sp.getHealth() > sp.getMaxHealth()) sp.setHealth(sp.getMaxHealth());
     }
 

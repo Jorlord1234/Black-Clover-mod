@@ -28,16 +28,16 @@ public class MissionBoardBlock extends Block {
         if (level.isClientSide() || !(player instanceof ServerPlayer sp)) return InteractionResult.SUCCESS;
         MagicData data = sp.getData(ModAttachments.MAGIC.get());
         if (data.leaves == 0) {
-            sp.displayClientMessage(Component.literal("Only mages with a grimoire can take missions.").withStyle(ChatFormatting.RED), true);
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.only_mages_with_a_grimoire_can_take_miss_814d", "Only mages with a grimoire can take missions.").withStyle(ChatFormatting.RED), true);
             return InteractionResult.CONSUME;
         }
         if (Missions.hasMission(sp)) {
-            sp.displayClientMessage(Component.literal("You already have a mission. Finish it first.").withStyle(ChatFormatting.RED), true);
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_already_have_a_mission_finish_it_fir_ac5a", "You already have a mission. Finish it first.").withStyle(ChatFormatting.RED), true);
             return InteractionResult.CONSUME;
         }
-        sp.getInventory().placeItemBackInInventory(Missions.create(sp.getRandom(), data.level()));
+        sp.getInventory().placeItemBackInInventory(Missions.create(sp.getRandom(), data.level(), sp.isShiftKeyDown() && data.squad != null && !data.squad.isEmpty()));
         level.playSound(null, pos, SoundEvents.BOOK_PAGE_TURN, SoundSource.BLOCKS, 1.0f, 1.0f);
-        sp.sendSystemMessage(Component.literal("You take a mission from the board. Hover over the scroll to read it.").withStyle(ChatFormatting.GOLD));
+        sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.you_take_a_mission_from_the_board_hover_50cc", "You take a mission from the board. Hover over the scroll to read it. (Sneak + click as a squad member for a bigger squad mission.)").withStyle(ChatFormatting.GOLD));
         return InteractionResult.CONSUME;
     }
 }

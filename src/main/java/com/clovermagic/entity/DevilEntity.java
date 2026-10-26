@@ -47,7 +47,7 @@ public class DevilEntity extends Monster implements RangedAttackMob {
     private static final EntityDataAccessor<String> DEVIL_TYPE =
             SynchedEntityData.defineId(DevilEntity.class, EntityDataSerializers.STRING);
 
-    private final ServerBossEvent bossEvent = new ServerBossEvent(Component.literal("Zagred"),
+    private final ServerBossEvent bossEvent = new ServerBossEvent(Component.translatableWithFallback("msg.clovermagic.zagred_b380", "Zagred"),
             BossEvent.BossBarColor.RED, BossEvent.BossBarOverlay.NOTCHED_6);
     private boolean summoned = false;
 

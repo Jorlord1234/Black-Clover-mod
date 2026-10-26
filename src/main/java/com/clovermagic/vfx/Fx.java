@@ -80,6 +80,7 @@ public enum Fx {
     SUMMON_DEMON_SLAYER(Anchor.SELF_FOLLOW, 30, 1),
     SUMMON_DEMON_DWELLER(Anchor.SELF_FOLLOW, 30, 1),
     SUMMON_DEMON_DESTROYER(Anchor.SELF_FOLLOW, 34, 1),
+    SUMMON_DEMON_SLASHER(Anchor.SELF_FOLLOW, 30, 1),
     DEVIL_UNION(Anchor.SELF, 40, 6),
     // generic models for the spells without a hand-built recipe (ArchetypeFx)
     TIMED_SCATTERSHOT(Anchor.SELF, 20, 16),

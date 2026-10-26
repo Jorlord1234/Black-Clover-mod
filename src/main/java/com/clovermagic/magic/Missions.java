@@ -24,7 +24,7 @@ public final class Missions {
     }
 
     /** Creates a mission scroll that fits the player's magic level. */
-    public static ItemStack create(RandomSource r, int level) {
+    public static ItemStack create(RandomSource r, int level, boolean squadMission) {
         String type;
         String name;
         int need;
@@ -43,15 +43,18 @@ public final class Missions {
                 default -> { type = "clovermagic:yultim_spider"; name = "Giant Spider"; need = 1; }
             }
         }
+        if (squadMission) need = (int) Math.ceil(need * 1.5);
         int tier = Math.max(1, level / 5);
         CompoundTag tag = new CompoundTag();
+        tag.putBoolean("squad", squadMission);
         tag.putString("type", type);
         tag.putString("name", name);
         tag.putInt("need", need);
         tag.putInt("have", 0);
-        tag.putInt("xp", 40 * tier + 20 * need);
-        tag.putInt("crystals", 2 + tier * 2);
-        tag.putInt("potions", tier);
+        int mult = squadMission ? 2 : 1;
+        tag.putInt("xp", (40 * tier + 20 * need) * mult);
+        tag.putInt("crystals", (2 + tier * 2) * mult);
+        tag.putInt("potions", tier * mult);
         ItemStack stack = new ItemStack(ModItems.MISSION_SCROLL.get());
         stack.set(DataComponents.CUSTOM_DATA, CustomData.of(tag));
         return stack;
@@ -88,10 +91,19 @@ public final class Missions {
 
     private static void payOut(ServerPlayer sp, CompoundTag tag) {
         MagicData d = sp.getData(ModAttachments.MAGIC.get());
-        int xp = tag.getInt("xp");
+        int xp = (int) (tag.getInt("xp") * (1.0 + SquadLogic.bonus(d, SquadLogic.Kind.MISSION_XP)));
+        if (tag.getBoolean("squad") && d.squad != null && !d.squad.isEmpty()) {
+            d.squadPoints += 2;
+            sp.sendSystemMessage(Component.literal("Squad points +2 (" + d.squadPoints + "), squad rank " + SquadLogic.rank(d.squadPoints) + ".").withStyle(ChatFormatting.AQUA));
+            StatLogic.apply(sp, d);
+        } else if (d.squad != null && !d.squad.isEmpty()) {
+            d.squadPoints += 1;
+            StatLogic.apply(sp, d);
+        }
         sp.getInventory().placeItemBackInInventory(new ItemStack(ModItems.MANA_CRYSTAL.get(), tag.getInt("crystals")));
         sp.getInventory().placeItemBackInInventory(new ItemStack(ModItems.MANA_POTION.get(), tag.getInt("potions")));
         sp.giveExperiencePoints(xp);
+        MagicSync.send(sp);
         if (d.leaves > 0) {
             d.xp += xp;
             QuestHooks.awardLevels(sp, d.level());

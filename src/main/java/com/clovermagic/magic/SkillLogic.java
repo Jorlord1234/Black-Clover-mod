@@ -73,7 +73,6 @@ public final class SkillLogic {
             return;
         }
         d.unlocked.add(node.id());
-        for (int i = 0; i < d.cooldownEnd.length; i++) d.cooldownEnd[i] = 0;
         sp.displayClientMessage(Component.literal("Unlocked " + node.name()).withStyle(ChatFormatting.GOLD), true);
         MagicSync.send(sp);
     }
@@ -95,7 +94,7 @@ public final class SkillLogic {
             }
         }
         if (toRemove.isEmpty()) {
-            sp.displayClientMessage(Component.literal("Nothing to reset in this branch.").withStyle(ChatFormatting.GRAY), true);
+            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.nothing_to_reset_in_this_branch_9b57", "Nothing to reset in this branch.").withStyle(ChatFormatting.GRAY), true);
             return;
         }
         if (!sp.getAbilities().instabuild) {
@@ -109,13 +108,12 @@ public final class SkillLogic {
                 }
             }
             if (slot < 0) {
-                sp.displayClientMessage(Component.literal("You need a Page of Forgetting.").withStyle(ChatFormatting.RED), true);
+                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_need_a_page_of_forgetting_5eea", "You need a Page of Forgetting.").withStyle(ChatFormatting.RED), true);
                 return;
             }
             inv.getItem(slot).shrink(1);
         }
         d.unlocked.removeAll(toRemove);
-        for (int i = 0; i < d.cooldownEnd.length; i++) d.cooldownEnd[i] = 0;
         sp.sendSystemMessage(Component.literal(branch.name() + " reset: " + refund + " skill points refunded.").withStyle(ChatFormatting.GOLD));
         MagicSync.send(sp);
     }

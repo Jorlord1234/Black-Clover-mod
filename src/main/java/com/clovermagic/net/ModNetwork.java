@@ -72,6 +72,8 @@ public final class ModNetwork {
             ClientMagicState.stats[1] = payload.mana();
             ClientMagicState.stats[2] = payload.control();
             ClientMagicState.stats[3] = payload.vitality();
+            ClientMagicState.squad = payload.squad();
+            ClientMagicState.squadPoints = payload.squadPoints();
         });
     }
 

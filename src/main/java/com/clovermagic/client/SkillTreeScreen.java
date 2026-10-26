@@ -276,9 +276,9 @@ public class SkillTreeScreen extends Screen {
         lines.add(Component.literal(" "));
         lines.add(Component.literal(n.canon()).withStyle(ChatFormatting.DARK_GRAY));
         switch (st) {
-            case AVAILABLE -> lines.add(Component.literal("Click to unlock").withStyle(ChatFormatting.GREEN));
-            case NEED_POINTS -> lines.add(Component.literal("Not enough skill points").withStyle(ChatFormatting.RED));
-            case SOON -> lines.add(Component.literal("Coming in a later version").withStyle(ChatFormatting.GRAY));
+            case AVAILABLE -> lines.add(Component.translatableWithFallback("msg.clovermagic.click_to_unlock_9c0f", "Click to unlock").withStyle(ChatFormatting.GREEN));
+            case NEED_POINTS -> lines.add(Component.translatableWithFallback("msg.clovermagic.not_enough_skill_points_5feb", "Not enough skill points").withStyle(ChatFormatting.RED));
+            case SOON -> lines.add(Component.translatableWithFallback("msg.clovermagic.coming_in_a_later_version_f59c", "Coming in a later version").withStyle(ChatFormatting.GRAY));
             default -> { }
         }
         g.renderComponentTooltip(this.font, lines, mouseX, mouseY);

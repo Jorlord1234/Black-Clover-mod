@@ -41,6 +41,8 @@ public final class SpellVfx {
 
     public static void play(ServerPlayer p, Spell spell) {
         if (!Config.SPELL_MODELS.get()) return;
+        int cap = Config.MAX_SPELL_ENTITIES_NEAR.get();
+        if (cap > 0 && p.serverLevel().getEntitiesOfClass(SpellVfxEntity.class, p.getBoundingBox().inflate(32)).size() >= cap) return;
         castCircle(p, spell);
         Fx fx;
         try {

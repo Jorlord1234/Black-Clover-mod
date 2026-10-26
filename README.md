@@ -1,59 +1,44 @@
-# Clover Magic v0.5 (Black Clover) - NeoForge 1.21.1 + GeckoLib 4.8.x
+# Clover Magic (Black Clover) - NeoForge 1.21.1
 
-Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252).
+Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252). **Requires GeckoLib 4.8.x** (the squad robes and hoods). Optional: Curios (a "Grimoire" slot), FTB Quests (see `extras/ftbquests/`).
 
-## Grimoire Tower
-- Rare, tall round stone tower (23 wide, 62 tall) with a huge hollow library hall, ladders, walkways and a dome.
-- Altar in the middle: right-click it for the ceremony. Odds: Three-Leaf (most), Four-Leaf about 1 in 50, Five-Leaf about 1 in 1000.
-- `/locate structure clovermagic:grimoire_tower` (op) to find one. The Grimoire Altar is also in the creative tab for quick tests.
+> **Status:** this mod has never been built or launched by its author. Your first GitHub Actions run is the first real build. See `TESTING.md` for what to check.
 
-## Grimoire Mode (HUD)
-- **G** toggles Grimoire Mode: the hotbar is replaced by a spell bar, **number keys 1-3 cast**, mana bar above it.
-- A small preview of your real hotbar sits on the right. The mouse wheel is locked while the mode is on.
-- **K** opens the spell list (cost, unlock level, description).
-- Spell slot 1 unlocks at magic level 1, slot 2 at level 3, slot 3 at level 5. Casting gives magic XP.
+## The basics
+- **Grimoire Tower** (rare structure): right-click the altar for the ceremony. Three-Leaf is the most common, Four-Leaf about 1 in 50, Five-Leaf (Anti-Magic) about 1 in 1000. Odds are in the config. Find one with `/locate structure clovermagic:grimoire_tower`.
+- Grimoires are bound to you and cannot be crafted. Three- and Four-Leaf grimoires crumble when you die; reclaim at an altar with a Grimoire Sigil (4 Mana Crystals + 1 Gold Ingot).
+- Nine elements: fire, water, wind, earth, ice, lightning, light, darkness and Anti-Magic. 127 spells, each with a 3D model.
+- **G** toggles Grimoire Mode (spell bar, number keys 1-9 cast, mouse wheel changes page). **Z** opens the spell wheel. **K** opens the skill tree (spell list for elements without one). **H** opens mage stats. **L** opens the quest book (the "Clover Magic" advancement tab).
 
-## Squad armor (netherite level)
-- Nine squads, each with a Hood and a Robe: Black Bull, Golden Dawn, Silver Eagle, Crimson Lion, Blue Rose, Coral Peacock, Green Mantis, Purple Orca, Aqua Deer.
-- Mana Cloth: 4 White Wool + 1 Mana Crystal (plus shape) gives 2.
-- Robe:  M D M / N T N / M M M   (M Mana Cloth, D squad dye, N Netherite Ingot x2, T squad trim)
-- Hood:  M D M / M N M           (M Mana Cloth, D squad dye, N Netherite Ingot)
-- Dye and trim per squad: Black Bull black + gold ingot, Golden Dawn yellow + gold block, Silver Eagle light gray + feather,
-  Crimson Lion red + blaze powder, Blue Rose blue + rose bush, Coral Peacock pink + pink petals, Green Mantis green + vine,
-  Purple Orca purple + amethyst shard, Aqua Deer cyan + prismarine crystals.
+## Progression
+- Casting gives magic XP (anti-farm rules apply). Max level 20 by default. One skill point per level (more at 5, 10, 15 and 20), one stat point per level above 1.
+- Stats (key H): Power, Mana, Control, Vitality, up to 20 each (config `statCap`). `/clover stats reset` refunds them.
+- Skill trees per element with spells and passives; a Page of Forgetting resets one branch, a Page of Rebirth rerolls the grimoire.
+- Spirits: Four-Leaf fire, water, wind and earth mages from level 10 can be chosen by their spirit.
+- Devil Deals at the altar (2 hearts each, permanent): a second grimoire, or the Fifth Leaf.
+- **Squads** (Black Bull, Golden Dawn, Silver Eagle, Crimson Lion, Blue Rose, Coral Peacock, Green Mantis, Purple Orca, Aqua Deer): hold the robe and sneak + right-click Julius at level 10. Bonus grows with rank. Missions give squad points.
+- **Mission Board**: right-click for a Mission Scroll that fits your level (one at a time).
 
-## Everything else
-- Grimoires are bound to you and cannot be crafted. Three/Four-Leaf grimoires crumble when you die.
-- Reclaim at any tower altar with a Grimoire Sigil (4 Mana Crystals + 1 Gold Ingot, plus shape).
-- Mana Crystal Ore generates underground (Y -64 to 48).
-- Test commands (op): `/clover give <3|4|5> <attribute>`, `/clover level <1-10>`, `/clover mana`, `/clover reset`
+## World
+- Mobs: Magic Boar, Midnight Sun Mage, Demon, three Devils (Zagred is a boss), the Giant Spider of the Yultim Dungeon (boss).
+- NPCs: Asta, Julius and Father Orsi. Eight structures (see the changelog).
+- Anti-Magic summons four swords: Demon-Slayer (huge blunt cleaver), Demon-Dweller (ornate broadsword with a groove), Demon-Destroyer (stubby, wide shovel-like tip) and Demon-Slasher (a katana, the only one with a real edge).
+- Magic Broom (fly), Mana Potion, Mana Crystal ore, nine squads of armor.
 
-## v0.4 notes
-- **Requires GeckoLib 4.8.x for NeoForge 1.21.1** (add it to the pack).
-- Black Bull is the 3D armor prototype (hood, robe, trousers, boots). Other squads are still flat v0.3 hood + robe.
-- Config file: `config/clovermagic-common.toml`.
-- Crimson Lion Blaze is a real fireball projectile. Anti-Magic no longer grants blanket immunity (Magic Nullify opens a short window).
-- See CHANGELOG.md, TESTING.md.
+## Config (`config/clovermagic-common.toml`)
+Ceremony odds, mana, XP and level cap, `spellDamageMultiplier`, `statCap`, `allowDevilDeals`, `enableSquads`, `spellsHurtPlayers`, `spellsPlaceBlocks`, `disabledDimensions`, `maxSpellModelsNearby`, `visuals.spellModels`, spirit chance and the Anti-Magic nullify window. Structure spacing and biomes are datapack files under `data/clovermagic/worldgen/`.
+
+## For addon authors and modpack makers
+- `com.clovermagic.api.SpellCastEvent.Pre` (cancelable) and `.Post` are fired on the NeoForge event bus for every cast.
+- Temporary-block spells fire `BlockEvent.EntityPlaceEvent` first, so claim and protection mods can veto them.
+- Spells and skill trees are still defined in Java (`magic/Spell.java`, `skill/SkillTrees.java`); data-driven spells are planned.
 
 ## Known limitations
-- Not built or launched by the author. First real build is your GitHub Actions run.
-- Tower and ceremony are unchanged from v0.3 (never seen in game by the author), no flying-books animation.
-- Only one projectile spell, all other spells are still instant hits.
-- Tower spacing and biome list are data files (`data/clovermagic/worldgen/...`), not in the config file.
-- Grimoires are only found in the main inventory, not inside backpacks.
-- Other textures (grimoires, ores, altar, spell icons) have not been redone yet.
-- Squads other than Black Bull still look alike (flat armor).
+- Never built or tested (see above).
+- NPCs and several mobs are skins on vanilla models; one casting pose for every spell; synthesized sounds.
+- Only the pure-text chat messages are translatable so far (`translatableWithFallback`); messages built from several pieces are still English only.
+- Grimoires are only found in the main inventory (and the Curios slot), not inside backpacks.
+- No in-game guide book and no JEI/EMI pages yet.
+- Grimoire art, ore and altar textures, and the GUI are plain.
 
-## v0.5 skill tree notes
-- Press **K** with a fire grimoire to open the Fire skill tree. Every element except Anti-Magic now has a tree (Anti-Magic still uses the old level-based spells).
-- Respec: one Page of Forgetting resets one branch. Pages are crafted from a Magic Beast Core (dropped by Magic Boars, mages, demons and devils), paper and a Mana Crystal.
-- The tree is defined in Java for now (`skill/SkillTrees.java`); moving it to data files is planned once all elements share the template.
-- Known limits: plain screen art, placeholder looks for mobs and NPCs, spell bar is a simple row (with pages), sounds are synthesized.
-
-## Outfits
-- Robe models and textures are by the project's outfit artist (shared models `robe`, `hood`, `bandana`; one texture per squad).
-- Pieces: nine robes (chest) and six hoods (helmet; Black Bull's is a bandana). Craft with Mana Cloth, the squad dye (and trim for robes) and Netherite.
-
-## 3D spell models (v0.6.1)
-Every spell has a 3D model, built in code (see `client/vfx`). One effect entity per cast, one renderer. Switch off with `visuals.spellModels`.
-Adding a model for a new spell: add a constant with the same name as the spell to `vfx/Fx.java` (anchor, lifetime, range) and write its recipe in one of the `client/vfx/*Fx.java` files.
+See `CHANGELOG.md`, `TESTING.md`, `docs/ART_BIBLE.md` and `docs/COMPETITOR_ANALYSIS.md`.

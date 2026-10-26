@@ -15,7 +15,7 @@ import net.minecraft.util.FormattedCharSequence;
 /** Read-only spell list (K): shows each spell, its cost, unlock level and what it does. */
 public class GrimoireScreen extends Screen {
     public GrimoireScreen() {
-        super(Component.literal("Grimoire"));
+        super(Component.translatableWithFallback("msg.clovermagic.grimoire_7375", "Grimoire"));
     }
 
     @Override

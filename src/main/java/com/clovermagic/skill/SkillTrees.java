@@ -510,6 +510,8 @@ public final class SkillTrees {
                         up("sword_edge", "Sharp Edge", 3),
                         sp("demon_destroyer_sword", "Demon-Destroyer Sword", 3, 5, "SUMMON_DEMON_DESTROYER",
                                 "Summons the huge Demon-Destroyer Sword.", "Anime: Asta's Demon-Destroyer Sword."),
+                        sp("demon_slasher_sword", "Demon-Slasher Sword", 3, 7, "SUMMON_DEMON_SLASHER",
+                                "Summons the Demon-Slasher katana: light, fast and razor sharp.", "Anime: Asta's Demon-Slasher Sword."),
                         sp("black_divider", "Black Divider", 4, 9, "BLACK_DIVIDER", "A slash of pure anti-magic cuts a long line and rips away good effects.", "Anime: Asta's Black Divider."),
                         ks("black_meteorite", "Black Meteorite", 6, 14, "BLACK_METEORITE", "A black meteorite crashes down where you look.", "Anime: Asta's Black Meteorite.")},
                 new Def[] {

@@ -80,6 +80,8 @@ public class CloverMagic {
         NeoForge.EVENT_BUS.addListener(ModEvents::onPlayerTick);
         NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onLevelTick);
         NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onServerStopping);
+        NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onServerStarted);
+        NeoForge.EVENT_BUS.addListener(com.clovermagic.magic.TempBlocks::onServerStopped);
         NeoForge.EVENT_BUS.addListener(ModEvents::onDeath);
         NeoForge.EVENT_BUS.addListener(ModEvents::onKill);
         NeoForge.EVENT_BUS.addListener(ModEvents::onLogin);

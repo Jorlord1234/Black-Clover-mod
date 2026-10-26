@@ -77,7 +77,7 @@ public class GrimoireItem extends Item {
                 return InteractionResultHolder.success(stack);
             }
             if (own.generation() == data.generation2) {
-                sp.displayClientMessage(Component.literal("This is your second grimoire. Sneak + right-click to switch to it.")
+                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.this_is_your_second_grimoire_sneak_right_c8a4", "This is your second grimoire. Sneak + right-click to switch to it.")
                         .withStyle(ChatFormatting.GRAY), true);
                 return InteractionResultHolder.success(stack);
             }
@@ -100,7 +100,7 @@ public class GrimoireItem extends Item {
         tooltip.add(Component.literal(leafName(leaves)).withStyle(ChatFormatting.GREEN));
         GrimoireData gd = stack.get(ModComponents.GRIMOIRE_DATA.get());
         if (gd == null) {
-            tooltip.add(Component.literal("Unbound").withStyle(ChatFormatting.GRAY));
+            tooltip.add(Component.translatableWithFallback("msg.clovermagic.unbound_edac", "Unbound").withStyle(ChatFormatting.GRAY));
         } else {
             MagicAttribute attr = leaves == 5 ? MagicAttribute.ANTI_MAGIC : MagicAttribute.fromId(gd.attribute());
             if (attr != null) {
@@ -109,11 +109,11 @@ public class GrimoireItem extends Item {
             tooltip.add(Component.literal("Bound to " + gd.ownerName()).withStyle(ChatFormatting.GRAY));
         }
         if (leaves == 4) {
-            tooltip.add(Component.literal("More mana, +40% power, -25% cost").withStyle(ChatFormatting.AQUA));
+            tooltip.add(Component.translatableWithFallback("msg.clovermagic.more_mana_40_power_25_cost_6ba9", "More mana, +40% power, -25% cost").withStyle(ChatFormatting.AQUA));
         } else if (leaves == 5) {
-            tooltip.add(Component.literal("Anti-Magic: spells cost hunger, not mana").withStyle(ChatFormatting.DARK_GRAY));
+            tooltip.add(Component.translatableWithFallback("msg.clovermagic.anti_magic_spells_cost_hunger_not_mana_c58c", "Anti-Magic: spells cost hunger, not mana").withStyle(ChatFormatting.DARK_GRAY));
         }
-        tooltip.add(Component.literal("G: Grimoire Mode, number keys cast").withStyle(ChatFormatting.DARK_GRAY));
+        tooltip.add(Component.translatableWithFallback("msg.clovermagic.g_grimoire_mode_number_keys_cast_cd87", "G: Grimoire Mode, number keys cast").withStyle(ChatFormatting.DARK_GRAY));
         super.appendHoverText(stack, context, tooltip, flag);
     }
 }

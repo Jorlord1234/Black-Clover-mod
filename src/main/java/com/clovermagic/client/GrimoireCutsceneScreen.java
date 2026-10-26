@@ -30,7 +30,7 @@ public class GrimoireCutsceneScreen extends Screen {
     private int ticks = 0;
 
     public GrimoireCutsceneScreen(MagicAttribute attr, int leaves) {
-        super(Component.literal("Grimoire"));
+        super(Component.translatableWithFallback("msg.clovermagic.grimoire_7375", "Grimoire"));
         this.attr = attr;
         this.leaves = leaves;
         String name = leaves == 5 ? "five_leaf" : (leaves == 4 ? "four_leaf_" : "three_leaf_") + attr.id;

@@ -13,6 +13,9 @@ import net.minecraft.world.item.ItemStack;
 
 /** Server-side casting: the number keys in Grimoire Mode cast spell slot 0, 1, 2... */
 public final class CastHandler {
+    /** Minimum ticks between two casts of any spell (the number keys can't be faster than this anyway). */
+    private static final int MIN_CAST_INTERVAL_TICKS = 4;
+
     private CastHandler() {
     }
 
@@ -31,6 +34,10 @@ public final class CastHandler {
                     : "Your grimoire is lost. Reclaim it at a Grimoire Tower.");
             return;
         }
+        if (Config.DISABLED_DIMENSIONS.get().contains(sp.level().dimension().location().toString())) {
+            SpellUtil.fail(sp, "Magic does not work here");
+            return;
+        }
         GrimoireItem g = (GrimoireItem) stack.getItem();
         int leaves = g.leaves();
         MagicAttribute attr = leaves == 5 ? MagicAttribute.ANTI_MAGIC : MagicAttribute.fromId(data.attribute);
@@ -38,12 +45,16 @@ public final class CastHandler {
 
         // skill tree elements cast what the player unlocked; other elements still use the old level unlocks
         List<Spell> spells = SkillLogic.spellsFor(attr, data);
-        if (slot < 0 || slot >= spells.size() || slot >= data.cooldownEnd.length) return;
+        if (slot < 0 || slot >= spells.size() || slot >= com.clovermagic.net.SyncPayload.SLOTS) return;
         Spell spell = spells.get(slot);
         int level = data.level();
 
         long now = sp.level().getGameTime();
-        if (now < data.cooldownEnd[slot]) return;
+        // global anti-spam: a modified client cannot fire several spells in the same few ticks
+        if (now - data.lastCastAttempt < MIN_CAST_INTERVAL_TICKS && now >= data.lastCastAttempt) return;
+        data.lastCastAttempt = now;
+        if (now < data.cooldownEnd(spell)) return;
+        if (net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new com.clovermagic.api.SpellCastEvent.Pre(sp, spell)).isCanceled()) return;
 
         int cost = (int) Math.ceil(spell.cost * GrimoireItem.costMultiplier(leaves) * TreeEffects.costMult(data, attr));
         boolean free = sp.getAbilities().instabuild;
@@ -61,8 +72,9 @@ public final class CastHandler {
         }
 
         double power = GrimoireItem.power(leaves) * (1.0 + Config.POWER_PER_LEVEL.get() * (level - 1))
-                * TreeEffects.powerMult(data, attr, spell) * (data.devilMark ? 1.25 : 1.0);
+                * TreeEffects.powerMult(data, attr, spell) * (data.devilMark ? 1.25 : 1.0) * Config.SPELL_DAMAGE_MULTIPLIER.get();
         if (!spell.cast(sp, power)) return;
+        net.neoforged.neoforge.common.NeoForge.EVENT_BUS.post(new com.clovermagic.api.SpellCastEvent.Post(sp, spell, power));
 
         if (!free) {
             if (anti) {
@@ -71,7 +83,8 @@ public final class CastHandler {
                 data.mana -= cost;
             }
         }
-        data.cooldownEnd[slot] = now + Math.max(1, Math.round(spell.cooldown * TreeEffects.cooldownMult(data, attr)));
+        data.setCooldown(spell, now + Math.max(1, Math.round(spell.cooldown * TreeEffects.cooldownMult(data, attr))));
+        data.pruneCooldowns(now);
 
         // casting grows your magic: more mana, stronger spells, new spells unlock.
         // Anti-farm: attack spells give XP only with a living target nearby (buffs always count),

@@ -237,7 +237,7 @@ public final class SpellKit {
         for (int w = -halfWidth; w <= halfWidth; w++) {
             for (int h = 0; h < height; h++) {
                 BlockPos pos = BlockPos.containing(center.add(side.scale(w)).add(0, h, 0));
-                if (TempBlocks.place(level, pos, state, ticks)) {
+                if (TempBlocks.place(p, pos, state, ticks)) {
                     level.sendParticles(particle, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 3, 0.3, 0.3, 0.3, 0.02);
                 }
             }
@@ -259,7 +259,7 @@ public final class SpellKit {
             for (int y = 0; y <= 2; y++) {
                 for (int z = -1; z <= 1; z++) {
                     boolean shell = Math.abs(x) == 1 || Math.abs(z) == 1 || y == 2;
-                    if (shell) TempBlocks.place(level, c.offset(x, y, z), state, ticks);
+                    if (shell) TempBlocks.place(p, c.offset(x, y, z), state, ticks);
                 }
             }
         }

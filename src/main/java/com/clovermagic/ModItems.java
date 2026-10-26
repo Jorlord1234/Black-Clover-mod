@@ -106,6 +106,12 @@ public final class ModItems {
                     props.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
                             .attributes(net.minecraft.world.item.SwordItem.createAttributes(net.minecraft.world.item.Tiers.IRON, 9, -2.8f)), 0f),
             new Item.Properties());
+    /** The only Anti-Magic sword with a real cutting edge: light, fast, precise (a katana). */
+    public static final DeferredItem<Item> DEMON_SLASHER_SWORD = ITEMS.registerItem("demon_slasher_sword",
+            props -> new com.clovermagic.item.SummonedSwordItem(net.minecraft.world.item.Tiers.IRON,
+                    props.stacksTo(1).fireResistant().rarity(Rarity.EPIC)
+                            .attributes(net.minecraft.world.item.SwordItem.createAttributes(net.minecraft.world.item.Tiers.IRON, 7, -1.0f)), 0f),
+            new Item.Properties());
 
     public static final DeferredItem<Item> MANA_CLOTH = ITEMS.registerItem("mana_cloth",
             props -> new Item(props), new Item.Properties());

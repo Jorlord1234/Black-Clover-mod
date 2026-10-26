@@ -55,13 +55,13 @@ public final class TreeEffects {
     }
 
     public static double costMult(MagicData d, MagicAttribute attr) {
-        double m = StatLogic.controlMult(d) * (has(d, attr.id + "_flow") ? 0.9 : 1.0);
+        double m = StatLogic.costMult(d) * (has(d, attr.id + "_flow") ? 0.9 : 1.0);
         if (has(d, "spirit_absorption")) m *= 0.75;
         return m;
     }
 
     public static double cooldownMult(MagicData d, MagicAttribute attr) {
-        return StatLogic.controlMult(d) * (has(d, attr.id + "_haste") ? 0.9 : 1.0);
+        return StatLogic.cooldownMult(d) * (has(d, attr.id + "_haste") ? 0.9 : 1.0);
     }
 
     /** True when the element's _skin passive is unlocked and the player still has at least 20% mana. */

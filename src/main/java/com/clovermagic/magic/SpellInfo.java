@@ -41,6 +41,7 @@ public final class SpellInfo {
         DESC.put(Spell.SUMMON_DEMON_SLAYER, "Summons the Demon-Slayer Sword into your hand for 5 minutes. Every hit strips magical effects from the target. Cast again to dismiss it.");
         DESC.put(Spell.SUMMON_DEMON_DWELLER, "Summons the Demon-Dweller Sword for 5 minutes: fast, strips magical effects and drains a little life with every hit.");
         DESC.put(Spell.SUMMON_DEMON_DESTROYER, "Summons the huge Demon-Destroyer Sword for 5 minutes: slow, very heavy hits that strip magical effects.");
+        DESC.put(Spell.SUMMON_DEMON_SLASHER, "Summons the Demon-Slasher katana for 5 minutes: light, fast and razor sharp. The only anti-magic sword that truly cuts.");
         DESC.put(Spell.CALIDUS_BRACHIUM, "A huge fist of flame punches everything right in front of you and throws it back.");
         DESC.put(Spell.CALIDUS_BRACHIUM_BARRAGE, "Fists of flame strike every enemy around you from all sides at once.");
         DESC.put(Spell.SPIRIT_DIVE_FIRE, "Dive into the spirit Salamander for 2 minutes: strength, speed, resistance, regeneration, fire immunity and flight.");

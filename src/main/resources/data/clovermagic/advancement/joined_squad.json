@@ -1,0 +1,25 @@
+{
+  "parent": "clovermagic:level_10",
+  "display": {
+    "icon": {
+      "id": "clovermagic:black_bull_robe"
+    },
+    "title": "A Squad of Your Own",
+    "description": "Hold a squad robe and sneak + right-click Julius Novachrono at magic level 10 to join one of the nine Magic Knight squads.",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": false,
+    "hidden": false
+  },
+  "criteria": {
+    "done": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 80,
+    "loot": [
+      "clovermagic:quest/joined_squad"
+    ]
+  }
+}

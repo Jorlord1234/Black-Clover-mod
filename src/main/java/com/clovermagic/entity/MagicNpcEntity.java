@@ -111,8 +111,29 @@ public class MagicNpcEntity extends PathfinderMob {
         long now = this.level().getGameTime();
         if (now - lastTalk < 20) return InteractionResult.CONSUME;
         lastTalk = now;
+        if (npcType().equals("julius") && sp.isShiftKeyDown() && joinSquad(sp)) return InteractionResult.CONSUME;
         talk(sp);
         return InteractionResult.CONSUME;
+    }
+
+    /** Sneak + right-click Julius while holding a squad robe: you join that squad (magic level 10). */
+    private boolean joinSquad(ServerPlayer sp) {
+        String path = net.minecraft.core.registries.BuiltInRegistries.ITEM.getKey(sp.getMainHandItem().getItem()).getPath();
+        if (!path.endsWith("_robe")) return false;
+        String id = path.substring(0, path.length() - 5);
+        com.clovermagic.magic.SquadLogic.Squad squad = com.clovermagic.magic.SquadLogic.SQUADS.get(id);
+        if (squad == null) return false;
+        MagicData data = sp.getData(ModAttachments.MAGIC.get());
+        if (data.leaves == 0 || data.level() < 10) {
+            say(sp, "You need a grimoire and magic level 10 before a squad will take you.");
+            return true;
+        }
+        data.squad = id;
+        com.clovermagic.magic.StatLogic.apply(sp, data);
+        com.clovermagic.magic.MagicSync.send(sp);
+        QuestHooks.award(sp, "joined_squad");
+        say(sp, "Welcome to the " + squad.name() + "! Squad bonus: " + squad.text() + " (it grows with your squad rank: finish missions, squad missions give double).");
+        return true;
     }
 
     private void say(ServerPlayer sp, String text) {

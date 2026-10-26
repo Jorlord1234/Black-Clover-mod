@@ -17,6 +17,11 @@ public final class ModEffects {
             () -> new MobEffect(MobEffectCategory.BENEFICIAL, 0xB0101A) {
             });
 
+    /** Invisible marker: while it lasts the caster holds both arms out in front, like casting (see ClientSetup.onRenderLivingPre). */
+    public static final DeferredHolder<MobEffect, MobEffect> CASTING = EFFECTS.register("casting",
+            () -> new MobEffect(MobEffectCategory.NEUTRAL, 0xFFFFFF) {
+            });
+
     private ModEffects() {
     }
 }
