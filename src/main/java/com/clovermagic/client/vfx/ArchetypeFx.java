@@ -251,7 +251,7 @@ final class ArchetypeFx {
         }
         g.push();
         g.translate(0, 1.0, 0);
-        g.sphere(0.6 + r * 0.25 * (1 - e * 0.5), 6, 10, a(p.core, 0.5f * (1 - e)), a(p.main, 0.3f * (1 - e)));
+        a(p.core, (float) (0.5 * (1 - e))), a(p.main, (float) (0.3 * (1 - e)))
         g.pop();
     }
 

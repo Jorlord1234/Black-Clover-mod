@@ -212,7 +212,7 @@ public class GrimoireAltarBlock extends Block {
         data.mana = data.maxMana();
         GrimoireManager.issue(sp, data);
         MagicSync.send(sp);
-        sl.playSound(null, pos, com.clovermagic.ModSounds.GRIMOIRE_CHOSEN.get(), SoundSource.BLOCKS, 1.2f, 1.0f);
+        level.playSound(null, pos, com.clovermagic.ModSounds.GRIMOIRE_CHOSEN.get(), SoundSource.BLOCKS, 1.2f, 1.0f);
         com.clovermagic.magic.QuestHooks.award(sp, "got_grimoire");
         if (leaves == 4) com.clovermagic.magic.QuestHooks.award(sp, "four_leaf");
         if (leaves == 5) com.clovermagic.magic.QuestHooks.award(sp, "five_leaf");
