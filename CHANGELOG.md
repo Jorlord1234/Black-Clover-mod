@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.16.0 (NOT yet built or tested in Minecraft)
+
+### Fixed
+- **Build errors** from the GitHub Actions run: `ArchetypeFx.java` line 254 passed `double` values where `float` is expected (`a(color, alpha)`: added `(float)` casts); `GrimoireAltarBlock.java` line 215 used a variable `sl` that does not exist in `ceremony(...)` (it is called `level` there).
+- **Structure interiors were dark, bare and in places unusable.** All eight structures had large unlit areas where hostile mobs would have spawned inside (and could have killed Asta, Orsi and the other NPCs): before, 562 of 690 walkable cells in the Black Bull Hideout, 468 of 1119 in the Grimoire Tower, 478 of 478 in Devil's Throne and 388 of 389 in the Yultim Dungeon were below light level 8. Every structure now has lanterns so that no walkable roofed cell is below 8 (verified with a flood-fill light simulation like the game's). Devil's Throne got a lot of lanterns (304) because its many pillars block light.
+- **Grimoire Tower galleries were unreachable**: the rail and the bookshelves left no room to walk. The walkway is now two blocks wide.
+- **Hideout round tower could not be entered**: the doorway stopped at the thick tower wall.
+- Hage Church: the bell hung from nothing (no ceiling); the steeple now has a ceiling, two landings and lanterns.
+- Doorways blocked by furniture (a bookshelf and a chair) in the Hideout.
+
+### Added / Changed
+- **Furnished interiors.** Hideout: hearth, rugs, correct chairs, training hall (grindstone, anvil, benches, targets), kitchen (smoker, cauldron, table), library (shelves, rug, reading table), two bedrooms and a bunk room with beds, a war room with the Black Bull banner, an attic lounge. Church: stained glass (blue nave windows, a yellow and red rose window), a lectern, a table, rug and shelves in the orphanage wing. Tower: a blue carpet ring and spokes around the dais, a red carpet from the gate, six lecterns, and 142 lanterns and chandeliers.
+- **Redrawn item textures installed** (they were never in the mod): mana crystal, mana cloth, magic beast core, mana potion, mission scroll, pages of forgetting and rebirth, grimoire sigil, magic broom, devil contract (book and leaf), the nine squad robes and six hoods. **Asta's new skin** installed.
+- Not installed: the proposed ore, altar and mission board block textures (they barely changed).
+
+
 ## v0.15.1 (NOT yet built or tested in Minecraft)
 
 ### Changed

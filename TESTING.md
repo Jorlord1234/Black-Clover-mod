@@ -1,5 +1,9 @@
 # What to check in game
 
+## v0.16 changes (nothing below has been run by the author)
+N. All structures: walk through the inside at night. No hostile mob may spawn inside; torches are not needed. Hideout: gate, hall, ladder core (back of the hall) up through the library, war room and attic; both side houses; the kitchen and the round tower (doorway at the back of the kitchen). Tower: climb the north ladder to each gallery and walk round it. Church: steeple ladder to the bell.
+O. Item icons: mana crystal, cloth, beast core, potion, scroll, pages, sigil, broom, devil contract, robes and hoods look like the previews. Asta's skin matches the preview.
+
 ## v0.15 changes (nothing below has been run by the author)
 L. Hage Church (`/locate structure clovermagic:clover_church`): sits on the ground inside its yard wall, door in the south gable, Orsi near the altar, the Mission Board just inside the door, the chest in the orphanage wing (kitchen corner), beds placed correctly, potatoes growing on farmland next to the water channel (they must not pop off), bell in the belfry (ladder in the steeple), trees do not decay.
 M. Grimoire Tower (`/locate structure clovermagic:grimoire_tower`): the stair leads up the mound to the open arch (it must connect to the floor with no gap), the Grimoire Altar stands on the gold block in the middle of the hall and the ceremony still works, ladder up the north wall to all four galleries, nothing floats, the aging processor does not break the bookshelves.
