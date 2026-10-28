@@ -1,5 +1,8 @@
 # Changelog
 
+## Docs
+- `docs/CANON_ROADMAP.md`: every canon thing that could be added (arcs, magic, characters, devils, places, items), what the mod has, effort, and the FTB Quests chapter plan.
+
 ## v0.18.0 (NOT yet built or tested in Minecraft)
 
 ### Changed
