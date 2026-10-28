@@ -88,7 +88,7 @@ public class DemonEntity extends Monster {
         this.spawnAtLocation(new ItemStack(ModItems.MAGIC_BEAST_CORE.get(), 2));
         this.spawnAtLocation(new ItemStack(ModItems.MANA_CRYSTAL.get(), 3 + this.random.nextInt(3)));
         if (this.random.nextFloat() < 0.15F) {
-            this.spawnAtLocation(new ItemStack(this.random.nextBoolean() ? ModItems.DEVIL_CONTRACT_BOOK.get() : ModItems.DEVIL_CONTRACT_LEAF.get()));
+            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT.get()));
         }
     }
 

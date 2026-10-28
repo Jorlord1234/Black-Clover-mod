@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "clovermagic:item/devil_contract_leaf"
+    "layer0": "clovermagic:item/devil_contract"
   }
 }

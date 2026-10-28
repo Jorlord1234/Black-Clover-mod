@@ -1,5 +1,11 @@
 # What to check in game
 
+## v0.17 changes (nothing below has been run by the author)
+P. Craft a Devil's Contract (shapeless: Nether Star, 4 Mana Crystals, 2 Magic Beast Cores, Book, Wither Skeleton Skull). Right-click with it in your hand with a grimoire: two red clickable buttons appear in chat. Click Second Grimoire: you get a second grimoire, lose 2 hearts of max health, one contract is used up, and clicking it again says you already made the deal. Do the same on another character for Fifth Leaf. Without a grimoire: "You need a grimoire". With `allowDevilDeals=false`: "The devils are not listening". Typing `/devildeal fifth_leaf` by hand without a contract in the inventory must not work (survival).
+Q. Right-click the Grimoire Altar with a contract: same two buttons.
+R. Julius: set `juliusSpawnOneIn=1` in the config, walk around the overworld for a few minutes (the chance is rolled once a minute): he appears on the surface 28 to 58 blocks away, only one within 160 blocks, and talking to him still gives the squad option (robe + sneak) and the quest.
+S. The three removed structures are gone: `/locate structure clovermagic:devil_gate` must say the structure does not exist.
+
 ## v0.16 changes (nothing below has been run by the author)
 N. All structures: walk through the inside at night. No hostile mob may spawn inside; torches are not needed. Hideout: gate, hall, ladder core (back of the hall) up through the library, war room and attic; both side houses; the kitchen and the round tower (doorway at the back of the kitchen). Tower: climb the north ladder to each gallery and walk round it. Church: steeple ladder to the bell.
 O. Item icons: mana crystal, cloth, beast core, potion, scroll, pages, sigil, broom, devil contract, robes and hoods look like the previews. Asta's skin matches the preview.

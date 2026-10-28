@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.17.0 (NOT yet built or tested in Minecraft)
+
+### Changed
+- **One Devil's Contract replaces the two contract items.** It is craftable (Nether Star, 4 Mana Crystals, 2 Magic Beast Cores, a Book, a Wither Skeleton Skull), works anywhere (right-click), and offers the choice in chat with two clickable buttons: **Second Grimoire** or **Fifth Leaf**. Each still costs 2 hearts of max health, for ever, and each can be made once. The buttons run the new `/devildeal <second_grimoire|fifth_leaf>` command (no operator permission needed; the `/clover` commands are operator-only). Right-clicking the Grimoire Altar with a contract opens the same choice. The Demon, the Yultim Spider, the Devils and Zagred drop the new item (Zagred drops two), the Devil Slayer mission rewards it, and the advancements use it as their icon.
+- **Julius has no building anymore.** He wanders into the overworld near players (about once every 30 minutes of play per player on average, never twice within 160 blocks; config `juliusWanders`, `juliusSpawnOneIn`).
+
+### Removed
+- The three structures that are not in the series: **Royal Pavilion, Devil's Gate and Devil's Throne** (files, structure sets and template pools). The devils (Megicula, Lucifugus, Zagred) therefore have no natural home right now: they only appear from spawn eggs or commands, and the contract is craftable so nothing is locked behind them.
+- The old items `devil_contract_book` and `devil_contract_leaf` (existing ones in worlds will vanish).
+- Remaining structures: Black Bull Hideout, Hage Church, Grimoire Tower, Midnight Camp, Yultim Dungeon.
+
+
 ## v0.16.0 (NOT yet built or tested in Minecraft)
 
 ### Fixed

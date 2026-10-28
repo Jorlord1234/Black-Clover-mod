@@ -15,13 +15,13 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252). **Requires GeckoLib
 - Stats (key H): Power, Mana, Control, Vitality, up to 20 each (config `statCap`). `/clover stats reset` refunds them.
 - Skill trees per element with spells and passives; a Page of Forgetting resets one branch, a Page of Rebirth rerolls the grimoire.
 - Spirits: Four-Leaf fire, water, wind and earth mages from level 10 can be chosen by their spirit.
-- Devil Deals at the altar (2 hearts each, permanent): a second grimoire, or the Fifth Leaf.
+- **Devil's Contract** (craft it: Nether Star, 4 Mana Crystals, 2 Magic Beast Cores, a Book and a Wither Skeleton Skull). Use it anywhere, then click **Second Grimoire** or **Fifth Leaf** in the chat. Each deal costs 2 hearts of max health, for ever. Devils, the Demon and the Yultim Spider can also drop contracts. In the series a contract gives you a share of a devil's attribute, and a devil can only live in a five-leaf grimoire.
 - **Squads** (Black Bull, Golden Dawn, Silver Eagle, Crimson Lion, Blue Rose, Coral Peacock, Green Mantis, Purple Orca, Aqua Deer): hold the robe and sneak + right-click Julius at level 10. Bonus grows with rank. Missions give squad points.
 - **Mission Board**: right-click for a Mission Scroll that fits your level (one at a time).
 
 ## World
 - Mobs: Magic Boar, Midnight Sun Mage, Demon, three Devils (Zagred is a boss), the Giant Spider of the Yultim Dungeon (boss).
-- NPCs: Asta, Julius and Father Orsi. Eight structures (see the changelog).
+- NPCs: Asta (Black Bull Hideout), Father Orsi (Hage Church) and Julius, who has no building: he wanders into the overworld near players now and then (config `juliusWanders`, `juliusSpawnOneIn`; or `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`). Five structures: Black Bull Hideout, Hage Church, Grimoire Tower, Midnight Camp, Yultim Dungeon.
 - Anti-Magic summons four swords: Demon-Slayer (huge blunt cleaver), Demon-Dweller (ornate broadsword with a groove), Demon-Destroyer (stubby, wide shovel-like tip) and Demon-Slasher (a katana, the only one with a real edge).
 - Magic Broom (fly), Mana Potion, Mana Crystal ore, nine squads of armor.
 

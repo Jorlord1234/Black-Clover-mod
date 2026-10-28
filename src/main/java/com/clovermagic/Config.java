@@ -22,6 +22,8 @@ public final class Config {
     public static final ModConfigSpec.BooleanValue SPELLS_PLACE_BLOCKS;
     public static final ModConfigSpec.ConfigValue<java.util.List<? extends String>> DISABLED_DIMENSIONS;
     public static final ModConfigSpec.IntValue MAX_SPELL_ENTITIES_NEAR;
+    public static final ModConfigSpec.BooleanValue JULIUS_WANDERS;
+    public static final ModConfigSpec.IntValue JULIUS_SPAWN_ONE_IN;
     public static final ModConfigSpec.IntValue NULLIFY_WINDOW_TICKS;
     public static final ModConfigSpec.IntValue MAX_LEVEL;
     public static final ModConfigSpec.IntValue SPIRIT_BOND_ONE_IN;
@@ -71,6 +73,10 @@ public final class Config {
                 .defineListAllowEmpty("disabledDimensions", java.util.List.of(), () -> "minecraft:the_end", o -> o instanceof String);
         MAX_SPELL_ENTITIES_NEAR = B.comment("Performance: spell model entities are not spawned if this many already exist within 32 blocks of the caster. 0 = no limit.")
                 .defineInRange("maxSpellModelsNearby", 40, 0, 10_000);
+        JULIUS_WANDERS = B.comment("Julius Novachrono wanders into the overworld near players (he has no building).")
+                .define("juliusWanders", true);
+        JULIUS_SPAWN_ONE_IN = B.comment("Julius gets one chance per player per minute; this is the 1-in-N odds (30 = about once every 30 minutes).")
+                .defineInRange("juliusSpawnOneIn", 30, 1, 100_000);
         B.pop();
 
         B.push("spirits");

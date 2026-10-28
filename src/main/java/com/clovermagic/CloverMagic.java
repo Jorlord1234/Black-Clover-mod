@@ -48,8 +48,7 @@ public class CloverMagic {
                         output.accept(ModItems.MAGIC_BROOM.get());
                         output.accept(ModItems.DEMON_SPAWN_EGG.get());
                         output.accept(ModItems.DEVIL_SPAWN_EGG.get());
-                        output.accept(ModItems.DEVIL_CONTRACT_BOOK.get());
-                        output.accept(ModItems.DEVIL_CONTRACT_LEAF.get());
+                        output.accept(ModItems.DEVIL_CONTRACT.get());
                         for (Squad squad : Squad.values()) {
                             output.accept(ModItems.ROBES.get(squad).get());
                             if (ModItems.HOODS.containsKey(squad)) {

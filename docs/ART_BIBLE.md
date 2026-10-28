@@ -37,6 +37,4 @@ It works as is, because the NPCs use the normal player model, including the seco
 ## Places
 - **Clover Church:** warm stone and spruce, red carpet, gold cross on the altar wall, lanterns.
 - **Black Bull Hideout:** a crumbling dark deepslate building, lived in: crafting table, furnace, training targets.
-- **Royal Pavilion:** open white quartz pavilion, blue carpet, gold pillars.
 - **Yultim Dungeon:** mossy and cracked stone bricks, cobwebs, soul lanterns, a boss hall.
-- **Devil's Gate and Throne:** blackstone, crying obsidian portal frame, soul fire, magma.

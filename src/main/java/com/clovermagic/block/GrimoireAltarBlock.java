@@ -74,53 +74,8 @@ public class GrimoireAltarBlock extends Block {
             return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
 
-        if (!Config.ALLOW_DEVIL_DEALS.get() && (stack.is(ModItems.DEVIL_CONTRACT_BOOK.get()) || stack.is(ModItems.DEVIL_CONTRACT_LEAF.get()))) {
-            sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.the_devils_are_not_listening_on_this_ser_03f7", "The devils are not listening on this server.").withStyle(ChatFormatting.RED), true);
-            return net.minecraft.world.ItemInteractionResult.SUCCESS;
-        }
-        if (stack.is(ModItems.DEVIL_CONTRACT_BOOK.get()) && data.leaves > 0) {
-            if (data.leaves2 > 0) {
-                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_already_made_this_deal_d0c3", "You already made this deal.").withStyle(ChatFormatting.RED), true);
-                return net.minecraft.world.ItemInteractionResult.SUCCESS;
-            }
-            RandomSource r = sp.getRandom();
-            MagicAttribute attr2;
-            do {
-                attr2 = MagicAttribute.roll(r);
-            } while (attr2.id.equals(data.attribute));
-            data.attribute2 = attr2.id;
-            data.leaves2 = r.nextInt(Config.FOUR_LEAF_ONE_IN.get()) == 0 ? 4 : 3;
-            data.xp2 = 0;
-            data.generation2 = 1000 + r.nextInt(1_000_000);
-            data.swapGrimoires();
-            ItemStack second = GrimoireManager.create(sp, data);
-            data.swapGrimoires();
-            sp.getInventory().placeItemBackInInventory(second);
-            if (!creative) stack.shrink(1);
-            devilPrice(sp, "second_grimoire");
-            com.clovermagic.magic.QuestHooks.award(sp, "second_grimoire");
-            MagicSync.send(sp);
-            net.neoforged.neoforge.network.PacketDistributor.sendToPlayer(sp,
-                    new com.clovermagic.net.CutscenePayload(attr2.id, data.leaves2));
-            sp.sendSystemMessage(Component.literal("The devil grants you a second grimoire: " + attr2.displayName
-                    + ". It costs you 2 hearts, for ever. Sneak + right-click a grimoire to switch.").withStyle(ChatFormatting.DARK_RED));
-            devilFx(sl, pos);
-            return net.minecraft.world.ItemInteractionResult.SUCCESS;
-        }
-        if (stack.is(ModItems.DEVIL_CONTRACT_LEAF.get()) && data.leaves > 0) {
-            if (data.devilMark) {
-                sp.displayClientMessage(Component.translatableWithFallback("msg.clovermagic.you_already_made_this_deal_d0c3", "You already made this deal.").withStyle(ChatFormatting.RED), true);
-                return net.minecraft.world.ItemInteractionResult.SUCCESS;
-            }
-            data.devilMark = true;
-            data.mana = data.maxMana();
-            if (!creative) stack.shrink(1);
-            devilPrice(sp, "devil_mark");
-            com.clovermagic.magic.QuestHooks.award(sp, "devil_mark");
-            MagicSync.send(sp);
-            sp.sendSystemMessage(Component.translatableWithFallback("msg.clovermagic.a_fifth_leaf_grows_on_your_grimoire_blac_5097", "A fifth leaf grows on your grimoire, black as the devil's contract: 50% more mana and 25% stronger spells. It costs you 2 hearts, for ever.")
-                    .withStyle(ChatFormatting.DARK_RED));
-            devilFx(sl, pos);
+        if (stack.is(ModItems.DEVIL_CONTRACT.get())) {
+            com.clovermagic.magic.DevilDeals.offer(sp);
             return net.minecraft.world.ItemInteractionResult.SUCCESS;
         }
 

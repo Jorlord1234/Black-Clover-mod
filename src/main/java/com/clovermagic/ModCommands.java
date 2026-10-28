@@ -29,6 +29,12 @@ public final class ModCommands {
     }
 
     public static void register(RegisterCommandsEvent event) {
+        // /devildeal <second_grimoire|fifth_leaf>: needs no permission, it is what the Devil's Contract chat buttons run
+        event.getDispatcher().register(Commands.literal("devildeal")
+                .then(Commands.argument("kind", StringArgumentType.word()).executes(ctx -> {
+                    net.minecraft.server.level.ServerPlayer sp = ctx.getSource().getPlayerOrException();
+                    return com.clovermagic.magic.DevilDeals.apply(sp, StringArgumentType.getString(ctx, "kind")) ? 1 : 0;
+                })));
         event.getDispatcher().register(Commands.literal("clover")
                 .requires(src -> src.hasPermission(2))
                 .then(Commands.literal("give")

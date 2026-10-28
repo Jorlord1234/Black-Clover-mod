@@ -84,8 +84,7 @@ public class YultimSpiderEntity extends Spider {
         this.spawnAtLocation(new ItemStack(ModItems.MANA_CRYSTAL.get(), 5 + this.random.nextInt(4)));
         this.spawnAtLocation(new ItemStack(Items.COBWEB, 8));
         if (this.random.nextFloat() < 0.25F) {
-            this.spawnAtLocation(new ItemStack(this.random.nextBoolean()
-                    ? ModItems.DEVIL_CONTRACT_BOOK.get() : ModItems.DEVIL_CONTRACT_LEAF.get()));
+            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT.get()));
         }
     }
 

@@ -32,6 +32,7 @@ public final class ModEvents {
     public static void onPlayerTick(PlayerTickEvent.Post event) {
         Player player = event.getEntity();
         if (player.level().isClientSide() || !(player instanceof ServerPlayer sp)) return;
+        com.clovermagic.entity.JuliusSpawner.tick(sp);
 
         MagicData data = sp.getData(ModAttachments.MAGIC.get());
         if (sp.tickCount % 10 == 0) MagicSync.send(sp);

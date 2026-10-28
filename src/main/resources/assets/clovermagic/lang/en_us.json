@@ -33,8 +33,6 @@
   "subtitles.clovermagic.devil_growl": "Devil growls",
   "subtitles.clovermagic.demon_growl": "Demon growls",
   "item.clovermagic.page_of_rebirth": "Page of Rebirth",
-  "item.clovermagic.devil_contract_book": "Devil's Contract: Second Grimoire",
-  "item.clovermagic.devil_contract_leaf": "Devil's Contract: Fifth Leaf",
   "curios.identifier.grimoire": "Grimoire",
   "entity.clovermagic.magic_boar": "Magic Boar",
   "entity.clovermagic.broom": "Magic Broom",
@@ -108,5 +106,6 @@
   "msg.clovermagic._26b1": "+",
   "msg.clovermagic.spells_1949": "Spells",
   "msg.clovermagic.giant_spider_of_the_yultim_dungeon_6c75": "Giant Spider of the Yultim Dungeon",
-  "msg.clovermagic.zagred_b380": "Zagred"
+  "msg.clovermagic.zagred_b380": "Zagred",
+  "item.clovermagic.devil_contract": "Devil's Contract"
 }

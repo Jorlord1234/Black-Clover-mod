@@ -205,11 +205,10 @@ public class DevilEntity extends Monster implements RangedAttackMob {
         this.spawnAtLocation(new ItemStack(ModItems.MAGIC_BEAST_CORE.get(), 2));
         this.spawnAtLocation(new ItemStack(ModItems.MANA_CRYSTAL.get(), 4 + this.random.nextInt(4)));
         if (devilType().equals("zagred")) {
-            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT_BOOK.get()));
-            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT_LEAF.get()));
+            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT.get(), 2));
             this.spawnAtLocation(new ItemStack(Items.NETHER_STAR));
         } else if (this.random.nextFloat() < 0.3F) {
-            this.spawnAtLocation(new ItemStack(this.random.nextBoolean() ? ModItems.DEVIL_CONTRACT_BOOK.get() : ModItems.DEVIL_CONTRACT_LEAF.get()));
+            this.spawnAtLocation(new ItemStack(ModItems.DEVIL_CONTRACT.get()));
         }
     }
 

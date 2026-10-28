@@ -24,11 +24,14 @@
       "item": "clovermagic:magic_beast_core"
     },
     {
+      "item": "minecraft:book"
+    },
+    {
       "item": "minecraft:wither_skeleton_skull"
     }
   ],
   "result": {
-    "id": "clovermagic:devil_contract_leaf",
+    "id": "clovermagic:devil_contract",
     "count": 1
   }
 }

@@ -51,10 +51,10 @@ public final class ModItems {
             props -> new Item(props), new Item.Properties().rarity(Rarity.RARE).stacksTo(16));
 
     /** Devil Deals, used on the altar. Each one costs 2 hearts of maximum health, for ever. */
-    public static final DeferredItem<Item> DEVIL_CONTRACT_BOOK = ITEMS.registerItem("devil_contract_book",
-            props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
-    public static final DeferredItem<Item> DEVIL_CONTRACT_LEAF = ITEMS.registerItem("devil_contract_leaf",
-            props -> new Item(props), new Item.Properties().rarity(Rarity.EPIC).stacksTo(1).fireResistant());
+    /** Devil's Contract: use it anywhere, then pick Second Grimoire or Fifth Leaf. Each deal costs 2 hearts, for ever. */
+    public static final DeferredItem<Item> DEVIL_CONTRACT = ITEMS.registerItem("devil_contract",
+            props -> new com.clovermagic.item.DevilContractItem(props.stacksTo(1).rarity(Rarity.EPIC).fireResistant()),
+            new Item.Properties());
 
     public static final DeferredItem<Item> MAGIC_BOAR_SPAWN_EGG = ITEMS.registerItem("magic_boar_spawn_egg",
             props -> new net.neoforged.neoforge.common.DeferredSpawnEggItem(ModEntities.MAGIC_BOAR, 0x4A3322, 0xE8DCC0, props),
