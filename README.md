@@ -20,8 +20,8 @@ Built for the "NeoForge 1.21.1" modpack (NeoForge 21.1.252). **Requires GeckoLib
 - **Mission Board**: right-click for a Mission Scroll that fits your level (one at a time).
 
 ## World
-- Mobs: Magic Boar, Midnight Sun Mage, Demon, three Devils (Zagred is a boss), the Giant Spider of the Yultim Dungeon (boss).
-- NPCs: Asta (Black Bull Hideout), Father Orsi (Hage Church) and Julius, who has no building: he wanders into the overworld near players now and then (config `juliusWanders`, `juliusSpawnOneIn`; or `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`). Five structures: Black Bull Hideout, Hage Church, Grimoire Tower, Midnight Camp, Yultim Dungeon.
+- Mobs: Magic Boar, Midnight Sun Mage, Demon, three Devils (Zagred is a boss), the Giant Spider (boss of the Dungeon, which is not in the series: the real arc's boss is Mars).
+- NPCs: Asta (Black Bull Hideout), Father Orsi (Hage Church) and Julius, who has no building: he wanders into the overworld near players now and then (config `juliusWanders`, `juliusSpawnOneIn`; or `/summon clovermagic:magic_npc ~ ~ ~ {NpcType:"julius"}`). Five structures: Black Bull Hideout, Hage Church, Grimoire Tower, Midnight Camp (the Eye of the Midnight Sun) and the Dungeon (from the Dungeon Exploration arc; internal id `yultim_dungeon`).
 - Anti-Magic summons four swords: Demon-Slayer (huge blunt cleaver), Demon-Dweller (ornate broadsword with a groove), Demon-Destroyer (stubby, wide shovel-like tip) and Demon-Slasher (a katana, the only one with a real edge).
 - Magic Broom (fly), Mana Potion, Mana Crystal ore, nine squads of armor.
 

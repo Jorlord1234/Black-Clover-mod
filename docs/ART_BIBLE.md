@@ -37,4 +37,4 @@ It works as is, because the NPCs use the normal player model, including the seco
 ## Places
 - **Clover Church:** warm stone and spruce, red carpet, gold cross on the altar wall, lanterns.
 - **Black Bull Hideout:** a crumbling dark deepslate building, lived in: crafting table, furnace, training targets.
-- **Yultim Dungeon:** mossy and cracked stone bricks, cobwebs, soul lanterns, a boss hall.
+- **Dungeon** (id `yultim_dungeon`): the Dungeon Exploration arc. A ruined surface entrance, a stair down, a trap corridor (spike pit, magma floor, cobwebs), a labyrinth with a hidden chest, a sealed blackstone treasure-hall door with crying-obsidian runes (mine through it), and a tall cracked boss hall with the treasure on a dais. Mossy and cracked stone bricks, soul lanterns.

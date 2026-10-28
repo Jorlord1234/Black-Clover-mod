@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.18.0 (NOT yet built or tested in Minecraft)
+
+### Changed
+- **The Dungeon rebuilt** (27 x 25 x 85) after the Dungeon Exploration arc (a dungeon that appeared on the Clover / Diamond Kingdom border, with magic traps, a sealed treasure hall and a collapsing end). The id stays `yultim_dungeon`, so quests and advancements keep working; its structure now sits 17 blocks deep (`start_height` -17). Route: a broken ruin on the surface, a stair down, a trap corridor (a spike pit with a ledge on each side, a magma floor with stepping stones, cobweb curtains, cracked bricks warning before each trap), a second stair down into a perfect labyrinth (a random maze, one hidden chest at its deepest dead end: 4 Mana Crystals, 6 XP bottles, a golden apple), an antechamber with a **sealed treasure hall door** of blackstone and crying obsidian runes (you mine through it; in the series Asta's anti-magic sword opens it), and a tall boss hall with pillars, rubble, a cracked collapsing roof, the spider boss, two Midnight Sun mages and the two original treasure chests on a dais. Fully lit (checked: no walkable cell below light 8) and walk-tested: everything is reachable once the door is mined.
+- The Giant Spider is still the boss. It is **not** in the series (the arc's boss is Mars, a mineral-magic mage); a Mars mob is a possible later change.
+
+
 ## v0.17.0 (NOT yet built or tested in Minecraft)
 
 ### Changed

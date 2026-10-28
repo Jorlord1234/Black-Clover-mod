@@ -1,5 +1,8 @@
 # What to check in game
 
+## v0.18 changes (nothing below has been run by the author)
+T. Dungeon (`/locate structure clovermagic:yultim_dungeon`; it shows as a ruin on the surface): the stair leads down; cross the spike pit along the stone ledge, the magma floor on the cracked-brick stepping stones (or sneak), the cobwebs; stairs down again; the labyrinth has one chest; the sealed door at the end must be mined (pickaxe) and reveals the boss hall. The spider boss and two mages stand in the hall; both treasure chests are on the dais. Check no mob spawns in the corridors (they are lit), the pit spikes hurt but do not kill at full health, and the structure does not float or leave an open hole in the ground on slopes.
+
 ## v0.17 changes (nothing below has been run by the author)
 P. Craft a Devil's Contract (shapeless: Nether Star, 4 Mana Crystals, 2 Magic Beast Cores, Book, Wither Skeleton Skull). Right-click with it in your hand with a grimoire: two red clickable buttons appear in chat. Click Second Grimoire: you get a second grimoire, lose 2 hearts of max health, one contract is used up, and clicking it again says you already made the deal. Do the same on another character for Fifth Leaf. Without a grimoire: "You need a grimoire". With `allowDevilDeals=false`: "The devils are not listening". Typing `/devildeal fifth_leaf` by hand without a contract in the inventory must not work (survival).
 Q. Right-click the Grimoire Altar with a contract: same two buttons.
